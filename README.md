@@ -15,7 +15,7 @@
 
 **Shizuku's engine. A cockpit that finally tells you the truth.**
 
-[**Install**](docs/INSTALL.md) · [**Features**](docs/FEATURES.md) · [**Automation**](docs/AUTOMATION.md) · [**Changelog**](CHANGELOG.md) · [**Report a bug**](https://github.com/XiONDiGiTaL/Shizuku/issues)
+[**Download**](https://github.com/XiONDiGiTaL/Shizuku/releases/latest) · [**Project page**](https://xiondigital.net/shizuku) · [**Install**](docs/INSTALL.md) · [**Features**](docs/FEATURES.md) · [**Automation**](docs/AUTOMATION.md) · [**Changelog**](CHANGELOG.md) · [**Report a bug**](https://github.com/XiONDiGiTaL/Shizuku/issues)
 
 </div>
 
