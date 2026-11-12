@@ -1,102 +1,93 @@
 <div align="center">
 
-# Shizuku Reimagined
+<img src="assets/banner.svg" alt="Shizuku Reimagined by XiØN" width="100%">
 
-**[XiØN](https://github.com/XiONDiGiTaL)** · a modernised Shizuku — dark-first interface, honest authorisation reporting,
-built-in privileged tools, and a fix for the One UI 9.0 "Authorized 0 applications" bug.
+<br>
 
-`net.xiondigital.shizuku` · v2.0.0-xion · Android 7.0+ · installs beside the official Shizuku
+[![Version](https://img.shields.io/badge/version-2.0.0--xion-3f80ff?style=for-the-badge&labelColor=0c0e11)](CHANGELOG.md)
+[![Android](https://img.shields.io/badge/android-7.0%2B-3f80ff?style=for-the-badge&labelColor=0c0e11)](docs/INSTALL.md)
+[![Coexistence](https://img.shields.io/badge/runs_beside-official_shizuku-79a8ff?style=for-the-badge&labelColor=0c0e11)](docs/INSTALL.md)
+[![License](https://img.shields.io/badge/license-Apache--2.0-3f80ff?style=for-the-badge&labelColor=0c0e11)](LICENSE)
+
+**Shizuku's engine. A cockpit that finally tells you the truth.**
+
+[**Install**](docs/INSTALL.md) · [**Features**](docs/FEATURES.md) · [**Automation**](docs/AUTOMATION.md) · [**Changelog**](CHANGELOG.md) · [**Report a bug**](https://github.com/XiONDiGiTaL/Shizuku/issues)
 
 </div>
 
+---
+
+Shizuku is the quiet piece of Android tooling that makes ADB-level power available to normal
+apps. This fork keeps that engine exactly as it is, then rebuilds everything around it: a
+dark-first interface, tools that do real work, and reporting that refuses to lie to you.
+
+It installs as its own app — own package, own signature, own service, own configuration — so the
+Shizuku you already have keeps working, untouched.
+
+## Three things you notice in the first minute
+
+| | |
+|---|---|
+| **The truth, first.** Authorised apps are cross-checked against Android's own package manager. If the service says "none" while Android says "24", you get the conflict, not a zero. | **Power where you are.** Package manager, system tweaks and a shell with real exit codes, all running as the service's uid — no terminal needed. |
+| **Diagnostics that answer.** Device, One UI build, service privilege, wireless state, authorisation counts, storage — exportable as a report. | **Automation by contract.** Start, stop, restart, watchdog intents and service events, with the auth token right there in the app. |
+
 ![Dashboard](screenshots/dashboard.png)
 
-## What this is
+## The bug this fork grew out of
 
-Shizuku lets apps use system APIs that normally require ADB or root, by running a small service
-as the shell user and handing apps a binder to it. This fork keeps that engine, rebuilds the
-experience around it, and adds the parts you normally reach for a terminal to do.
+On Android 17 / One UI 9.0, Shizuku 13.6.0 greeted Samsung users with **"Authorized 0
+applications"** — while every authorised app kept working. Android 17 changed the signature of the
+hidden `getInstalledPackages` call the service uses, so the list came back empty. Authorisation was
+never broken; the *reporting* was.
 
-It is a separate installation from the official Shizuku: its own package, name and signing key,
-its own service process and its own configuration file. Your existing Shizuku and every app
-authorised for it stay exactly as they are.
+Upstream fixed the call in `e468d70a`. This build starts from that fix and adds a second opinion,
+measured on a Galaxy S23 Ultra running One UI 9.0:
 
-## Highlights
+| | Official 13.6.0 | Shizuku Reimagined |
+|---|---|---|
+| Apps listed as authorised | **0** | **23** |
+| Permission holders Android reports | 24 | 24 |
+| Mismatch handling | silent zero | explicit "reporting failure", with both numbers |
 
-**Authorisations you can trust.** The screen lists what the service actually reports, and
-cross-checks it against what Android itself says. When those disagree — the One UI 9.0 symptom —
-it shows a reporting failure with both numbers instead of a calm, wrong `0`.
-
-**Real privileged tools.** A command center that runs shell commands as the service's uid and
-reports the true exit code, a package manager for third-party apps, and system tweaks with
-read-back.
-
-**Diagnostics that answer questions.** Application identity, device and One UI build, service
-state and privilege, wireless-debugging status, authorisation counts, storage and memory — with a
-report you can copy or export.
-
-**Automation that is documented.** Start, stop, restart and watchdog intents plus service events,
-with the auth token shown in the app and a test broadcast button.
-
-**A watchdog that behaves.** Binder health checks, exponential backoff, an attempt cap per window,
-restart history and notifications that distinguish "recovered" from "gave up".
+The one-app gap is the official manager itself, which always holds the permission it owns.
+Full write-up, evidence and the genuine Samsung limits: [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md).
 
 <table>
 <tr>
-<td><img src="screenshots/authorizations.png" alt="Authorizations"></td>
-<td><img src="screenshots/tools.png" alt="Tools"></td>
+<td width="50%"><img src="screenshots/authorizations.png" alt="Authorizations"><br><sub><b>Authorizations</b> — real list, per-app revoke, live cross-check</sub></td>
+<td width="50%"><img src="screenshots/tools.png" alt="Tools"><br><sub><b>Tools</b> — packages, tweaks, command center</sub></td>
 </tr>
 <tr>
-<td align="center"><em>Authorized apps with a live cross-check</em></td>
-<td align="center"><em>Package manager, tweaks, command center</em></td>
+<td><img src="screenshots/command-center.png" alt="Command center"><br><sub><b>Command center</b> — exit codes and duration, not vibes</sub></td>
+<td><img src="screenshots/diagnostics.png" alt="Diagnostics"><br><sub><b>Diagnostics</b> — device, service, resources, export</sub></td>
+</tr>
+<tr>
+<td><img src="screenshots/automation.png" alt="Automation"><br><sub><b>Automation</b> — intents, events, auth token</sub></td>
+<td><img src="screenshots/backup.png" alt="Backup and restore"><br><sub><b>Backup</b> — export and import app settings</sub></td>
 </tr>
 </table>
 
-<table>
-<tr>
-<td><img src="screenshots/command-center.png" alt="Command center"></td>
-<td><img src="screenshots/diagnostics.png" alt="Diagnostics"></td>
-</tr>
-<tr>
-<td align="center"><em>Shell with real exit codes</em></td>
-<td align="center"><em>Device, service and report export</em></td>
-</tr>
-</table>
+## Designed, not skinned
 
-<table>
-<tr>
-<td><img src="screenshots/automation.png" alt="Automation"></td>
-<td><img src="screenshots/backup.png" alt="Backup and restore"></td>
-</tr>
-<tr>
-<td align="center"><em>Intents, events and auth token</em></td>
-<td align="center"><em>Export and import app settings</em></td>
-</tr>
-</table>
+<sub>XION palette · Sora + Instrument Serif · 18 px cards · One UI-grade controls</sub>
 
-## The One UI 9.0 bug
+- **Dark first, light supported** — near-black layered surfaces (`#050607`), hairline borders,
+  one blue accent (`#3f80ff` → `#79a8ff`), and a light theme with the same hierarchy.
+- **Adaptive** — phone, tablet and TV layouts; every screen respects system bars and text scaling.
+- **Nothing decorative pretending to be real** — every state shown comes from the service, the
+  package manager or the device, and every failure is printed as it happened.
 
-On Android 17 / One UI 9.0, Shizuku 13.6.0 lists **"Authorized 0 applications"** while apps keep
-working. Android 17 changed the signature of the hidden `getInstalledPackages` call the server
-uses, so the package list comes back empty; authorisation itself is fine. Upstream fixed it in
-`e468d70a` by routing every query through `InstalledPackagesCompat` — the fix this build is based
-on.
+## Two services, zero collisions
 
-Measured on an SM-S918U (Android 17, One UI 9.0): the official 13.6.0 shows 0, while this build
-lists 23 authorised apps and reports that Android counts 24 holders of the permission (the
-official manager is the extra one). Full write-up and evidence: [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md).
-
-## Coexistence with the official Shizuku
-
-| | Official | This build |
+| | Official Shizuku | Shizuku Reimagined |
 |---|---|---|
 | Package | `moe.shizuku.privileged.api` | `net.xiondigital.shizuku` |
 | Service process | `shizuku_server` | `xion_shizuku_server` |
 | Service config | `shizuku.json` | `net_xiondigital_shizuku.json` |
-| Client binder fan-out | yes | disabled |
+| Binder fan-out to clients | yes | disabled |
 
-The starter accepts `--server-name=`, so this build's service never replaces the official one.
-Both can run at the same time; each keeps its own clients and its own configuration.
+The native starter takes `--server-name=`, so starting this service cannot terminate the official
+one. Verified live: both servers running at once, official config byte-identical before and after.
 
 ## Install
 
@@ -104,7 +95,7 @@ Both can run at the same time; each keeps its own clients and its own configurat
 adb install -r shizuku-v2.0.0-xion-debug.apk
 ```
 
-Open the app and tap **Start** (wireless debugging or root), or start the service from ADB:
+Open the app → **Start** (wireless debugging or root), or launch the service from ADB:
 
 ```bash
 adb shell <nativeLibraryDir>/libshizuku.so \
@@ -112,9 +103,9 @@ adb shell <nativeLibraryDir>/libshizuku.so \
   --apk=<base.apk>
 ```
 
-Step-by-step, including how to verify that both services are alive: [docs/INSTALL.md](docs/INSTALL.md).
+Step-by-step, including how to confirm both services are alive: [docs/INSTALL.md](docs/INSTALL.md).
 
-## Automation
+## Automate it
 
 ```bash
 adb shell am broadcast -a net.xiondigital.shizuku.START  -p net.xiondigital.shizuku --es auth <token>
@@ -124,60 +115,48 @@ adb shell am broadcast -a net.xiondigital.shizuku.WATCHDOG -p net.xiondigital.sh
   --es auth <token> --ez enabled true
 ```
 
-Events (`...EVENT.SERVICE_STARTED`, `SERVICE_STOPPED`, `SERVICE_CRASHED`, `SERVICE_RESTARTED`,
-`WIRELESS_DEBUGGING`) are broadcast to this package. The token is displayed in **Automation**.
-Reference: [docs/AUTOMATION.md](docs/AUTOMATION.md).
+Events: `…EVENT.SERVICE_STARTED`, `SERVICE_STOPPED`, `SERVICE_CRASHED`, `SERVICE_RESTARTED`,
+`WIRELESS_DEBUGGING`. Token lives in **Automation**. Reference: [docs/AUTOMATION.md](docs/AUTOMATION.md).
 
-## Build
+## Watched, restarted, reported
 
-JDK 21, Android SDK 37, NDK 29, CMake 3.31:
+Watchdog 2.0 watches the binder instead of hoping: exponential backoff, a hard attempt cap per
+15-minute window, restart history, and notifications that separate *recovered* from *gave up*.
+Unexpected deaths are recorded with a timestamp and surfaced in diagnostics and automation events.
 
-```bash
-./gradlew :manager:assembleDebug
-```
+## Verified on a real device
 
-Output: `manager/build/outputs/apk/debug/shizuku-v2.0.0-xion-debug.apk`.
-Signing, native flags and the version scheme: [docs/BUILDING.md](docs/BUILDING.md).
+Samsung SM-S918U · Android 17 (SDK 37) · One UI 9.0, over ADB:
 
-## Verified on device
-
-Everything below was exercised on a Samsung SM-S918U (Android 17, SDK 37, One UI 9.0) over ADB:
-
-- builds clean; installs beside the official Shizuku (`pm list packages` shows both);
-- service started as `xion_shizuku_server` while the official `shizuku_server` kept running
-  untouched, with an unchanged official config file (same md5 before and after);
+- clean build; installs beside the official Shizuku (`pm list packages` shows both);
+- service starts as `xion_shizuku_server` while the official `shizuku_server` keeps running;
 - dashboard reports `Service running`, `ADB · API 13`, `uid 2000`, port 5555;
-- authorisations: 23 apps listed, cross-check "Android reports 24 holding the permission";
-- command center executed real shell commands and returned their exit codes;
-- diagnostics collected application, device, service, wireless, authorisation and resource data;
-- every screen in the screenshots above was opened and inspected on the device.
+- 23 apps listed, cross-check "Android reports 24 holding the permission";
+- shell commands execute with real exit codes; diagnostics collect live device data;
+- every screen in the gallery above opened and inspected on the device.
 
-Not exercised: package-manager actions, system tweaks, backup import/export, watchdog restarts,
-quick-settings tiles, boot start, TV layout, root start. Those are implemented and report their
-real result, but they were not run during this round. [docs/FEATURES.md](docs/FEATURES.md) lists
-each item with its status.
+Not executed in this round: package-manager actions, system tweaks, backup import/export, watchdog
+restarts, quick-settings tiles, boot start, TV layout, root start. They are implemented and report
+their real result — [docs/FEATURES.md](docs/FEATURES.md) marks each one.
 
 ## Documentation
 
-| Document | Contents |
+| | |
 |---|---|
-| [docs/INSTALL.md](docs/INSTALL.md) | Install, start, verify coexistence, uninstall |
-| [docs/FEATURES.md](docs/FEATURES.md) | Every feature with its verification status |
-| [docs/AUTOMATION.md](docs/AUTOMATION.md) | Intents, events, tiles, token handling |
-| [docs/DIAGNOSTICS.md](docs/DIAGNOSTICS.md) | What the report contains and how to export it |
-| [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md) | The One UI 9.0 issue, evidence, Samsung limits |
-| [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | Common failures and what to check |
-| [docs/BUILDING.md](docs/BUILDING.md) | Toolchain, signing, native starter |
-| [CHANGELOG.md](CHANGELOG.md) | What changed in 2.0.0-xion |
+| [Install](docs/INSTALL.md) | Install, start, verify coexistence, uninstall |
+| [Features](docs/FEATURES.md) | Every feature with its verification status |
+| [Automation](docs/AUTOMATION.md) | Intents, events, tiles, token handling |
+| [Diagnostics](docs/DIAGNOSTICS.md) | What the report contains and how to export it |
+| [Compatibility](docs/COMPATIBILITY.md) | The One UI 9.0 issue, evidence, Samsung limits |
+| [Troubleshooting](docs/TROUBLESHOOTING.md) | Common failures and what to check |
+| [Building](docs/BUILDING.md) | Toolchain, signing, native starter |
+| [Changelog](CHANGELOG.md) | What changed in 2.0.0-xion |
 
 ## Credits
 
 Built on [thedjchi/Shizuku](https://github.com/thedjchi/Shizuku), itself a fork of
 [RikkaApps/Shizuku](https://github.com/RikkaApps/Shizuku). The service, the API and the privilege
-model are theirs; the interface, tooling, authorisation reporting, watchdog and documentation in
-this fork are [XiØN](https://github.com/XiONDiGiTaL)'s.
+model are theirs. The interface, tooling, authorisation reporting, watchdog and documentation here
+are [XiØN](https://github.com/XiONDiGiTaL)'s.
 
-## Licence
-
-The upstream project is licensed under Apache 2.0; this fork keeps the same licence. See
-[LICENSE](LICENSE).
+Apache 2.0, same as upstream — see [LICENSE](LICENSE).
