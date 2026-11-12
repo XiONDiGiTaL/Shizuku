@@ -43,9 +43,11 @@ All notable changes to this fork are documented here. The fork continues the wor
   Reconnect / Diagnose, authorised-app and watchdog metrics, and rows for every screen.
 - New screens: Authorizations, Tools (package manager, system tweaks, command center),
   Diagnostics, Automation, Backup & restore. The original home screen stays available as
-  "Classic dashboard". That entry currently hits the upstream "duplicate app" guard, which fires
-  whenever two Shizuku builds are installed — expected while this build coexists with the
-  official app.
+  "Classic dashboard".
+- The upstream "duplicate app" guard no longer blocks the classic dashboard in the development
+  identity. It compared the owner of the Shizuku permission with the running package, which can
+  never match here because the official app owns that permission; the guard now applies only to
+  the official identity and the classic screen opens normally.
 - No third-party project links remain: help, setup, app-list, download, translation and support
   targets all resolve to this fork's repository, the translation/Crowdin entry and the upstream
   support e-mail are gone, and the "Buy me a coffee" button was removed from the about dialog.

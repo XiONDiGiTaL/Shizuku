@@ -65,10 +65,11 @@ hard-to-restore action was not executed during testing.
 
 ## Classic dashboard
 
-The original home screen is reachable from the dashboard's last row, but it currently stops at the
-upstream "duplicate app detected" guard. That guard exists because two Shizuku builds are
-installed at once, which is the normal state for this development identity; it does not affect
-the new interface or the service. Status: known limitation, not fixed.
+The original home screen is reachable from the dashboard's last row. Its "duplicate app" guard is
+skipped in the development identity, because that identity intentionally does not own the
+Shizuku permission (the official app does) and would otherwise be mistaken for a broken install.
+Status: verified on device — the classic screen opens and reports service state and the
+authorised count.
 
 ## Preserved fork features
 

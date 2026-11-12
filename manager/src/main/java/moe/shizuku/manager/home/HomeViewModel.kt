@@ -44,14 +44,21 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         // As a result, all permission operations (check/grant/revoke) will fail.
         // This is fixed by rebooting the device.
         // Run getPermissionGroupInfo() to trigger the exception. Then catch it and show a dialog prompting the user to reboot their device.
-        try {
-            val permissionGroup = appContext.packageManager.getPermissionGroupInfo(Manifest.permission_group.API, 0)
-            val permission = appContext.packageManager.getPermissionInfo(Manifest.permission.API_V23, 0)
-            if (permission.packageName != appContext.packageName) {
-                _shouldShowUninstallDialog.postValue(true)
+        // The development identity deliberately does not declare the Shizuku permission: the
+        // official app owns it, and installing a second copy of the permission or its group is
+        // rejected by Android. "The permission does not belong to this package" is therefore the
+        // expected state for that identity, not a broken installation, so both branches of this
+        // guard only apply to the official identity.
+        if (!BuildConfig.DEV_IDENTITY) {
+            try {
+                val permissionGroup = appContext.packageManager.getPermissionGroupInfo(Manifest.permission_group.API, 0)
+                val permission = appContext.packageManager.getPermissionInfo(Manifest.permission.API_V23, 0)
+                if (permission.packageName != appContext.packageName) {
+                    _shouldShowUninstallDialog.postValue(true)
+                }
+            } catch (e: PackageManager.NameNotFoundException) {
+                _shouldShowRebootDialog.postValue(true)
             }
-        } catch (e: PackageManager.NameNotFoundException) {
-            _shouldShowRebootDialog.postValue(true)
         }
 
         if (!ShizukuStateMachine.isRunning()) {
