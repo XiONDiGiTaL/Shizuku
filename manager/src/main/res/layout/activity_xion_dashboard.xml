@@ -449,7 +449,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/xion_space_6"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
-            android:textAppearance="@style/TextAppearance.Xion.Body.Muted" />
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="@style/TextAppearance.Xion.Body.Muted"
+            android:textColor="@color/xion_brand_hi" />
     </LinearLayout>
 </ScrollView>

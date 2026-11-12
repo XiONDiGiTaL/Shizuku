@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shizuku Reimagined — XiØN</title>
+<meta name="description" content="Shizuku Reimagined by XiØN: a dark-first Shizuku build with honest authorisation reporting, privileged tools and a fix for the Android 17 / One UI 9.0 “Authorized 0 applications” bug. Installs beside the official Shizuku.">
+<meta name="theme-color" content="#050607">
+<meta property="og:title" content="Shizuku Reimagined — XiØN">
+<meta property="og:description" content="ADB-level access, without the terminal. A rebuilt Shizuku with truthful authorisation reporting and real privileged tools.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://xiondigital.net/shizuku/assets/social.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<a class="skip-link" href="#features">Skip to features</a>
+
+<div class="ambient" aria-hidden="true">
+  <span class="ambient__glow ambient__glow--a"></span>
+  <span class="ambient__glow ambient__glow--b"></span>
+  <span class="ambient__grid"></span>
+</div>
+
+<div class="site">
+
+  <header class="site-header">
+    <div class="wrap header__inner">
+      <a class="brand" href="#top" aria-label="XiØN, back to top">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.6 4.4 6v6.1c0 4.9 3.3 9.4 7.6 10.5 4.3-1.1 7.6-5.6 7.6-10.5V6L12 2.6Z"/>
+            <path d="M12 11.6h6.4M12 11.6V7.2"/>
+          </svg>
+        </span>
+        <span class="brand__word">Xi<span class="brand__o">Ø</span>N</span>
+        <span class="brand__tag">Shizuku</span>
+      </a>
+
+      <nav class="nav" aria-label="Sections">
+        <a class="nav__link" href="#features">Features</a>
+        <a class="nav__link" href="#screens">Screens</a>
+        <a class="nav__link" href="#fix">The fix</a>
+        <a class="nav__link" href="#install">Install</a>
+        <a class="nav__link" href="#services">Coexistence</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="sfx" id="sfxToggle" type="button" aria-pressed="true" aria-label="Interface sound">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 9v6h4l5 4V5L8 9H4Z"/>
+            <path d="M17 9.5a4 4 0 0 1 0 5"/>
+            <path d="M19.5 7a7.5 7.5 0 0 1 0 10"/>
+          </svg>
+        </button>
+        <a class="btn btn--primary btn--sm" href="https://github.com/XiONDiGiTaL/Shizuku/releases/latest">
+          Download
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ------------------------------------------------------------ hero -->
+    <section class="hero">
+      <span class="hero__ghost" aria-hidden="true">Ø</span>
+      <div class="wrap hero__inner">
+        <div class="hero__copy">
+          <p class="eyebrow">Shizuku — XIONDIGITAL</p>
+          <h1 class="hero__title">Shizuku<br><em>Reimagined</em></h1>
+          <p class="hero__tagline">ADB-level access, <em>without the terminal.</em></p>
+          <p class="hero__lede">
+            Shizuku's engine, rebuilt around it: a dark-first cockpit with privileged tools, diagnostics
+            that answer questions, and authorisation reporting that would rather admit it is broken than
+            show you a calm, wrong zero.
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary btn--lg" href="https://github.com/XiONDiGiTaL/Shizuku/releases/latest">
+              Download APK
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg>
+            </a>
+            <a class="btn btn--ghost btn--lg" href="https://github.com/XiONDiGiTaL/Shizuku">Repository</a>
+          </div>
+
+          <ul class="hero__meta">
+            <li><span>Release</span> <strong>v2.0.0-xion</strong></li>
+            <li><span>Android</span> <strong>7.0+</strong></li>
+            <li><span>Runs beside</span> <strong>official Shizuku</strong></li>
+            <li><span>Status</span> <strong class="chip chip--ok chip--dot">verified on device</strong></li>
+          </ul>
+        </div>
+
+        <aside class="install-card" aria-label="Quick install">
+          <p class="install-card__label">Install from a computer</p>
+          <pre class="install-card__cmd" id="adb-command">adb install -r <b>shizuku-v2.0.0-xion.apk</b>
+adb shell <b>libshizuku.so</b> \
+  --server-name=xion_shizuku_server \
+  --apk=&lt;base.apk&gt;</pre>
+          <div class="install-card__row">
+            <button class="btn btn--ghost btn--sm" type="button" data-copy="#adb-command">Copy command</button>
+            <a class="btn btn--ghost btn--sm" href="#install">Full steps</a>
+          </div>
+          <ul class="install-card__list">
+            <li><span>01</span> Own package, own signature, own service</li>
+            <li><span>02</span> Never touches the official installation</li>
+            <li><span>03</span> Wireless debugging or root to start</li>
+          </ul>
+          <p class="install-card__note">
+            Needs an unlocked-with-ADB phone, not a rooted one — the same as Shizuku itself.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- -------------------------------------------------------- features -->
+    <section class="section" id="features">
+      <div class="wrap">
+        <div class="section__head" data-reveal>
+          <div>
+            <p class="eyebrow">01 / What's inside</p>
+            <h2 class="section__title">Six things that <em>earn their place</em></h2>
+          </div>
+          <p class="section__note">
+            Everything here reads its state from the service, the package manager or the device.
+            If something fails, the screen says so with the real error.
+          </p>
+        </div>
+
+        <div class="cards">
+          <article class="card" data-reveal>
+            <div class="card__top"><span class="card__num">01</span><span class="chip chip--blue chip--dot">headline</span></div>
+            <h3 class="card__title">Authorisations you can trust</h3>
+            <p class="card__copy">
+              The list comes from the service and is cross-checked against Android's own package manager.
+              When the two disagree you get both numbers and a diagnosis — never a silent zero.
+            </p>
+            <div class="card__tags"><span class="chip">authorized</span><span class="chip">denied</span><span class="chip">uninstalled</span></div>
+          </article>
+
+          <article class="card" data-reveal>
+            <div class="card__top"><span class="card__num">02</span><span class="chip">tools</span></div>
+            <h3 class="card__title">Command center</h3>
+            <p class="card__copy">
+              Run shell commands through the service with its real privilege level. Exit codes, stderr and
+              duration are shown exactly as they came back, with presets for the usual checks.
+            </p>
+            <div class="card__tags"><span class="chip">uid 2000</span><span class="chip">presets</span></div>
+          </article>
+
+          <article class="card" data-reveal>
+            <div class="card__top"><span class="card__num">03</span><span class="chip">tools</span></div>
+            <h3 class="card__title">Package manager</h3>
+            <p class="card__copy">
+              Search third-party apps and disable, enable, clear or uninstall them through the service.
+              Destructive actions confirm first and report what actually happened.
+            </p>
+            <div class="card__tags"><span class="chip">disable</span><span class="chip">clear data</span><span class="chip">uninstall</span></div>
+          </article>
+
+          <article class="card" data-reveal>
+            <div class="card__top"><span class="card__num">04</span><span class="chip">diagnostics</span></div>
+            <h3 class="card__title">A report, not a guess</h3>
+            <p class="card__copy">
+              Device and One UI build, service state and privilege, wireless debugging, authorisation
+              counts, storage and memory — copyable or exportable as text.
+            </p>
+            <div class="card__tags"><span class="chip">one ui</span><span class="chip">export</span></div>
+          </article>
+
+          <article class="card" data-reveal>
+            <div class="card__top"><span class="card__num">05</span><span class="chip">watchdog</span></div>
+            <h3 class="card__title">Watchdog 2.0</h3>
+            <p class="card__copy">
+              Watches the binder instead of hoping: exponential backoff, a hard attempt cap per window,
+              restart history, and notifications that separate <em>recovered</em> from <em>gave up</em>.
+            </p>
+            <div class="card__tags"><span class="chip">backoff</span><span class="chip">history</span></div>
+          </article>
+
+          <article class="card" data-reveal>
+            <div class="card__top"><span class="card__num">06</span><span class="chip">automation</span></div>
+            <h3 class="card__title">Intents and events</h3>
+            <p class="card__copy">
+              Start, stop, restart and watchdog intents for Tasker-style apps, plus service events. The
+              auth token is shown in the app, and a test broadcast proves it works.
+            </p>
+            <div class="card__tags"><span class="chip">tasker</span><span class="chip">broadcasts</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------- screens -->
+    <section class="section" id="screens">
+      <div class="wrap">
+        <div class="section__head" data-reveal>
+          <div>
+            <p class="eyebrow">02 / Screens</p>
+            <h2 class="section__title">Captured on a <em>Galaxy S23 Ultra</em></h2>
+          </div>
+          <p class="section__note">
+            Android 17, One UI 9.0, service started over ADB. Not mockups — these are the real screens,
+            with the real numbers the device reported.
+          </p>
+        </div>
+
+        <div class="shots">
+          <figure class="shot" data-reveal>
+            <img src="assets/shots/dashboard.png" alt="Dashboard showing service running as ADB with 23 authorised apps" loading="lazy">
+            <figcaption><strong>Dashboard</strong><span>state, privilege, port</span></figcaption>
+          </figure>
+          <figure class="shot" data-reveal>
+            <img src="assets/shots/authorizations.png" alt="Authorizations screen listing authorised apps with a cross-check" loading="lazy">
+            <figcaption><strong>Authorizations</strong><span>23 listed · 24 hold it</span></figcaption>
+          </figure>
+          <figure class="shot" data-reveal>
+            <img src="assets/shots/tools.png" alt="Tools screen" loading="lazy">
+            <figcaption><strong>Tools</strong><span>packages, tweaks, shell</span></figcaption>
+          </figure>
+          <figure class="shot" data-reveal>
+            <img src="assets/shots/command-center.png" alt="Command center" loading="lazy">
+            <figcaption><strong>Command center</strong><span>real exit codes</span></figcaption>
+          </figure>
+          <figure class="shot" data-reveal>
+            <img src="assets/shots/diagnostics.png" alt="Diagnostics screen" loading="lazy">
+            <figcaption><strong>Diagnostics</strong><span>device and service</span></figcaption>
+          </figure>
+          <figure class="shot" data-reveal>
+            <img src="assets/shots/automation.png" alt="Automation screen with auth token and control intents" loading="lazy">
+            <figcaption><strong>Automation</strong><span>intents and events</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------- fix -->
+    <section class="section" id="fix">
+      <div class="wrap">
+        <div class="section__head" data-reveal>
+          <div>
+            <p class="eyebrow">03 / The fix</p>
+            <h2 class="section__title">The zero that <em>wasn't zero</em></h2>
+          </div>
+        </div>
+
+        <div class="fix">
+          <div class="stats" data-reveal>
+            <div class="stat stat--bad">
+              <span class="stat__value">0</span>
+              <span class="stat__label">apps shown by 13.6.0</span>
+            </div>
+            <div class="stat stat--good">
+              <span class="stat__value">23</span>
+              <span class="stat__label">listed by this build</span>
+            </div>
+            <div class="stat">
+              <span class="stat__value">24</span>
+              <span class="stat__label">hold the permission</span>
+            </div>
+          </div>
+
+          <div class="prose" data-reveal>
+            <p>
+              On Android 17 and One UI 9.0, Shizuku 13.6.0 reported <strong>“Authorized 0 applications”</strong>
+              while every authorised app kept working. Android 17 changed the signature of the hidden
+              <code class="mono">getInstalledPackages</code> call the service uses, so the package list came back
+              empty. Authorisation was never broken — the reporting was.
+            </p>
+            <p>
+              This build carries the upstream fix and adds an independent cross-check straight from the package
+              manager. The 24th app is the official manager itself, which always holds the permission it owns.
+            </p>
+            <p>
+              <a class="btn btn--ghost btn--sm" href="https://github.com/XiONDiGiTaL/Shizuku/blob/master/docs/COMPATIBILITY.md">Read the write-up</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------- install -->
+    <section class="section" id="install">
+      <div class="wrap">
+        <div class="section__head" data-reveal>
+          <div>
+            <p class="eyebrow">04 / Install</p>
+            <h2 class="section__title">Sideload, start, <em>verify</em></h2>
+          </div>
+          <p class="section__note">
+            This is a self-signed build, so Android will ask you to allow installing unknown apps once.
+          </p>
+        </div>
+
+        <div class="steps">
+          <div class="step" data-reveal>
+            <h3>Install the APK</h3>
+            <p>Download the release and install it. It coexists with the official Shizuku — nothing is replaced.</p>
+            <pre>adb install -r shizuku-v2.0.0-xion.apk</pre>
+          </div>
+          <div class="step" data-reveal>
+            <h3>Start the service</h3>
+            <p>Wireless debugging or root, from the app. Or from a computer:</p>
+            <pre>adb shell libshizuku.so \
+  --server-name=xion_shizuku_server \
+  --apk=&lt;base.apk&gt;</pre>
+          </div>
+          <div class="step" data-reveal>
+            <h3>Check both are alive</h3>
+            <p>The dashboard should say <strong>Service running</strong> and show the real uid and port.</p>
+            <pre>adb shell ps -A | grep shizuku_server
+# shizuku_server         (official)
+# xion_shizuku_server    (this build)</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -------------------------------------------------------- services -->
+    <section class="section" id="services">
+      <div class="wrap">
+        <div class="section__head" data-reveal>
+          <div>
+            <p class="eyebrow">05 / Coexistence</p>
+            <h2 class="section__title">Two services, <em>no collisions</em></h2>
+          </div>
+          <p class="section__note">
+            Different package, process, config file and signing key. The native starter takes
+            <code class="mono">--server-name=</code>, so starting this one cannot terminate the other.
+          </p>
+        </div>
+
+        <table class="table" data-reveal>
+          <thead>
+            <tr><th></th><th>Official Shizuku</th><th>Shizuku Reimagined</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Package</strong></td><td><code class="mono">moe.shizuku.privileged.api</code></td><td><code class="mono">net.xiondigital.shizuku</code></td></tr>
+            <tr><td><strong>Service process</strong></td><td><code class="mono">shizuku_server</code></td><td><code class="mono">xion_shizuku_server</code></td></tr>
+            <tr><td><strong>Service config</strong></td><td><code class="mono">shizuku.json</code></td><td><code class="mono">net_xiondigital_shizuku.json</code></td></tr>
+            <tr><td><strong>Client binder fan-out</strong></td><td>yes</td><td>disabled</td></tr>
+            <tr><td><strong>Signing key</strong></td><td>upstream</td><td>independent</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer__inner">
+      <div class="footer__brand">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.6 4.4 6v6.1c0 4.9 3.3 9.4 7.6 10.5 4.3-1.1 7.6-5.6 7.6-10.5V6L12 2.6Z"/>
+          </svg>
+        </span>
+        <p class="footer__note">XiØN · Shizuku Reimagined · Apache 2.0 · built on thedjchi/Shizuku</p>
+      </div>
+      <nav class="footer__links" aria-label="Elsewhere">
+        <a class="footer__link" href="https://github.com/XiONDiGiTaL/Shizuku">Repository</a>
+        <a class="footer__link" href="https://github.com/XiONDiGiTaL/Shizuku/releases">Releases</a>
+        <a class="footer__link" href="https://github.com/XiONDiGiTaL/Shizuku/tree/master/docs">Docs</a>
+        <a class="footer__link" href="https://github.com/XiONDiGiTaL/Shizuku/issues">Issues</a>
+        <a class="footer__link" href="https://xiondigital.net/arcade">Arcade</a>
+      </nav>
+    </div>
+  </footer>
+
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

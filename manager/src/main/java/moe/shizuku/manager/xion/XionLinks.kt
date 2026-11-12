@@ -13,6 +13,12 @@ object XionLinks {
     /** This project's repository. */
     const val REPO = "https://github.com/XiONDiGiTaL/Shizuku"
 
+    /** The project's own page on the XiØN site; the dashboard footer opens this. */
+    const val SITE = "https://xiondigital.net/shizuku"
+
+    /** How [SITE] is shown in the interface, without the scheme. */
+    const val SITE_LABEL = "xiondigital.net/shizuku"
+
     const val RELEASES = "$REPO/releases"
     const val LATEST_RELEASE = "$REPO/releases/latest"
     const val ISSUES = "$REPO/issues"
