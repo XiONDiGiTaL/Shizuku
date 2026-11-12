@@ -111,7 +111,9 @@ class ShellTutorialActivity : AppBarActivity() {
             command3.text = "sh /path/to/$SH_NAME"
 
             button1.setOnClickListener { openDocumentsTree.launch(null) }
-            button2.setOnClickListener { v: View -> CustomTabsHelper.launchUrlOrCopy(v.context, Helps.RISH.get()) }
+            // The upstream documentation this button opened no longer exists for this fork, and
+            // sending people there would be misleading, so the button is simply not offered.
+            button2.visibility = View.GONE
         }
     }
 }

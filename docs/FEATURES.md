@@ -63,6 +63,13 @@ hard-to-restore action was not executed during testing.
 | Export / import this app's own settings and watchdog history | implemented; not executed during testing |
 | Authorisations | deliberately excluded (Android does not allow an app to read or restore them) |
 
+## Classic dashboard
+
+The original home screen is reachable from the dashboard's last row, but it currently stops at the
+upstream "duplicate app detected" guard. That guard exists because two Shizuku builds are
+installed at once, which is the normal state for this development identity; it does not affect
+the new interface or the service. Status: known limitation, not fixed.
+
 ## Preserved fork features
 
 Boot start, Wi-Fi-aware start, TCP mode, watchdog, start/stop intents, stealth mode, in-app

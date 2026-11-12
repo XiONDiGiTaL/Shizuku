@@ -62,7 +62,7 @@ class StartRootViewHolder(private val binding: HomeStartRootBinding, root: View)
             .append(
                 context.getString(
                     R.string.home_root_description,
-                    "<b><a href=\"${Helps.SUI.get()}\">Sui</a></b>",
+                    "<b>Sui</b>",
                     "Sui"
                 )
             )

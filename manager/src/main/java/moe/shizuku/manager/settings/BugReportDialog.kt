@@ -51,27 +51,6 @@ class BugReportDialog : DialogFragment() {
             .setPositiveButton("GitHub") { _, _ ->
                 CustomTabsHelper.launchUrlOrCopy(context, XionLinks.NEW_ISSUE)
             }
-            .setNegativeButton(R.string.bug_report_dialog_button_email) { _, _ ->
-                val plainBody = """
-                    Please describe the bug. Include steps to reproduce if possible, as well as any relevant images/logs.
-
-                    Device: ${Build.MANUFACTURER} ${Build.MODEL}
-                    Android Version: ${Build.VERSION.RELEASE}
-                    Shizuku Version: ${BuildConfig.VERSION_NAME}
-                """.trimIndent()
-
-                val intent = Intent(Intent.ACTION_SENDTO, Uri.parse(
-                    "mailto:" + context.getString(R.string.support_email) + 
-                    "?subject=" + Uri.encode("[ISSUE TITLE]") +
-                    "&body=" + Uri.encode(plainBody)
-                ))
-                try {
-                    context.startActivity(intent)
-                    dismiss()
-                } catch (e: ActivityNotFoundException) {
-                    Toast.makeText(context, context.getString(R.string.toast_no_email_app), Toast.LENGTH_SHORT).show()
-                }
-            }
             .setNeutralButton(android.R.string.cancel) { dialog, _ ->
                 dialog.cancel()
             }
