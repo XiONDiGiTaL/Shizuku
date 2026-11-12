@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    XiØN design tokens.
+    Near-black layered surfaces, hairline borders,
+    a single electric blue accent, and a coral tone reserved for destructive states.
+-->
+<resources>
+
+    <!-- Dark (primary design target) -->
+    <color name="xion_bg">#050607</color>
+    <color name="xion_bg_raised">#0A0B0D</color>
+    <color name="xion_panel">#0C0E11</color>
+    <color name="xion_panel_hi">#101318</color>
+    <color name="xion_line">#1B1F25</color>
+    <color name="xion_line_strong">#2A2F38</color>
+
+    <color name="xion_ink">#ECEDEF</color>
+    <color name="xion_body">#BDC3CC</color>
+    <color name="xion_muted">#8B9099</color>
+
+    <color name="xion_accent">#3F80FF</color>
+    <color name="xion_accent_hi">#79A8FF</color>
+    <color name="xion_accent_soft">#1F3F80FF</color>
+    <color name="xion_on_accent">#04070F</color>
+
+    <color name="xion_ok">#4ADE80</color>
+    <color name="xion_ok_soft">#1F4ADE80</color>
+    <color name="xion_warn">#F5B544</color>
+    <color name="xion_warn_soft">#1FF5B544</color>
+    <color name="xion_danger">#ED8483</color>
+    <color name="xion_danger_soft">#1FED8483</color>
+
+    <!-- Light -->
+    <color name="xion_bg_light">#F6F7F9</color>
+    <color name="xion_bg_raised_light">#FFFFFF</color>
+    <color name="xion_panel_light">#FFFFFF</color>
+    <color name="xion_panel_hi_light">#F0F2F6</color>
+    <color name="xion_line_light">#E3E6EB</color>
+    <color name="xion_line_strong_light">#CDD3DB</color>
+
+    <color name="xion_ink_light">#0B0D10</color>
+    <color name="xion_body_light">#3A4048</color>
+    <color name="xion_muted_light">#6B7280</color>
+
+    <color name="xion_accent_light">#2F6BFF</color>
+    <color name="xion_accent_hi_light">#1F4FD8</color>
+    <color name="xion_accent_soft_light">#1A2F6BFF</color>
+    <color name="xion_on_accent_light">#FFFFFF</color>
+
+    <color name="xion_ok_light">#15803D</color>
+    <color name="xion_ok_soft_light">#1A15803D</color>
+    <color name="xion_warn_light">#B45309</color>
+    <color name="xion_warn_soft_light">#1AB45309</color>
+    <color name="xion_danger_light">#C2410C</color>
+    <color name="xion_danger_soft_light">#1AC2410C</color>
+
+</resources>

@@ -6,6 +6,7 @@ import java.util.concurrent.TimeoutException
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.TimeoutCancellationException
+import moe.shizuku.manager.BuildConfig
 import moe.shizuku.manager.ShizukuApplication
 import moe.shizuku.manager.utils.ShizukuStateMachine
 
@@ -15,7 +16,14 @@ object Starter {
 
     private val starterFile = File(app.applicationInfo.nativeLibraryDir, "libshizuku.so")
 
-    val userCommand: String = starterFile.absolutePath
+    /**
+     * The development identity runs beside the official Shizuku, so its server must not use
+     * the shared "shizuku_server" process name: the native starter kills every process with
+     * that name before starting, which would terminate the user's working installation.
+     */
+    private val serverName = if (BuildConfig.DEV_IDENTITY) "xion_shizuku_server" else "shizuku_server"
+
+    val userCommand: String = "${starterFile.absolutePath} --server-name=$serverName"
     val adbCommand = "adb shell $userCommand"
     val internalCommand = "$userCommand --apk=${app.applicationInfo.sourceDir}"
 

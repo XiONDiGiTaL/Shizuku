@@ -53,10 +53,6 @@
             android:key="translation_contributors"
             android:title="@string/settings_translation_contributors" />
 
-        <Preference
-            android:key="translation"
-            android:title="@string/settings_translation" />
-
     </PreferenceCategory>
 
     <PreferenceCategory

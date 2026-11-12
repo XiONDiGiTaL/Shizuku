@@ -29,7 +29,12 @@ public class BinderSender {
 
     private static final Logger LOGGER = new Logger("BinderSender");
 
-    private static final String PERMISSION_MANAGER = "moe.shizuku.manager.permission.MANAGER";
+    // The manager permission name belongs to the manager package identity. The official
+    // build keeps its historical name so existing tooling keeps working; a development
+    // build uses its own, otherwise it would collide with the installed official app.
+    private static final String PERMISSION_MANAGER = moe.shizuku.server.BuildConfig.DEV_IDENTITY
+            ? moe.shizuku.server.BuildConfig.MANAGER_APPLICATION_ID + ".permission.MANAGER"
+            : "moe.shizuku.manager.permission.MANAGER";
     private static final String PERMISSION = "moe.shizuku.manager.permission.API_V23";
 
     private static ShizukuService sShizukuService;
@@ -142,6 +147,15 @@ public class BinderSender {
         List<String> packages = PackageManagerApis.getPackagesForUidNoThrow(uid);
         if (packages.isEmpty())
             return;
+
+        // A development server coexists with the user's working Shizuku installation.
+        // Pushing binders into third-party client apps would make those apps talk to the
+        // development service (where they are not authorised) and break them. Only the
+        // development manager itself is served.
+        if (moe.shizuku.server.BuildConfig.DEV_IDENTITY
+                && !packages.contains(moe.shizuku.server.BuildConfig.MANAGER_APPLICATION_ID)) {
+            return;
+        }
 
         LOGGER.d("sendBinder to uid %d: packages=%s", uid, TextUtils.join(", ", packages));
 

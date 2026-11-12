@@ -174,7 +174,7 @@ object UpdateHelper {
 
     private suspend fun fetchLatestRelease(): Release =
         withContext(Dispatchers.IO) {
-            val url = "https://api.github.com/repos/thedjchi/Shizuku/releases"
+            val url = moe.shizuku.manager.xion.XionLinks.RELEASES_API
             val request = Request.Builder().url(url).build()
             val response = client.newCall(request).execute()
             val body = response.body?.string() ?: throw Exception("Couldn't fetch releases")

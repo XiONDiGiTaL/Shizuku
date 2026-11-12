@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="@dimen/xion_radius_pill" />
+    <solid android:color="@color/xion_panel_hi" />
+    <padding android:bottom="3dp" android:left="9dp" android:right="9dp" android:top="3dp" />
+</shape>

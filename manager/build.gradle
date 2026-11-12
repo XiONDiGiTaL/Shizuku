@@ -14,7 +14,7 @@ plugins {
 android {
     namespace = "moe.shizuku.manager"
     defaultConfig {
-        applicationId = "moe.shizuku.privileged.api"
+        applicationId = "net.xiondigital.shizuku"
         versionCode = rootProject.ext.versionCode
         versionName = rootProject.ext.versionName
         externalNativeBuild {
@@ -27,6 +27,13 @@ android {
         buildConfig = true
         viewBinding = true
         prefab = true
+    }
+    defaultConfig {
+        // This is a separate development identity: it coexists with the official
+        // moe.shizuku.privileged.api installation instead of replacing it.
+        buildConfigField "boolean", "DEV_IDENTITY", "true"
+        buildConfigField "String", "UPSTREAM_MANAGER_ID", "\"moe.shizuku.privileged.api\""
+        buildConfigField "String", "GITHUB_REPO", "\"XiONDiGiTaL/Shizuku\""
     }
     signingConfigs {
         sign {}

@@ -1,0 +1,73 @@
+package moe.shizuku.manager.xion.tools
+
+import android.content.Intent
+import android.content.res.ColorStateList
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import moe.shizuku.manager.R
+import moe.shizuku.manager.databinding.ActivityXionToolsBinding
+import moe.shizuku.manager.databinding.XionNavRowBinding
+import moe.shizuku.manager.utils.ShizukuStateMachine
+import moe.shizuku.manager.xion.XionUi.applyScreenInsets
+
+class ToolsActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityXionToolsBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityXionToolsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        applyScreenInsets(binding.root, extraTop = 4, extraBottom = 16)
+
+        binding.btnBack.setOnClickListener { finish() }
+
+        row(
+            binding.navPackages,
+            R.drawable.ic_x_apps,
+            R.string.xion_tools_packages,
+            R.string.xion_tools_packages_sub
+        ) { startActivity(Intent(this, AppManagerActivity::class.java)) }
+
+        row(
+            binding.navTweaks,
+            R.drawable.ic_x_gear,
+            R.string.xion_tools_tweaks,
+            R.string.xion_tools_tweaks_sub
+        ) { startActivity(Intent(this, TweaksActivity::class.java)) }
+
+        row(
+            binding.navShell,
+            R.drawable.ic_x_terminal,
+            R.string.xion_tools_shell,
+            R.string.xion_tools_shell_sub
+        ) { startActivity(Intent(this, CommandCenterActivity::class.java)) }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val running = ShizukuStateMachine.isRunning()
+        binding.statusNote.text = if (running) {
+            "Service running — tools will execute with ADB privileges."
+        } else {
+            getString(R.string.xion_tools_requires_service)
+        }
+    }
+
+    private fun row(
+        row: XionNavRowBinding,
+        icon: Int,
+        title: Int,
+        subtitle: Int,
+        onClick: () -> Unit
+    ) {
+        row.icon.setImageResource(icon)
+        row.icon.imageTintList = ColorStateList.valueOf(
+            ContextCompat.getColor(this, R.color.xion_brand_hi)
+        )
+        row.title.setText(title)
+        row.subtitle.setText(subtitle)
+        row.root.setOnClickListener { onClick() }
+    }
+}

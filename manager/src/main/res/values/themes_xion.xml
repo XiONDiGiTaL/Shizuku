@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Light theme. The dark counterpart lives in values-night/themes_xion.xml. -->
+    <style name="Theme.Xion" parent="Theme.Material3Expressive.Light">
+        <item name="colorPrimary">@color/xion_accent_light</item>
+        <item name="colorOnPrimary">@color/xion_on_accent_light</item>
+        <item name="colorPrimaryContainer">@color/xion_accent_soft_light</item>
+        <item name="colorOnPrimaryContainer">@color/xion_accent_hi_light</item>
+        <item name="colorSecondary">@color/xion_accent_hi_light</item>
+        <item name="colorOnSecondary">@color/xion_on_accent_light</item>
+        <item name="colorSurface">@color/xion_panel_light</item>
+        <item name="colorOnSurface">@color/xion_ink_light</item>
+        <item name="colorSurfaceVariant">@color/xion_panel_hi_light</item>
+        <item name="colorOnSurfaceVariant">@color/xion_body_light</item>
+        <item name="colorOutline">@color/xion_line_strong_light</item>
+        <item name="colorError">@color/xion_danger_light</item>
+        <item name="colorOnError">#FFFFFF</item>
+        <item name="android:colorBackground">@color/xion_bg_light</item>
+        <item name="android:windowBackground">@color/xion_bg_light</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="preferenceTheme">@style/AppTheme.PreferenceThemeOverlay</item>
+    </style>
+
+    <style name="Theme.Xion.Transparent" parent="Theme.Xion">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+</resources>

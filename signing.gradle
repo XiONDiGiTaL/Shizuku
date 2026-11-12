@@ -4,7 +4,8 @@ if (ksFile.canRead()) {
     props.load(new FileInputStream(ksFile))
 
     if (props != null) {
-        android.signingConfigs.sign.storeFile file(props["KEYSTORE_FILE"])
+        // Resolve relative to the repository root so every module finds the same keystore.
+        android.signingConfigs.sign.storeFile rootProject.file(props["KEYSTORE_FILE"])
         android.signingConfigs.sign.storePassword props["KEYSTORE_PASSWORD"]
         android.signingConfigs.sign.keyAlias props["KEYSTORE_ALIAS"]
         android.signingConfigs.sign.keyPassword props["KEYSTORE_ALIAS_PASSWORD"]

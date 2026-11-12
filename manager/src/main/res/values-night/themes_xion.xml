@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Dark is the primary design target: layered near-black surfaces with a blue accent. -->
+    <style name="Theme.Xion" parent="Theme.Material3Expressive.Dark">
+        <item name="colorPrimary">@color/xion_accent</item>
+        <item name="colorOnPrimary">@color/xion_on_accent</item>
+        <item name="colorPrimaryContainer">@color/xion_accent_soft</item>
+        <item name="colorOnPrimaryContainer">@color/xion_accent_hi</item>
+        <item name="colorSecondary">@color/xion_accent_hi</item>
+        <item name="colorOnSecondary">@color/xion_on_accent</item>
+        <item name="colorSurface">@color/xion_panel</item>
+        <item name="colorOnSurface">@color/xion_ink</item>
+        <item name="colorSurfaceVariant">@color/xion_panel_hi</item>
+        <item name="colorOnSurfaceVariant">@color/xion_body</item>
+        <item name="colorOutline">@color/xion_line_strong</item>
+        <item name="colorError">@color/xion_danger</item>
+        <item name="colorOnError">#1A0507</item>
+        <item name="android:colorBackground">@color/xion_bg</item>
+        <item name="android:windowBackground">@color/xion_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="preferenceTheme">@style/AppTheme.PreferenceThemeOverlay</item>
+    </style>
+
+    <style name="Theme.Xion.Transparent" parent="Theme.Xion">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+</resources>

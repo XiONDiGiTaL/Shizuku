@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="Shizuku Reimagined by XiØN">
+  <title>Shizuku Reimagined — XiØN</title>
+
+  <defs>
+    <linearGradient id="lbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#f2f5fb"/>
+    </linearGradient>
+
+    <radialGradient id="lglow" cx="0.78" cy="0.18" r="0.75">
+      <stop offset="0" stop-color="#2f6bff" stop-opacity="0.16"/>
+      <stop offset="0.45" stop-color="#2f6bff" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#2f6bff" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="laccent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2f6bff"/>
+      <stop offset="1" stop-color="#5c8bff"/>
+    </linearGradient>
+
+    <linearGradient id="lhairline" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0b0d12" stop-opacity="0.02"/>
+      <stop offset="0.5" stop-color="#0b0d12" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#0b0d12" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+
+  <!-- card -->
+  <rect x="1" y="1" width="1198" height="418" rx="30" fill="url(#lbg)"/>
+  <rect x="1" y="1" width="1198" height="418" rx="30" fill="url(#lglow)"/>
+  <rect x="1" y="1" width="1198" height="418" rx="30" fill="none" stroke="#0b0d12" stroke-opacity="0.10" stroke-width="2"/>
+
+  <!-- accent rule -->
+  <rect x="72" y="96" width="4" height="212" rx="2" fill="url(#laccent)"/>
+
+  <!-- shield mark -->
+  <g transform="translate(108,88)">
+    <circle cx="26" cy="26" r="26" fill="#2f6bff" fill-opacity="0.10"/>
+    <circle cx="26" cy="26" r="26" fill="none" stroke="#2f6bff" stroke-opacity="0.35"/>
+    <g transform="translate(10,10) scale(1.333)">
+      <path fill="#2f6bff" d="M12,1L3,5v6c0,5.55 3.84,10.74 9,12 5.16,-1.26 9,-6.45 9,-12V5l-9,-4zM12,11.99h7c-0.53,4.12 -3.28,7.79 -7,8.94V12H5V6.3l7,-3.11v8.8z"/>
+    </g>
+  </g>
+
+  <!-- brand overline -->
+  <text x="184" y="122"
+        font-family="Sora, 'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="19" font-weight="600" letter-spacing="7" fill="#2f6bff">XiØN</text>
+
+  <!-- wordmark: bold ink + italic blue -->
+  <text x="176" y="228"
+        font-family="Sora, 'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="88" font-weight="700" letter-spacing="-1.5" fill="#0b0d12">
+    <tspan>Shizuku</tspan>
+    <tspan dx="20"
+           font-family="'Instrument Serif', Georgia, 'Times New Roman', serif"
+           font-style="italic" font-weight="400"
+           letter-spacing="0" fill="url(#laccent)">Reimagined</tspan>
+  </text>
+
+  <!-- tagline -->
+  <text x="184" y="288"
+        font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace"
+        font-size="19" letter-spacing="0.6" fill="#5a6270">ADB-level access, without the terminal.</text>
+
+  <!-- meta line -->
+  <text x="184" y="326"
+        font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace"
+        font-size="15" letter-spacing="0.4" fill="#8b93a1">net.xiondigital.shizuku · v2.0.0-xion · Android 7.0+</text>
+
+  <!-- chips -->
+  <g font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, monospace" font-size="13" letter-spacing="1.4">
+    <rect x="820" y="300" width="150" height="38" rx="19" fill="#2f6bff" fill-opacity="0.08" stroke="#2f6bff" stroke-opacity="0.30"/>
+    <text x="895" y="324" text-anchor="middle" fill="#2f6bff">ADB · UID 2000</text>
+
+    <rect x="986" y="300" width="142" height="38" rx="19" fill="#ffffff" stroke="#0b0d12" stroke-opacity="0.14"/>
+    <text x="1057" y="324" text-anchor="middle" fill="#5a6270">ONE UI 9.0</text>
+  </g>
+
+  <rect x="72" y="380" width="1056" height="1.5" fill="url(#lhairline)"/>
+</svg>

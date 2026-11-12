@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Positive chip -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="@dimen/xion_radius_pill" />
+    <solid android:color="@color/xion_positive_soft" />
+    <padding android:bottom="3dp" android:left="9dp" android:right="9dp" android:top="3dp" />
+</shape>
