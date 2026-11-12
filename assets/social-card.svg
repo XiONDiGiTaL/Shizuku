@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-label="Shizuku Reimagined by XiØN">
+  <title>Shizuku Reimagined — XiØN</title>
+
+  <defs>
+    <linearGradient id="sbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050607"/>
+      <stop offset="1" stop-color="#080b12"/>
+    </linearGradient>
+
+    <radialGradient id="sglow" cx="0.82" cy="0.12" r="0.85">
+      <stop offset="0" stop-color="#3f80ff" stop-opacity="0.34"/>
+      <stop offset="0.42" stop-color="#3f80ff" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="#3f80ff" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="saccent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3f80ff"/>
+      <stop offset="1" stop-color="#79a8ff"/>
+    </linearGradient>
+
+    <pattern id="sdots" width="34" height="34" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.4" fill="#ffffff" fill-opacity="0.06"/>
+    </pattern>
+  </defs>
+
+  <rect width="1280" height="640" fill="url(#sbg)"/>
+  <rect width="1280" height="640" fill="url(#sdots)"/>
+  <rect width="1280" height="640" fill="url(#sglow)"/>
+
+  <!-- outer hairline -->
+  <rect x="0.5" y="0.5" width="1279" height="639" fill="none" stroke="#ffffff" stroke-opacity="0.07"/>
+
+  <!-- accent rule -->
+  <rect x="80" y="150" width="4" height="300" rx="2" fill="url(#saccent)"/>
+
+  <!-- shield mark -->
+  <g transform="translate(116,140)">
+    <circle cx="34" cy="34" r="34" fill="#3f80ff" fill-opacity="0.10"/>
+    <circle cx="34" cy="34" r="34" fill="none" stroke="#3f80ff" stroke-opacity="0.38"/>
+    <g transform="translate(14,14) scale(1.667)">
+      <path fill="#79a8ff" d="M12,1L3,5v6c0,5.55 3.84,10.74 9,12 5.16,-1.26 9,-6.45 9,-12V5l-9,-4zM12,11.99h7c-0.53,4.12 -3.28,7.79 -7,8.94V12H5V6.3l7,-3.11v8.8z"/>
+    </g>
+  </g>
+
+  <!-- brand overline -->
+  <text x="204" y="182"
+        font-family="Sora, 'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="22" font-weight="600" letter-spacing="8" fill="#79a8ff">XiØN</text>
+
+  <!-- wordmark -->
+  <text x="196" y="312"
+        font-family="Sora, 'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="104" font-weight="700" letter-spacing="-2" fill="#ecedef">
+    <tspan>Shizuku</tspan>
+    <tspan dx="22"
+           font-family="'Instrument Serif', Georgia, 'Times New Roman', serif"
+           font-style="italic" font-weight="400"
+           letter-spacing="0" fill="url(#saccent)">Reimagined</tspan>
+  </text>
+
+  <!-- tagline -->
+  <text x="204" y="382"
+        font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace"
+        font-size="22" letter-spacing="0.6" fill="#9aa0aa">ADB-level access, without the terminal.</text>
+
+  <!-- meta -->
+  <text x="204" y="424"
+        font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace"
+        font-size="17" letter-spacing="0.4" fill="#5f6672">net.xiondigital.shizuku · v2.0.0-xion · Android 7.0+</text>
+
+  <!-- chips -->
+  <g font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, monospace" font-size="15" letter-spacing="1.6">
+    <rect x="196" y="466" width="176" height="44" rx="22" fill="#3f80ff" fill-opacity="0.10" stroke="#3f80ff" stroke-opacity="0.35"/>
+    <text x="284" y="494" text-anchor="middle" fill="#79a8ff">ADB · UID 2000</text>
+
+    <rect x="386" y="466" width="178" height="44" rx="22" fill="#0c0e11" stroke="#ffffff" stroke-opacity="0.12"/>
+    <text x="475" y="494" text-anchor="middle" fill="#8b909a">ONE UI 9.0</text>
+
+    <rect x="578" y="466" width="236" height="44" rx="22" fill="#0c0e11" stroke="#ffffff" stroke-opacity="0.12"/>
+    <text x="696" y="494" text-anchor="middle" fill="#8b909a">RUNS BESIDE OFFICIAL</text>
+  </g>
+
+  <!-- repo -->
+  <text x="84" y="580"
+        font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace"
+        font-size="17" letter-spacing="0.6" fill="#4a505b">github.com/XiONDiGiTaL/Shizuku</text>
+</svg>

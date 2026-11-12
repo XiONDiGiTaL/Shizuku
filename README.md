@@ -1,6 +1,10 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="Shizuku Reimagined by XiØN" width="100%">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/banner.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/banner-light.svg">
+  <img src="assets/banner.svg" alt="Shizuku Reimagined by XiØN" width="100%">
+</picture>
 
 <br>
 
