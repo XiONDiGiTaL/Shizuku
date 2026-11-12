@@ -22,7 +22,7 @@ official app, and it does not touch the official app's stored authorisations.
 ## Install
 
 ```bash
-adb install -r shizuku-v2.0.0-xion-debug.apk
+adb install -r shizuku-v2.0.1-xion-debug.apk
 ```
 
 The debug APK produced by the build is signed with a local development key

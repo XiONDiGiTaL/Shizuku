@@ -28,7 +28,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 ./gradlew :manager:assembleDebug
 ```
 
-Output: `manager/build/outputs/apk/debug/shizuku-v2.0.0-xion-debug.apk`
+Output: `manager/build/outputs/apk/debug/shizuku-v2.0.1-xion-debug.apk`
 
 ## Signing
 
@@ -46,7 +46,7 @@ the file the build falls back to the default debug keystore.
 
 ## Version string
 
-`build.gradle` sets `baseVersionName = "2.0.0"` and appends `-xion`; the version code is the
+`build.gradle` sets `baseVersionName = "2.0.1"` and appends `-xion`; the version code is the
 commit count, so every build is uniquely identifiable in Diagnostics.
 
 ## Native components

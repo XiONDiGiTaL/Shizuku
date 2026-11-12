@@ -8,7 +8,7 @@
 
 <br>
 
-[![Version](https://img.shields.io/badge/version-2.0.0--xion-3f80ff?style=for-the-badge&labelColor=0c0e11)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.0.1--xion-3f80ff?style=for-the-badge&labelColor=0c0e11)](CHANGELOG.md)
 [![Android](https://img.shields.io/badge/android-7.0%2B-3f80ff?style=for-the-badge&labelColor=0c0e11)](docs/INSTALL.md)
 [![Coexistence](https://img.shields.io/badge/runs_beside-official_shizuku-79a8ff?style=for-the-badge&labelColor=0c0e11)](docs/INSTALL.md)
 [![License](https://img.shields.io/badge/license-Apache--2.0-3f80ff?style=for-the-badge&labelColor=0c0e11)](LICENSE)
@@ -96,7 +96,7 @@ one. Verified live: both servers running at once, official config byte-identical
 ## Install
 
 ```bash
-adb install -r shizuku-v2.0.0-xion-debug.apk
+adb install -r shizuku-v2.0.1-xion-debug.apk
 ```
 
 Open the app → **Start** (wireless debugging or root), or launch the service from ADB:
@@ -154,7 +154,7 @@ their real result — [docs/FEATURES.md](docs/FEATURES.md) marks each one.
 | [Compatibility](docs/COMPATIBILITY.md) | The One UI 9.0 issue, evidence, Samsung limits |
 | [Troubleshooting](docs/TROUBLESHOOTING.md) | Common failures and what to check |
 | [Building](docs/BUILDING.md) | Toolchain, signing, native starter |
-| [Changelog](CHANGELOG.md) | What changed in 2.0.0-xion |
+| [Changelog](CHANGELOG.md) | What changed in 2.0.1-xion |
 
 ## Credits
 

@@ -3,6 +3,32 @@
 All notable changes to this fork are documented here. The fork continues the work of
 [thedjchi/Shizuku](https://github.com/thedjchi/Shizuku) (13.7.0) under the [XiØN](https://github.com/XiONDiGiTaL) identity.
 
+## 2.0.1-xion
+
+### Wireless debugging
+
+- New **Wireless debugging** screen with the device's real state — wireless and USB debugging,
+  service uid, restart port — instead of a read-only dialog behind the Connection card.
+- **Pair now** opens the existing pairing flow and asks for `POST_NOTIFICATIONS` first. On Android
+  13+ the pairing code arrives as a notification, so without the permission the flow could never
+  complete; that was the actual reason pairing appeared to do nothing.
+- **Start over wireless** discovers the mDNS port and starts the service over loopback, and refuses
+  with a link to Developer options when wireless debugging is off.
+- The TCP-mode card states the trade-off: Android clears the wireless-debugging toggle whenever
+  adbd restarts on the TCP port, so TCP mode trades that toggle for a stable restart port.
+- `AdbStarter` no longer writes `adb_wifi_enabled` at all; the setting belongs to the user.
+
+### Interface
+
+- The dashboard badge shows the version and build (`v2.0.1-xion · build`) instead of `DEV IDENTITY`.
+- Rows are grouped as **Service** (Authorizations, Tools, Automation) and **App** (Diagnostics,
+  Settings, Backup). The duplicate classic screen and the no-op Reconnect button are gone;
+  Reconnect is now the Wireless entry point.
+- The Connection card reads as a fact (`USB · wireless off · tap to set up`) rather than
+  `WIRELESS ADB / adb enabled`.
+- Below 360dp of width the brand title stacks and the action buttons drop their icons, so a large
+  display-size setting no longer breaks labels into one letter per line.
+
 ## 2.0.0-xion — Shizuku Reimagined
 
 ### Identity and coexistence
