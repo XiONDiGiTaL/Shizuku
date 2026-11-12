@@ -180,12 +180,12 @@
                     android:orientation="horizontal">
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnReconnect"
+                        android:id="@+id/btnWireless"
                         style="@style/Widget.Xion.Button.Ghost"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/xion_action_reconnect"
+                        android:text="@string/xion_nav_wireless"
                         android:textSize="13sp"
                         app:icon="@drawable/ic_x_wifi"
                         app:iconGravity="textStart"
@@ -310,7 +310,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/xion_metric_wireless"
+                        android:text="@string/xion_metric_connection"
                         android:textAppearance="@style/TextAppearance.Xion.Overline" />
 
                     <TextView
@@ -373,7 +373,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/xion_space_6"
             android:layout_marginBottom="8dp"
-            android:text="@string/xion_section_manage"
+            android:text="@string/xion_section_service"
             android:textAppearance="@style/TextAppearance.Xion.Overline" />
 
         <com.google.android.material.card.MaterialCardView
@@ -393,19 +393,13 @@
                 <View style="@style/Widget.Xion.Divider" />
 
                 <include
-                    android:id="@+id/navAutomation"
-                    layout="@layout/xion_nav_row" />
-
-                <View style="@style/Widget.Xion.Divider" />
-
-                <include
                     android:id="@+id/navTools"
                     layout="@layout/xion_nav_row" />
 
                 <View style="@style/Widget.Xion.Divider" />
 
                 <include
-                    android:id="@+id/navDiagnostics"
+                    android:id="@+id/navAutomation"
                     layout="@layout/xion_nav_row" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -415,7 +409,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/xion_space_6"
             android:layout_marginBottom="8dp"
-            android:text="@string/xion_section_more"
+            android:text="@string/xion_section_app"
             android:textAppearance="@style/TextAppearance.Xion.Overline" />
 
         <com.google.android.material.card.MaterialCardView
@@ -429,7 +423,7 @@
                 android:orientation="vertical">
 
                 <include
-                    android:id="@+id/navBackup"
+                    android:id="@+id/navDiagnostics"
                     layout="@layout/xion_nav_row" />
 
                 <View style="@style/Widget.Xion.Divider" />
@@ -441,7 +435,7 @@
                 <View style="@style/Widget.Xion.Divider" />
 
                 <include
-                    android:id="@+id/navClassic"
+                    android:id="@+id/navBackup"
                     layout="@layout/xion_nav_row" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

@@ -20,7 +20,6 @@ import java.util.Date
 import java.util.Locale
 import kotlinx.coroutines.launch
 import moe.shizuku.manager.BuildConfig
-import moe.shizuku.manager.MainActivity
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.databinding.ActivityXionDashboardBinding
@@ -56,6 +55,10 @@ class DashboardActivity : AppCompatActivity() {
         bindNavigation()
         bindActions()
         applyNarrowLayout()
+
+        // The badge used to read "DEV IDENTITY", which told nobody anything. The version and build
+        // are what people actually quote when something goes wrong.
+        binding.identityBadge.text = "v${BuildConfig.VERSION_NAME} · ${BuildConfig.VERSION_CODE}"
 
         // The footer is the project's own address, not a version stamp: version and build live in
         // Diagnostics, where they belong when someone is actually reporting a problem.
@@ -107,7 +110,7 @@ class DashboardActivity : AppCompatActivity() {
             (layoutParams as android.view.ViewGroup.MarginLayoutParams).marginStart = 0
         }
 
-        listOf(binding.btnStart, binding.btnStop, binding.btnRestart, binding.btnReconnect, binding.btnDiagnose)
+        listOf(binding.btnStart, binding.btnStop, binding.btnRestart, binding.btnWireless, binding.btnDiagnose)
             .forEach { button ->
                 button.icon = null
                 button.iconPadding = 0
@@ -150,13 +153,9 @@ class DashboardActivity : AppCompatActivity() {
         nav(binding.navSettings, R.drawable.ic_x_gear, R.string.xion_nav_settings, R.string.xion_nav_settings_sub) {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
-        nav(binding.navClassic, R.drawable.ic_x_terminal, R.string.xion_nav_classic, R.string.xion_nav_classic_sub) {
-            startActivity(Intent(this, MainActivity::class.java))
-        }
-
         binding.cardAuthorized.setOnClickListener { startActivity(Intent(this, AuthorizationsActivity::class.java)) }
         binding.cardWatchdog.setOnClickListener { showWatchdogDialog() }
-        binding.cardWireless.setOnClickListener { showWirelessDialog() }
+        binding.cardWireless.setOnClickListener { startActivity(Intent(this, WirelessActivity::class.java)) }
         binding.cardUptime.setOnClickListener { showServiceDialog() }
         binding.cardUptime.isClickable = true
         binding.cardUptime.isFocusable = true
@@ -188,7 +187,9 @@ class DashboardActivity : AppCompatActivity() {
         binding.btnStart.setOnClickListener { action { ServiceController.start(this, this) } }
         binding.btnStop.setOnClickListener { action { ServiceController.stop(this) } }
         binding.btnRestart.setOnClickListener { action { ServiceController.restart(this, this) } }
-        binding.btnReconnect.setOnClickListener { action { ServiceController.reconnect(this) } }
+        binding.btnWireless.setOnClickListener {
+            startActivity(Intent(this, WirelessActivity::class.java))
+        }
         binding.btnDiagnose.setOnClickListener {
             startActivity(Intent(this, DiagnosticsActivity::class.java))
         }
@@ -232,9 +233,8 @@ class DashboardActivity : AppCompatActivity() {
         binding.statusDetail.text = when {
             running -> buildString {
                 append(if (uid == 0) "Running as root (uid 0)" else "Running as shell (uid $uid)")
-                append(" · port ")
-                val port = EnvironmentUtils.getAdbTcpPort()
-                append(if (port > 0) port.toString() else "n/a")
+                val openPort = EnvironmentUtils.getAdbTcpPort()
+                if (openPort > 0) append(" · port $openPort")
             }
             state == ShizukuStateMachine.State.STARTING -> "Waiting for the service to answer…"
             else -> "Start the service to grant apps ADB-level access."
@@ -243,7 +243,7 @@ class DashboardActivity : AppCompatActivity() {
         binding.btnStart.isEnabled = !running && state != ShizukuStateMachine.State.STARTING
         binding.btnStop.isEnabled = running
         binding.btnRestart.isEnabled = running
-        binding.btnReconnect.isEnabled = true
+        binding.btnWireless.isEnabled = true
 
         // Watchdog
         val watchdogOn = WatchdogService.isRunning() || ShizukuSettings.getWatchdog()
@@ -267,9 +267,10 @@ class DashboardActivity : AppCompatActivity() {
             else -> "Off"
         }
         binding.metricWirelessSub.text = when {
-            port > 0 -> "tcp port $port"
-            adbEnabled == 1 -> "adb enabled"
-            else -> "debugging disabled"
+            wirelessEnabled == 1 && port > 0 -> "port $port · tap to manage"
+            wirelessEnabled == 1 -> "tap to pair or start"
+            adbEnabled == 1 -> "wireless off · tap to set up"
+            else -> "debugging off · tap to set up"
         }
 
         // Uptime
@@ -353,30 +354,6 @@ class DashboardActivity : AppCompatActivity() {
                 XionPrefs.setWatchdogMaxRestarts(this, values[which])
                 Toast.makeText(this, "Limit set to ${values[which]}", Toast.LENGTH_SHORT).show()
             }
-            .show()
-    }
-
-    private fun showWirelessDialog() {
-        val adb = runCatching { Settings.Global.getInt(contentResolver, Settings.Global.ADB_ENABLED, 0) }.getOrDefault(0)
-        val wifi = runCatching { Settings.Global.getInt(contentResolver, "adb_wifi_enabled", 0) }.getOrDefault(0)
-        val port = EnvironmentUtils.getAdbTcpPort()
-        val msg = buildString {
-            appendLine("USB debugging: ${if (adb == 1) "enabled" else "disabled"}")
-            appendLine("Wireless debugging: ${if (wifi == 1) "enabled" else "disabled"}")
-            appendLine("ADB TCP port: ${if (port > 0) port else "not listening"}")
-            appendLine("mDNS pairing support: ${EnvironmentUtils.isTlsSupported()}")
-            appendLine()
-            append("Wireless debugging must be enabled in Developer options. Shizuku cannot enable it silently on Android 11+.")
-        }
-        MaterialAlertDialogBuilder(this)
-            .setTitle(R.string.xion_metric_wireless)
-            .setMessage(msg)
-            .setPositiveButton("Developer options") { _, _ ->
-                runCatching {
-                    startActivity(Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS))
-                }
-            }
-            .setNegativeButton(android.R.string.cancel, null)
             .show()
     }
 

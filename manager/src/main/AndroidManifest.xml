@@ -121,6 +121,11 @@
             android:label="@string/xion_auth_title"
             android:theme="@style/Theme.Xion" />
         <activity
+            android:name=".xion.WirelessActivity"
+            android:exported="false"
+            android:label="@string/xion_wireless_title"
+            android:theme="@style/Theme.Xion" />
+        <activity
             android:name=".xion.tools.ToolsActivity"
             android:exported="false"
             android:label="@string/xion_tools_title"
