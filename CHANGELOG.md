@@ -1,11 +1,15 @@
 # Changelog
 
 All notable changes to this fork are documented here. The fork continues the work of
-[thedjchi/Shizuku](https://github.com/thedjchi/Shizuku) (13.7.0) under the XION Digital identity.
+[thedjchi/Shizuku](https://github.com/thedjchi/Shizuku) (13.7.0) under the [XiØN](https://github.com/XiONDiGiTaL) identity.
 
 ## 2.0.0-xion — Shizuku Reimagined
 
 ### Identity and coexistence
+
+- Branding is **XiØN**; the brand mark links to https://github.com/XiONDiGiTaL and every project
+  link in the app (source, issues, releases, wiki, in-app updater) points at
+  https://github.com/XiONDiGiTaL/Shizuku.
 
 - New application id `net.xiondigital.shizuku`, display name **Shizuku Reimagined**, independent
   signing key. It installs and runs beside the official `moe.shizuku.privileged.api` app.

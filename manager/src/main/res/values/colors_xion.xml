@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    XION Digital design tokens.
-    Palette derived from xiondigital.net: near-black layered surfaces, hairline borders,
+    XiØN design tokens.
+    Near-black layered surfaces, hairline borders,
     a single electric blue accent, and a coral tone reserved for destructive states.
 -->
 <resources>

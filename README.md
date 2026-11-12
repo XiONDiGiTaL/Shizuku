@@ -2,7 +2,7 @@
 
 # Shizuku Reimagined
 
-**XIØN DIGITAL** · a modernised Shizuku — dark-first interface, honest authorisation reporting,
+**[XiØN](https://github.com/XiONDiGiTaL)** · a modernised Shizuku — dark-first interface, honest authorisation reporting,
 built-in privileged tools, and a fix for the One UI 9.0 "Authorized 0 applications" bug.
 
 `net.xiondigital.shizuku` · v2.0.0-xion · Android 7.0+ · installs beside the official Shizuku
@@ -175,7 +175,7 @@ each item with its status.
 Built on [thedjchi/Shizuku](https://github.com/thedjchi/Shizuku), itself a fork of
 [RikkaApps/Shizuku](https://github.com/RikkaApps/Shizuku). The service, the API and the privilege
 model are theirs; the interface, tooling, authorisation reporting, watchdog and documentation in
-this fork are XION Digital's.
+this fork are [XiØN](https://github.com/XiONDiGiTaL)'s.
 
 ## Licence
 

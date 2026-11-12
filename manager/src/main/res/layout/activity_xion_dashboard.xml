@@ -33,9 +33,12 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/brand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:text="@string/xion_brand_overline"
+                    android:textAllCaps="false"
                     android:textAppearance="@style/TextAppearance.Xion.Overline" />
 
                 <LinearLayout

@@ -57,6 +57,11 @@ class DashboardActivity : AppCompatActivity() {
         bindActions()
 
         binding.footer.text = "v${BuildConfig.VERSION_NAME} · build ${BuildConfig.VERSION_CODE} · ${BuildConfig.APPLICATION_ID}"
+
+        // The brand mark is the way back to the project's author.
+        binding.brand.setOnClickListener {
+            moe.shizuku.manager.utils.CustomTabsHelper.launchUrlOrCopy(this, XionLinks.PROFILE)
+        }
     }
 
     override fun onStart() {

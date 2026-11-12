@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Brand -->
-    <string name="xion_brand_overline" translatable="false">XIØN DIGITAL</string>
+    <string name="xion_brand_overline" translatable="false">XiØN</string>
     <string name="xion_app_title" translatable="false">Shizuku</string>
     <string name="xion_app_title_accent" translatable="false">Reimagined</string>
     <string name="xion_dev_build_badge" translatable="false">DEV IDENTITY</string>

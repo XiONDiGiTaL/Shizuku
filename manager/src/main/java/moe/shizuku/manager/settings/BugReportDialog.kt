@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import moe.shizuku.manager.xion.XionLinks
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import moe.shizuku.manager.BuildConfig
 import moe.shizuku.manager.R
@@ -29,13 +30,13 @@ class BugReportDialog : DialogFragment() {
         binding = BugReportDialogBinding.inflate(layoutInflater)
 
         val updateLink = getString(R.string.bug_report_dialog_link_update)
-            .asLink("https://github.com/thedjchi/Shizuku/releases/latest")
+            .asLink(XionLinks.LATEST_RELEASE)
 
         val wikiLink = getString(R.string.bug_report_dialog_link_wiki)
-            .asLink("https://github.com/thedjchi/Shizuku/releases/wiki#troubleshooting")
+            .asLink(XionLinks.WIKI)
 
         val issuesLink = getString(R.string.bug_report_dialog_link_issues)
-            .asLink("https://github.com/thedjchi/Shizuku/releases/issues")
+            .asLink(XionLinks.ISSUES)
 
         binding.apply {
             updateText.applyTemplateArgs(updateLink)
@@ -48,7 +49,7 @@ class BugReportDialog : DialogFragment() {
             .setTitle(R.string.settings_report_bug)
             .setView(binding.root)
             .setPositiveButton("GitHub") { _, _ ->
-                CustomTabsHelper.launchUrlOrCopy(context, "https://github.com/thedjchi/Shizuku/issues/new")
+                CustomTabsHelper.launchUrlOrCopy(context, XionLinks.NEW_ISSUE)
             }
             .setNegativeButton(R.string.bug_report_dialog_button_email) { _, _ ->
                 val plainBody = """
