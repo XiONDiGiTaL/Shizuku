@@ -55,6 +55,7 @@ class DashboardActivity : AppCompatActivity() {
         applyInsets()
         bindNavigation()
         bindActions()
+        applyNarrowLayout()
 
         // The footer is the project's own address, not a version stamp: version and build live in
         // Diagnostics, where they belong when someone is actually reporting a problem.
@@ -84,6 +85,35 @@ class DashboardActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         refresh()
+    }
+
+    /**
+     * A large display-size setting (or a small phone) leaves roughly 320dp of width. The brand
+     * title is two weighted text views and the action rows are three equal buttons, so both break
+     * mid-word there: "Reimagined" ends up one syllable per line and "Start" one letter per line.
+     * Stacking the title and dropping the button icons gives the text the width it needs.
+     */
+    private fun applyNarrowLayout() {
+        if (resources.configuration.screenWidthDp >= 360) return
+
+        binding.titleRow.orientation = android.widget.LinearLayout.VERTICAL
+        val accentParams = binding.appTitleAccent.layoutParams as android.view.ViewGroup.MarginLayoutParams
+        accentParams.marginStart = 0
+        binding.appTitleAccent.layoutParams = accentParams
+
+        binding.identityBadge.apply {
+            textSize = 9f
+            maxLines = 1
+            (layoutParams as android.view.ViewGroup.MarginLayoutParams).marginStart = 0
+        }
+
+        listOf(binding.btnStart, binding.btnStop, binding.btnRestart, binding.btnReconnect, binding.btnDiagnose)
+            .forEach { button ->
+                button.icon = null
+                button.iconPadding = 0
+                button.textSize = 12f
+                button.maxLines = 1
+            }
     }
 
     private fun applyInsets() {
