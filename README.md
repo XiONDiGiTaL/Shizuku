@@ -1,123 +1,183 @@
 <div align="center">
-   
-# Shizuku
 
-An Android app that allows other apps to use system-level APIs that require ADB/root privileges.
+# Shizuku Reimagined
 
-**I'm pausing maintenance for the time being, I simply haven't had time to work on this and it was a side project.**
+**XIØN DIGITAL** · a modernised Shizuku — dark-first interface, honest authorisation reporting,
+built-in privileged tools, and a fix for the One UI 9.0 "Authorized 0 applications" bug.
 
-[![Stars](https://img.shields.io/github/stars/thedjchi/Shizuku?style=for-the-badge&color=bfb330&labelColor=807820&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHRpdGxlPnN0YXI8L3RpdGxlPjxwYXRoIGQ9Ik0xMiwxNy4yN0wxOC4xOCwyMUwxNi41NCwxMy45N0wyMiw5LjI0TDE0LjgxLDguNjJMMTIsMkw5LjE5LDguNjJMMiw5LjI0TDcuNDUsMTMuOTdMNS44MiwyMUwxMiwxNy4yN1oiIGZpbGw9IndoaXRlIiAvPjwvc3ZnPg==)](https://github.com/thedjchi/Shizuku/stargazers)
-[![Downloads](https://img.shields.io/github/downloads/thedjchi/Shizuku/total?style=for-the-badge&color=bf7830&labelColor=805020&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHRpdGxlPmRvd25sb2FkPC90aXRsZT48cGF0aCBkPSJNNSwyMEgxOVYxOEg1TTE5LDlIMTVWM0g5VjlINUwxMiwxNkwxOSw5WiIgZmlsbD0id2hpdGUiIC8+PC9zdmc+)](https://github.com/thedjchi/Shizuku/releases)
-
-[![Latest Stable](https://img.shields.io/github/v/release/thedjchi/Shizuku?style=for-the-badge&color=3060bf&labelColor=204080&label=Latest%20Stable&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjZTNlM2UzIj48cGF0aCBkPSJNNDQwLTgycS03Ni04LTE0MS41LTQxLjV0LTExNC04N1ExMzYtMjY0IDEwOC0zMzNUODAtNDgwcTAtOTEgMzYuNS0xNjhUMjE2LTc4MGgtOTZ2LTgwaDI0MHYyNDBoLTgwdi0xMDlxLTU1IDQ0LTg3LjUgMTA4LjVUMTYwLTQ4MHEwIDEyMyA4MC41IDIxMi41VDQ0MC0xNjN2ODFabS0xNy0yMTRMMjU0LTQ2Nmw1Ni01NiAxMTMgMTEzIDIyNy0yMjcgNTYgNTctMjgzIDI4M1ptMTc3IDE5NnYtMjQwaDgwdjEwOXE1NS00NSA4Ny41LTEwOVQ4MDAtNDgwcTAtMTIzLTgwLjUtMjEyLjVUNTIwLTc5N3YtODFxMTUyIDE1IDI1NiAxMjh0MTA0IDI3MHEwIDkxLTM2LjUgMTY4VDc0NC0xODBoOTZ2ODBINjAwWiIvPjwvc3ZnPg==)](https://github.com/thedjchi/Shizuku/releases/latest?q=prerelease%3Afalse&expanded=true)
-[![Latest Beta](https://img.shields.io/github/v/release/thedjchi/Shizuku?sort=semver&style=for-the-badge&color=30bf60&labelColor=208040&label=Latest%20Beta&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjZTNlM2UzIj48cGF0aCBkPSJNMjAwLTEyMHEtNTEgMC03Mi41LTQ1LjVUMTM4LTI1MGwyMjItMjcwdi0yNDBoLTQwcS0xNyAwLTI4LjUtMTEuNVQyODAtODAwcTAtMTcgMTEuNS0yOC41VDMyMC04NDBoMzIwcTE3IDAgMjguNSAxMS41VDY4MC04MDBxMCAxNy0xMS41IDI4LjVUNjQwLTc2MGgtNDB2MjQwbDIyMiAyNzBxMzIgMzkgMTAuNSA4NC41VDc2MC0xMjBIMjAwWm04MC0xMjBoNDAwTDU0NC00MDBINDE2TDI4MC0yNDBabS04MCA0MGg1NjBMNTIwLTQ5MnYtMjY4aC04MHYyNjhMMjAwLTIwMFptMjgwLTI4MFoiLz48L3N2Zz4=)](https://github.com/thedjchi/Shizuku/releases)
-
-[![Bug Reports](https://img.shields.io/github/issues-search/thedjchi/Shizuku?query=label%3Abug%20state%3Aopen&style=for-the-badge&color=bf3030&labelColor=802020&label=Bug%20Reports)](https://github.com/thedjchi/Shizuku/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug)
-[![Feature Requests](https://img.shields.io/github/issues-search/thedjchi/Shizuku?query=label%3Aenhancement%20state%3Aopen&style=for-the-badge&color=30a7bf&labelColor=207080&label=Feature%20Requests)](https://github.com/thedjchi/Shizuku/issues?q=is%3Aissue%20state%3Aopen%20label%3Aenhancement)
-
-[![Translate on Crowdin](https://img.shields.io/badge/Translate%20on%20Crowdin-2e3340?style=for-the-badge&logo=crowdin&logoColor=ffffff)](https://crowdin.com/project/shizuku)
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-bfb330?style=for-the-badge&logo=buymeacoffee&logoColor=ffffff)](https://www.buymeacoffee.com/thedjchi)
+`net.xiondigital.shizuku` · v2.0.0-xion · Android 7.0+ · installs beside the official Shizuku
 
 </div>
 
-## ⚠️ Disclaimer
+![Dashboard](screenshots/dashboard.png)
 
-This is a **FORK** of Shizuku. If you are looking for the original version, please visit the [RikkaApps/Shizuku](https://github.com/RikkaApps/Shizuku) repository.
+## What this is
 
-## ⬇️ Download
+Shizuku lets apps use system APIs that normally require ADB or root, by running a small service
+as the shell user and handing apps a binder to it. This fork keeps that engine, rebuilds the
+experience around it, and adds the parts you normally reach for a terminal to do.
 
-Get the latest [stable](https://github.com/thedjchi/Shizuku/releases/latest) or [beta](https://github.com/thedjchi/Shizuku/releases) version.
+It is a separate installation from the official Shizuku: its own package, name and signing key,
+its own service process and its own configuration file. Your existing Shizuku and every app
+authorised for it stay exactly as they are.
 
-All versions are distributed via [GitHub Releases](https://github.com/thedjchi/Shizuku/releases).
+## Highlights
 
-## ✨ Added Features
+**Authorisations you can trust.** The screen lists what the service actually reports, and
+cross-checks it against what Android itself says. When those disagree — the One UI 9.0 symptom —
+it shows a reporting failure with both numbers instead of a calm, wrong `0`.
 
-This version of Shizuku includes some extra features over the original version, such as:
-* **More robust "start on boot":** waits for a Wi-Fi connection before starting the Shizuku service
-* **TCP mode:** (i.e., the `adb tcpip` command) once Shizuku successfully starts with Wi-Fi after a reboot, you can stop/restart Shizuku without a Wi-Fi connection!
-* **Watchdog service:** automatically restarts Shizuku if it stops unexpectedly, and can alert you of crashes/potential fixes
-* **Start/stop intents:** toggle Shizuku on-demand using automation apps (e.g., Tasker, MacroDroid, Automate)
-* **[BETA] Stealth mode:** hide Shizuku from other apps that don't work when Shizuku is installed
-* **[BETA] In-app updates:** option to automatically check for new updates, and can automatically download/install the latest version from GitHub
-* **Android/Google TV and VR headset support:** UI is now compatible with D-Pad remotes, all TVs are supported (including Android 14+ TVs that require pairing), and the multi-window pairing dialog is toggleable in settings for VR headsets
-* **MediaTek support:** fixes a critical bug in the original v13.6.0 which prevented Shizuku from working on MediaTek devices
-* And more!
+**Real privileged tools.** A command center that runs shell commands as the service's uid and
+reports the true exit code, a package manager for third-party apps, and system tweaks with
+read-back.
 
-## 📝 User Guide
+**Diagnostics that answer questions.** Application identity, device and One UI build, service
+state and privilege, wireless-debugging status, authorisation counts, storage and memory — with a
+report you can copy or export.
 
-Please read the [wiki](https://github.com/thedjchi/Shizuku/wiki) for setup, info, and troubleshooting steps.
+**Automation that is documented.** Start, stop, restart and watchdog intents plus service events,
+with the auth token shown in the app and a test broadcast button.
 
-## ☑️ Requirements
+**A watchdog that behaves.** Binder health checks, exponential backoff, an attempt cap per window,
+restart history and notifications that distinguish "recovered" from "gave up".
 
-**Minimum Version: Android 7+**
-- **Root mode:** Requires a rooted device
-- **Wireless Debugging mode:** Works on Android 11+ and all Android TVs
-- **PC mode:** Works on all devices
-- **Start on boot:** Available only when using Wireless Debugging or Root mode
+<table>
+<tr>
+<td><img src="screenshots/authorizations.png" alt="Authorizations"></td>
+<td><img src="screenshots/tools.png" alt="Tools"></td>
+</tr>
+<tr>
+<td align="center"><em>Authorized apps with a live cross-check</em></td>
+<td align="center"><em>Package manager, tweaks, command center</em></td>
+</tr>
+</table>
 
-## 🔒 Privacy
+<table>
+<tr>
+<td><img src="screenshots/command-center.png" alt="Command center"></td>
+<td><img src="screenshots/diagnostics.png" alt="Diagnostics"></td>
+</tr>
+<tr>
+<td align="center"><em>Shell with real exit codes</em></td>
+<td align="center"><em>Device, service and report export</em></td>
+</tr>
+</table>
 
-Shizuku takes user privacy very seriously.
+<table>
+<tr>
+<td><img src="screenshots/automation.png" alt="Automation"></td>
+<td><img src="screenshots/backup.png" alt="Backup and restore"></td>
+</tr>
+<tr>
+<td align="center"><em>Intents, events and auth token</em></td>
+<td align="center"><em>Export and import app settings</em></td>
+</tr>
+</table>
 
-* No tracking or analytics
-* No telemetry
-* No proprietary libraries
-* No Google Play Services
-* Open-source codebase
-* Reproducible builds
-* Internet access is only used for wireless debugging connections and to fetch updates from GitHub
-* Only required permissions are declared
+## The One UI 9.0 bug
 
-### Permissions
+On Android 17 / One UI 9.0, Shizuku 13.6.0 lists **"Authorized 0 applications"** while apps keep
+working. Android 17 changed the signature of the hidden `getInstalledPackages` call the server
+uses, so the package list comes back empty; authorisation itself is fine. Upstream fixed it in
+`e468d70a` by routing every query through `InstalledPackagesCompat` — the fix this build is based
+on.
 
-* **INTERNET:** required for the wireless debugging start mode to work. Also used to fetch updates from GitHub
-* **ACCESS_NETWORK_STATE:** used to determine when Wi-Fi is available for background start via wireless debugging
-* **POST_NOTIFICATIONS:** required for pairing notification and other alerts
-* **RECEIVE_BOOT_COMPLETED:** required for start on boot
-* **FOREGROUND_SERVICE:** prevents watchdog from being killed
-* **REQUEST_IGNORE_BATTERY_OPTIMIZATIONS:** prevents start on boot and watchdog services from being killed
-* **WRITE_SECURE_SETTINGS:** used to toggle USB and wireless debugging in the background when starting/stopping Shizuku
-* **REQUEST_DELETE_PACKAGES:** used to request uninstall for Shizuku/stub when using stealth mode
-* **REQUEST_INSTALL_PACKAGES:** used to request install for app updates, as well as Shizuku stub when using stealth mode
+Measured on an SM-S918U (Android 17, One UI 9.0): the official 13.6.0 shows 0, while this build
+lists 23 authorised apps and reports that Android counts 24 holders of the permission (the
+official manager is the extra one). Full write-up and evidence: [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md).
 
-## 🌎 Translations
+## Coexistence with the official Shizuku
 
-Contribute translations through the [Crowdin project](https://crowdin.com/project/shizuku).
+| | Official | This build |
+|---|---|---|
+| Package | `moe.shizuku.privileged.api` | `net.xiondigital.shizuku` |
+| Service process | `shizuku_server` | `xion_shizuku_server` |
+| Service config | `shizuku.json` | `net_xiondigital_shizuku.json` |
+| Client binder fan-out | yes | disabled |
 
-## 🎁 Donations
+The starter accepts `--server-name=`, so this build's service never replaces the official one.
+Both can run at the same time; each keeps its own clients and its own configuration.
 
-This Shizuku fork and all of its features will always be free, and there will never be ads. If you've found any of the added features to be useful, consider [donating](https://www.buymeacoffee.com/thedjchi) to help me maintain the project!
+## Install
 
-## 📱 Developer Guide
+```bash
+adb install -r shizuku-v2.0.0-xion-debug.apk
+```
 
-### API & Demo Project
-The API guide and a demo project are available in the [Shizuku-API](https://github.com/thedjchi/Shizuku-API) repository
+Open the app and tap **Start** (wireless debugging or root), or start the service from ADB:
 
-### Notes
+```bash
+adb shell <nativeLibraryDir>/libshizuku.so \
+  --server-name=xion_shizuku_server \
+  --apk=<base.apk>
+```
 
-1. Shizuku has different permissions in root and ADB mode. You can see permissions granted to ADB [here](https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/packages/Shell/AndroidManifest.xml).
-   If your app requires root permission, use `ShizukuService#getUid` to check if Shizuku is running as root or ADB, or use `ShizukuService#checkPermission` to check if the server has sufficient permissions.
-2. On devices running Android 8 or lower, if you need to use Shizuku in a Service or Broadcast Receiver that might not be started by an Activity, please trigger the send binder by starting a transparent activity.
-3. Please prefer using `ShizukuBinderWrapper` instead of directly using `transactRemote` when possible, as API calls can change across Android versions.
+Step-by-step, including how to verify that both services are alive: [docs/INSTALL.md](docs/INSTALL.md).
 
-## 🤝 Contritbuting
+## Automation
 
-### Building the App
+```bash
+adb shell am broadcast -a net.xiondigital.shizuku.START  -p net.xiondigital.shizuku --es auth <token>
+adb shell am broadcast -a net.xiondigital.shizuku.STOP   -p net.xiondigital.shizuku --es auth <token>
+adb shell am broadcast -a net.xiondigital.shizuku.RESTART -p net.xiondigital.shizuku --es auth <token>
+adb shell am broadcast -a net.xiondigital.shizuku.WATCHDOG -p net.xiondigital.shizuku \
+  --es auth <token> --ez enabled true
+```
 
-- Clone with `git clone --recurse-submodules`
-- Run gradle task `:manager:assembleDebug` or `:manager:assembleRelease`
+Events (`...EVENT.SERVICE_STARTED`, `SERVICE_STOPPED`, `SERVICE_CRASHED`, `SERVICE_RESTARTED`,
+`WIRELESS_DEBUGGING`) are broadcast to this package. The token is displayed in **Automation**.
+Reference: [docs/AUTOMATION.md](docs/AUTOMATION.md).
 
-The `:manager:assembleDebug` task generates a debuggable server. You can attach a debugger to `shizuku_server` to debug the server. In Android Studio, ensure `Run/Debug configurations > Always install with package manager` is checked, so that the server will use the latest code.
+## Build
 
-### Submitting Changes
+JDK 21, Android SDK 37, NDK 29, CMake 3.31:
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b branch-name`)
-3. Make your changes
-4. Commit your changes (`git commit -m 'Commit message'`)
-5. Push to the branch (`git push origin branch-name`)
-6. Open a Pull Request
+```bash
+./gradlew :manager:assembleDebug
+```
 
-## 📃 License
+Output: `manager/build/outputs/apk/debug/shizuku-v2.0.0-xion-debug.apk`.
+Signing, native flags and the version scheme: [docs/BUILDING.md](docs/BUILDING.md).
 
-All code files in this project are licensed under [Apache 2.0](LICENSE)
+## Verified on device
+
+Everything below was exercised on a Samsung SM-S918U (Android 17, SDK 37, One UI 9.0) over ADB:
+
+- builds clean; installs beside the official Shizuku (`pm list packages` shows both);
+- service started as `xion_shizuku_server` while the official `shizuku_server` kept running
+  untouched, with an unchanged official config file (same md5 before and after);
+- dashboard reports `Service running`, `ADB · API 13`, `uid 2000`, port 5555;
+- authorisations: 23 apps listed, cross-check "Android reports 24 holding the permission";
+- command center executed real shell commands and returned their exit codes;
+- diagnostics collected application, device, service, wireless, authorisation and resource data;
+- every screen in the screenshots above was opened and inspected on the device.
+
+Not exercised: package-manager actions, system tweaks, backup import/export, watchdog restarts,
+quick-settings tiles, boot start, TV layout, root start. Those are implemented and report their
+real result, but they were not run during this round. [docs/FEATURES.md](docs/FEATURES.md) lists
+each item with its status.
+
+## Documentation
+
+| Document | Contents |
+|---|---|
+| [docs/INSTALL.md](docs/INSTALL.md) | Install, start, verify coexistence, uninstall |
+| [docs/FEATURES.md](docs/FEATURES.md) | Every feature with its verification status |
+| [docs/AUTOMATION.md](docs/AUTOMATION.md) | Intents, events, tiles, token handling |
+| [docs/DIAGNOSTICS.md](docs/DIAGNOSTICS.md) | What the report contains and how to export it |
+| [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md) | The One UI 9.0 issue, evidence, Samsung limits |
+| [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | Common failures and what to check |
+| [docs/BUILDING.md](docs/BUILDING.md) | Toolchain, signing, native starter |
+| [CHANGELOG.md](CHANGELOG.md) | What changed in 2.0.0-xion |
+
+## Credits
+
+Built on [thedjchi/Shizuku](https://github.com/thedjchi/Shizuku), itself a fork of
+[RikkaApps/Shizuku](https://github.com/RikkaApps/Shizuku). The service, the API and the privilege
+model are theirs; the interface, tooling, authorisation reporting, watchdog and documentation in
+this fork are XION Digital's.
+
+## Licence
+
+The upstream project is licensed under Apache 2.0; this fork keeps the same licence. See
+[LICENSE](LICENSE).

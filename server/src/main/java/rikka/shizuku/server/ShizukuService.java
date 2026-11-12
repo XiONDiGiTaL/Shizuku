@@ -508,6 +508,12 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
     }
 
     private static void sendBinderToClient(Binder binder, int userId) {
+        // See BinderSender: a development server must not hijack the client apps that are
+        // already served by the user's official Shizuku installation.
+        if (moe.shizuku.server.BuildConfig.DEV_IDENTITY) {
+            LOGGER.i("development identity: skipping client binder fan-out");
+            return;
+        }
         try {
             Stream<PackageInfo> packages =
                 InstalledPackagesCompat.getInstalledPackagesNoThrow(

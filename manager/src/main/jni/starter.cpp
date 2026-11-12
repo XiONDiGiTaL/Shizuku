@@ -34,6 +34,10 @@
 #define SERVER_NAME "shizuku_server"
 #define SERVER_CLASS_PATH "rikka.shizuku.server.ShizukuService"
 
+// Process name of the server this starter manages. A development build overrides it so it can
+// coexist with the official Shizuku server instead of killing it.
+static std::string g_server_name = SERVER_NAME;
+
 #if defined(__arm__)
 #define ABI "arm"
 #elif defined(__i386__)
@@ -199,9 +203,16 @@ static int switch_cgroup() {
 
 int main(int argc, char *argv[]) {
     std::string apk_path;
+    std::string server_name = SERVER_NAME;
     for (int i = 0; i < argc; ++i) {
         if (strncmp(argv[i], "--apk=", 6) == 0) {
             apk_path = argv[i] + 6;
+        } else if (strncmp(argv[i], "--server-name=", 14) == 0) {
+            // A development build runs beside the official Shizuku. The starter normally
+            // kills every process called shizuku_server, which would take down the user's
+            // working installation. Giving the development server its own process name keeps
+            // both servers alive and keeps this one from ever matching the official server.
+            server_name = argv[i] + 14;
         }
     }
 
@@ -242,8 +253,9 @@ int main(int argc, char *argv[]) {
     printf("info: starter begin\n");
     fflush(stdout);
 
-    // kill old server
-    printf("info: killing old process...\n");
+    // kill old server (only one with this exact process name)
+    g_server_name = server_name;
+    printf("info: killing old process (%s)...\n", g_server_name.c_str());
     fflush(stdout);
 
     foreach_proc([](pid_t pid) {
@@ -252,7 +264,7 @@ int main(int argc, char *argv[]) {
         char name[1024];
         if (get_proc_name(pid, name, 1024) != 0) return;
 
-        if (strcmp(SERVER_NAME, name) != 0)
+        if (g_server_name != name)
             return;
 
         if (kill(pid, SIGKILL) == 0)
@@ -302,5 +314,5 @@ int main(int argc, char *argv[]) {
     printf("info: starting server...\n");
     fflush(stdout);
     LOGD("start_server");
-    start_server(apk_path.c_str(), SERVER_CLASS_PATH, SERVER_NAME);
+    start_server(apk_path.c_str(), SERVER_CLASS_PATH, server_name.c_str());
 }

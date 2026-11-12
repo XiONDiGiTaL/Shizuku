@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:fitsSystemWindows="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroller"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/xion_backdrop"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/xion_gutter"
+        android:paddingEnd="@dimen/xion_gutter"
+        android:paddingBottom="@dimen/xion_space_8">
+
+        <!-- Brand header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xion_space_4"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xion_brand_overline"
+                    android:textAppearance="@style/TextAppearance.Xion.Overline" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xion_app_title"
+                        android:textAppearance="@style/TextAppearance.Xion.Display" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/xion_app_title_accent"
+                        android:textAppearance="@style/TextAppearance.Xion.Serif" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/identityBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/xion_chip"
+                android:text="@string/xion_dev_build_badge"
+                android:textColor="@color/xion_brand_hi"
+                android:textSize="10sp"
+                android:letterSpacing="0.12"
+                android:fontFamily="sans-serif-medium" />
+        </LinearLayout>
+
+        <!-- Service hero -->
+        <FrameLayout
+            android:id="@+id/hero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xion_space_5"
+            android:background="@drawable/xion_hero_surface"
+            android:padding="@dimen/xion_space_5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/statusDot"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:background="@drawable/xion_dot" />
+
+                    <TextView
+                        android:id="@+id/statusTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:text="@string/xion_state_unknown"
+                        android:textAppearance="@style/TextAppearance.Xion.Title" />
+
+                    <TextView
+                        android:id="@+id/statusChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/xion_chip_neutral"
+                        android:fontFamily="monospace"
+                        android:text="API —"
+                        android:textColor="@color/xion_text_body"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/statusDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/xion_state_unknown"
+                    android:textAppearance="@style/TextAppearance.Xion.Body.Muted" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/xion_space_4"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnStart"
+                        style="@style/Widget.Xion.Button.Primary"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/xion_action_start"
+                        app:icon="@drawable/ic_x_power"
+                        app:iconGravity="textStart"
+                        app:iconSize="18dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnStop"
+                        style="@style/Widget.Xion.Button.Ghost"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/xion_action_stop"
+                        app:icon="@drawable/ic_x_stop"
+                        app:iconGravity="textStart"
+                        app:iconSize="18dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnRestart"
+                        style="@style/Widget.Xion.Button.Ghost"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/xion_action_restart"
+                        app:icon="@drawable/ic_x_restart"
+                        app:iconGravity="textStart"
+                        app:iconSize="18dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnReconnect"
+                        style="@style/Widget.Xion.Button.Ghost"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/xion_action_reconnect"
+                        android:textSize="13sp"
+                        app:icon="@drawable/ic_x_wifi"
+                        app:iconGravity="textStart"
+                        app:iconSize="16dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnDiagnose"
+                        style="@style/Widget.Xion.Button.Ghost"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/xion_action_diagnose"
+                        android:textSize="13sp"
+                        app:icon="@drawable/ic_x_bug"
+                        app:iconGravity="textStart"
+                        app:iconSize="16dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- Metrics -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xion_space_3"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardAuthorized"
+                style="@style/Widget.Xion.Card.Interactive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/xion_space_4">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xion_metric_authorized"
+                        android:textAppearance="@style/TextAppearance.Xion.Overline" />
+
+                    <TextView
+                        android:id="@+id/metricAuthorized"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/xion_metric_unknown"
+                        android:textAppearance="@style/TextAppearance.Xion.Metric" />
+
+                    <TextView
+                        android:id="@+id/metricAuthorizedSub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xion_metric_authorized_sub"
+                        android:textAppearance="@style/TextAppearance.Xion.Body.Muted" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardWatchdog"
+                style="@style/Widget.Xion.Card.Interactive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/xion_space_4">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xion_metric_watchdog"
+                        android:textAppearance="@style/TextAppearance.Xion.Overline" />
+
+                    <TextView
+                        android:id="@+id/metricWatchdog"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/xion_metric_unknown"
+                        android:textAppearance="@style/TextAppearance.Xion.Metric" />
+
+                    <TextView
+                        android:id="@+id/metricWatchdogSub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xion_watchdog_off"
+                        android:textAppearance="@style/TextAppearance.Xion.Body.Muted" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardWireless"
+                style="@style/Widget.Xion.Card.Interactive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/xion_space_4">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xion_metric_wireless"
+                        android:textAppearance="@style/TextAppearance.Xion.Overline" />
+
+                    <TextView
+                        android:id="@+id/metricWireless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/xion_metric_unknown"
+                        android:textAppearance="@style/TextAppearance.Xion.Metric" />
+
+                    <TextView
+                        android:id="@+id/metricWirelessSub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="—"
+                        android:textAppearance="@style/TextAppearance.Xion.Body.Muted" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardUptime"
+                style="@style/Widget.Xion.Card.Interactive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/xion_space_4">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xion_metric_uptime"
+                        android:textAppearance="@style/TextAppearance.Xion.Overline" />
+
+                    <TextView
+                        android:id="@+id/metricUptime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/xion_metric_unknown"
+                        android:textAppearance="@style/TextAppearance.Xion.Metric" />
+
+                    <TextView
+                        android:id="@+id/metricUptimeSub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="—"
+                        android:textAppearance="@style/TextAppearance.Xion.Body.Muted" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xion_space_6"
+            android:layout_marginBottom="8dp"
+            android:text="@string/xion_section_manage"
+            android:textAppearance="@style/TextAppearance.Xion.Overline" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Xion.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/navAuthorizations"
+                    layout="@layout/xion_nav_row" />
+
+                <View style="@style/Widget.Xion.Divider" />
+
+                <include
+                    android:id="@+id/navAutomation"
+                    layout="@layout/xion_nav_row" />
+
+                <View style="@style/Widget.Xion.Divider" />
+
+                <include
+                    android:id="@+id/navTools"
+                    layout="@layout/xion_nav_row" />
+
+                <View style="@style/Widget.Xion.Divider" />
+
+                <include
+                    android:id="@+id/navDiagnostics"
+                    layout="@layout/xion_nav_row" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xion_space_6"
+            android:layout_marginBottom="8dp"
+            android:text="@string/xion_section_more"
+            android:textAppearance="@style/TextAppearance.Xion.Overline" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Xion.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/navBackup"
+                    layout="@layout/xion_nav_row" />
+
+                <View style="@style/Widget.Xion.Divider" />
+
+                <include
+                    android:id="@+id/navSettings"
+                    layout="@layout/xion_nav_row" />
+
+                <View style="@style/Widget.Xion.Divider" />
+
+                <include
+                    android:id="@+id/navClassic"
+                    layout="@layout/xion_nav_row" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xion_space_6"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.Xion.Body.Muted" />
+    </LinearLayout>
+</ScrollView>

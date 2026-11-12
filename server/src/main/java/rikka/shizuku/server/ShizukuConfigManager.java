@@ -40,8 +40,24 @@ public class ShizukuConfigManager extends ConfigManager {
 
     private static final long WRITE_DELAY = 10 * 1000;
 
-    private static final File FILE = new File("/data/user_de/0/com.android.shell/shizuku.json");
+    private static final File FILE = configFile();
     private static final AtomicFile ATOMIC_FILE = new AtomicFile(FILE);
+
+    /**
+     * The official Shizuku keeps its authorisation state in shizuku.json. A development
+     * build runs beside it, so it must never read or rewrite that file: sharing it would let
+     * the development server prune or overwrite the authorisations the user already granted
+     * to their working installation. Development builds therefore use their own file.
+     */
+    private static File configFile() {
+        String name;
+        if (moe.shizuku.server.BuildConfig.DEV_IDENTITY) {
+            name = moe.shizuku.server.BuildConfig.MANAGER_APPLICATION_ID.replace('.', '_') + ".json";
+        } else {
+            name = "shizuku.json";
+        }
+        return new File("/data/user_de/0/com.android.shell/" + name);
+    }
 
     public static ShizukuConfig load() {
         FileInputStream stream;

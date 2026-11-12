@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="xion_surface">@color/xion_bg_light</color>
+    <color name="xion_surface_raised">@color/xion_panel_light</color>
+    <color name="xion_surface_hi">@color/xion_panel_hi_light</color>
+    <color name="xion_hairline">@color/xion_line_light</color>
+    <color name="xion_hairline_strong">@color/xion_line_strong_light</color>
+    <color name="xion_text">@color/xion_ink_light</color>
+    <color name="xion_text_body">@color/xion_body_light</color>
+    <color name="xion_text_muted">@color/xion_muted_light</color>
+    <color name="xion_brand">@color/xion_accent_light</color>
+    <color name="xion_brand_hi">@color/xion_accent_hi_light</color>
+    <color name="xion_brand_soft">@color/xion_accent_soft_light</color>
+    <color name="xion_positive">@color/xion_ok_light</color>
+    <color name="xion_positive_soft">@color/xion_ok_soft_light</color>
+    <color name="xion_caution">@color/xion_warn_light</color>
+    <color name="xion_caution_soft">@color/xion_warn_soft_light</color>
+    <color name="xion_negative">@color/xion_danger_light</color>
+    <color name="xion_negative_soft">@color/xion_danger_soft_light</color>
+</resources>

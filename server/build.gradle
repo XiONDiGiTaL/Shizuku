@@ -11,6 +11,11 @@ android {
     }
     defaultConfig {
         buildConfigField "String", "MANAGER_APPLICATION_ID", "\"${project(':manager').android.defaultConfig.applicationId}\""
+        // Development builds run beside the official Shizuku. Two Shizuku servers on one
+        // device must not share state, and a development server must never hand its binder
+        // to the user's already-authorised client apps (that would hijack them).
+        buildConfigField "boolean", "DEV_IDENTITY", "${project(':manager').android.defaultConfig.applicationId != 'moe.shizuku.privileged.api'}"
+        buildConfigField "String", "UPSTREAM_MANAGER_ID", "\"moe.shizuku.privileged.api\""
     }
 }
 
