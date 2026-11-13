@@ -267,10 +267,22 @@ content, and the recipe name is the title.
 - **App lock**: whether the switch is on, whether the device still has the screen lock it relies on,
   and a tap that opens the same toggle dialog the dashboard uses.
 - **AppOps overrides**: per-package modes set to allow or foreground while the matching runtime
-  permission is *not* granted, so the operation is allowed without the permission. Uid-wide modes are
-  excluded because the shell user cannot change them per package, and a mode that matches a granted
-  permission is normal and not listed.
+  permission is *not* granted, so the operation is allowed without the permission. A mode that
+  matches a granted permission is normal and not listed.
 - **Sensitive permissions**: one row per user app with the sensitive runtime permissions it holds.
+
+Each override row also carries a **Fix** action: it runs `cmd appops set <package> <op> default` and
+reads the operation back with `cmd appops get <package> <op>`. Only when the read-back says default
+does the row disappear and the summary count drop. When Android keeps the previous mode, the row
+stays, the toast names the mode it still reads, and that row's Fix is hidden for the session instead
+of failing again.
+
+`cmd appops get` mixes three shapes of line: `Uid mode: OP: mode` for state held by the whole uid, a
+per-package `OP: mode`, and, for permission backed operations, a second line that reports the uid
+state beside the package one. A candidate is therefore listed only when its operation appears once
+in the package dump *and* a direct `cmd appops get <package> <op>` answers with a per-package line.
+The first version of this screen trusted the per-package line on its own and reported 30 rows, most
+of which were usage records of operations that Android blocks; the corrected scan reports 13.
 
 Chips switch between both lists or one of them. Every row opens the tool that changes it: the AppOps
 manager or the permission inspector, both of which now accept a package name and open straight to it.
@@ -283,10 +295,13 @@ Verified on the unrooted S23 Ultra:
 
 | Step | Evidence |
 |---|---|
-| Scan | `30 AppOps overrides · 89 apps with sensitive access` |
-| Override link | Row `READ_CONTACTS · adornkwgt.ld.kustom` opened AppOps detail for `adornkwgt.ld.kustom` |
+| Scan | `13 AppOps overrides · 89 apps with sensitive access` |
+| Fix verified | Fix on `SYSTEM_ALERT_WINDOW · cn.ac.lz233.tarnhelm`: 13 to 12, row removed, `cmd appops get` then read `SYSTEM_ALERT_WINDOW: default` |
+| Fix read live | Setting the op back to allow through adb and refreshing returned the row and the count to 13 |
+| Fix refused | Fix on `FINE_LOCATION · com.samsung.android.statsd`: row kept, count unchanged, Fix hidden afterwards, service still read `FINE_LOCATION: allow` |
+| Override link | A row opened AppOps detail for its package |
 | Permission link | Row for `ai.perplexity.app.android` opened the permission inspector at `37 permissions, 27 granted` |
-| Filter | The Overrides chip hid the permissions section and kept the 30 override rows |
+| Filter | The Overrides chip hid the permissions section and kept the override rows |
 | App lock | The row switched the lock ON then OFF, and the badge followed the stored state |
 | No service | The screen reports that the scan needs the service instead of showing zero findings |
 
@@ -320,7 +335,7 @@ Nothing in the plan needs root. The mappings that follow are the basis for the p
 | 6. Optimization center | **IMPLEMENTED AND TESTED** | Three profiles with a live preview, verified writes and a one tap restore; scope is limited to four settings the shell can change |
 | 7. Advanced package manager | **PARTIALLY IMPLEMENTED** | Enable/disable, clear, uninstall per app exist; no inventory export, no compare, no debloat assistant |
 | 8. Command center 2.0 | **IMPLEMENTED AND TESTED** | Execution with exit codes, history recall, named recipes that can be run, inserted or deleted, and a transcript search |
-| 9. Security and privacy center | **IMPLEMENTED AND TESTED** | One screen with the app lock state, sensitive permissions, AppOps overrides and a link to the tool that changes each one |
+| 9. Security and privacy center | **IMPLEMENTED AND TESTED** | App lock state, sensitive permissions, AppOps overrides with a one-tap reset that is read back, and a link to the tool that changes each one |
 | 10. Device profiles | **NOT IMPLEMENTED** | Backup exports preferences only |
 | 11. Snapshot and restore | **IMPLEMENTED AND TESTED** | Named snapshots of supported settings, package enabled states and meaningful AppOps modes, with a diff preview and a verified restore |
 | 12. Intelligent diagnostics | **PARTIALLY IMPLEMENTED** | Data collection is real and honest; no problem detection or recommendations |

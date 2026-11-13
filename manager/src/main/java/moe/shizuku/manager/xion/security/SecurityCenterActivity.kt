@@ -48,9 +48,10 @@ class SecurityCenterActivity : XionActivity() {
         val meta: String,
         val badge: String,
         val tone: XionUi.Tone,
-        val pkg: String?
+        val pkg: String?,
+        val op: String? = null
     ) {
-        val key: String get() = "$kind|$title|$meta|$badge"
+        val key: String get() = "$kind|$title|$meta|$badge|$op"
     }
 
     private sealed class Row {
@@ -62,12 +63,22 @@ class SecurityCenterActivity : XionActivity() {
     private enum class Filter { ALL, OVERRIDES, PERMISSIONS }
 
     private lateinit var binding: ActivityXionSecurityBinding
-    private val adapter = RowAdapter { onFinding(it) }
+    private val adapter = RowAdapter(
+        onClick = { onFinding(it) },
+        onFix = { fixOverride(it) },
+        canFix = { it.key !in unfixable }
+    )
 
     /** Findings other than the lock row, kept so returning to the screen does not rescan. */
     private var scanned: List<Finding> = emptyList()
     private var scannedOnce = false
     private var filter = Filter.ALL
+
+    /** Guards against a second tap while a fix is being written and read back. */
+    private var fixInFlight = false
+
+    /** Rows whose write Android refused: the button is hidden instead of failing again. */
+    private val unfixable = HashSet<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -135,7 +146,7 @@ class SecurityCenterActivity : XionActivity() {
 
             val labels = labelsFor(thirdParty)
             val overrides = if (opsResult.ok) {
-                parseOverrides(opsResult.stdout, granted, thirdParty, labels)
+                filterFixable(parseOverrides(opsResult.stdout, granted, thirdParty, labels))
             } else {
                 failures.add(firstLine(opsResult.combined))
                 emptyList()
@@ -217,6 +228,89 @@ class SecurityCenterActivity : XionActivity() {
         }
     }
 
+    /**
+     * Resets one override to the default mode and reads it back. The row is only dropped, and the
+     * change only reported, when `cmd appops get` returns default; a mode Android refuses to change
+     * stays on screen with the mode it still reads.
+     */
+    private fun fixOverride(finding: Finding) {
+        val pkg = finding.pkg
+        val op = finding.op
+        if (pkg == null || op == null || fixInFlight) return
+        fixInFlight = true
+        binding.summary.text = getString(R.string.xion_security_fixing, op)
+
+        lifecycleScope.launch {
+            val write = PrivilegedShell.run("cmd appops set $pkg $op default")
+            val read = PrivilegedShell.run("cmd appops get $pkg $op")
+            val actual = parseOpMode(read)
+            fixInFlight = false
+
+            when {
+                actual == "default" -> {
+                    Toast.makeText(
+                        this@SecurityCenterActivity,
+                        getString(R.string.xion_security_fix_verified, op, "default"),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    scanned = scanned.filterNot { it.key == finding.key }
+                    updateSummary()
+                    render()
+                }
+                !write.ok -> {
+                    binding.summary.text = getString(
+                        R.string.xion_security_fix_failed,
+                        firstLine(write.combined)
+                    )
+                    Toast.makeText(
+                        this@SecurityCenterActivity,
+                        getString(R.string.xion_security_fix_failed, firstLine(write.combined)),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                else -> {
+                    updateSummary()
+                    unfixable.add(finding.key)
+                    Toast.makeText(
+                        this@SecurityCenterActivity,
+                        getString(
+                            R.string.xion_security_fix_not_applied,
+                            op,
+                            actual ?: getString(R.string.xion_security_fix_unreadable)
+                        ),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    val index = adapter.currentList.indexOfFirst {
+                        it is Row.Entry && it.finding.key == finding.key
+                    }
+                    if (index >= 0) adapter.notifyItemChanged(index)
+                }
+            }
+        }
+    }
+
+    /**
+     * Reads the mode back from `cmd appops get <package> <op>`. The answer can hold a uid wide line
+     * and a per package line; the per package one is the mode this screen changes, so it wins.
+     */
+    private fun parseOpMode(result: PrivilegedShell.CommandResult): String? {
+        if (!result.ok) return null
+        val lines = result.stdout.lineSequence().map { it.trim() }.filter { it.isNotEmpty() }.toList()
+        if (lines.isEmpty()) return null
+        if (lines.first().startsWith("No operations", ignoreCase = true)) return "default"
+        val perPackage = lines.firstOrNull { !it.startsWith("Uid mode", ignoreCase = true) }
+        if (perPackage == null) return null
+        return Regex(":\\s*([a-z]+)").find(perPackage)?.groupValues?.get(1)
+    }
+
+    private fun updateSummary() {
+        binding.summary.text = getString(
+            R.string.xion_security_summary,
+            scanned.count { it.kind == Kind.OVERRIDE },
+            scanned.count { it.kind == Kind.PERMISSION }
+        )
+    }
+
     private fun showLockDialog() {
         val enabled = AppLock.isEnabled(this)
         MaterialAlertDialogBuilder(this)
@@ -265,40 +359,57 @@ class SecurityCenterActivity : XionActivity() {
         return set
     }
 
+    /**
+     * `cmd appops get` prints three things that look alike: `Uid mode: OP: mode` for state held by the
+     * whole uid, `OP: mode` for the per package mode, and for permission backed operations a second
+     * `OP: mode; time=...` line that reports the uid state next to the package one. Only an op that
+     * appears exactly once, without a uid line, is a per package mode the shell user can set, so an
+     * op with more than one entry is skipped: the write would be refused and the row would claim an
+     * override that does not exist.
+     */
     private fun parseOverrides(
         output: String,
         granted: Set<String>,
         thirdParty: Set<String>,
         labels: Map<String, String>
     ): List<Finding> {
-        val byKey = LinkedHashMap<String, Finding>()
+        data class Entry(val op: String, val mode: String, val uid: Boolean)
+
+        val entries = HashMap<String, MutableList<Entry>>()
         output.lineSequence().forEach { raw ->
             val parts = raw.trim().split(' ')
             if (parts.size < 3) return@forEach
             val pkg = parts[0]
-            val op = parts[1].removeSuffix(":")
-            val mode = parts[2].removeSuffix(";")
             if (pkg !in thirdParty) return@forEach
-            if (mode != "allow" && mode != "foreground") return@forEach
+            val rest = parts.drop(1)
+            val isUid = rest.size >= 3 && rest[0] == "Uid" && rest[1] == "mode:"
+            val op = (if (isUid) rest[2] else rest[0]).removeSuffix(":")
+            val mode = (if (isUid) rest.getOrNull(3) else rest.getOrNull(1))?.removeSuffix(";")
+                ?: return@forEach
+            entries.getOrPut("$pkg|$op") { ArrayList() }.add(Entry(op, mode, isUid))
+        }
+
+        return entries.mapNotNull { (key, found) ->
+            val entry = found.singleOrNull() ?: return@mapNotNull null
+            if (entry.uid) return@mapNotNull null
+            val (op, mode) = entry
+            if (mode != "allow" && mode != "foreground") return@mapNotNull null
 
             // An override is unusual only when the permission it stands in for is not granted.
+            val pkg = key.substringBefore('|')
             val permission = OP_PERMISSIONS[op]
-            if (permission != null && "$pkg $permission" in granted) return@forEach
+            if (permission != null && "$pkg $permission" in granted) return@mapNotNull null
 
-            val key = "$pkg|$op"
-            val existing = byKey[key]
-            if (existing != null && existing.badge == "ALLOW") return@forEach
-
-            byKey[key] = Finding(
+            Finding(
                 Kind.OVERRIDE,
                 labels[pkg] ?: pkg,
                 getString(R.string.xion_security_override_meta, op, pkg),
                 mode.uppercase(),
                 if (mode == "allow") XionUi.Tone.NEGATIVE else XionUi.Tone.CAUTION,
-                pkg
+                pkg,
+                op
             )
-        }
-        return byKey.values.sortedWith(compareBy({ it.title.lowercase() }, { it.meta }))
+        }.sortedWith(compareBy({ it.title.lowercase() }, { it.meta }))
     }
 
     /** One row per app that holds at least one sensitive runtime permission. */
@@ -330,6 +441,35 @@ class SecurityCenterActivity : XionActivity() {
             }
     }
 
+    /**
+     * A candidate is only kept when `cmd appops get <package> <op>` answers with a per package line.
+     * When it answers `Uid mode: ...` the state belongs to the whole uid and the shell user cannot
+     * set it for one package, so a Fix button there would never succeed.
+     */
+    private suspend fun filterFixable(candidates: List<Finding>): List<Finding> {
+        val specs = candidates.mapNotNull { finding ->
+            val pkg = finding.pkg ?: return@mapNotNull null
+            val op = finding.op ?: return@mapNotNull null
+            "$pkg:$op"
+        }
+        if (specs.isEmpty()) return candidates
+
+        val script = buildString {
+            append("for s in ").append(specs.joinToString(" "))
+            append("; do p=\"\${s%%:*}\"; o=\"\${s#*:}\"; ")
+            append("f=\"\$(cmd appops get \$p \$o | head -1)\"; ")
+            append("case \"\$f\" in \"Uid mode:\"*) ;; *) echo \"\$p \$o\";; esac; done")
+        }
+        val result = PrivilegedShell.run(script, 60_000)
+        if (!result.ok) return candidates
+
+        val fixable = result.stdout.lineSequence()
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+            .toSet()
+        return candidates.filter { "${it.pkg} ${it.op}" in fixable }
+    }
+
     private fun labelsFor(packages: Set<String>): Map<String, String> {
         val map = HashMap<String, String>()
         val pm = packageManager
@@ -347,7 +487,11 @@ class SecurityCenterActivity : XionActivity() {
 
     // --- List ---------------------------------------------------------------
 
-    private class RowAdapter(private val onClick: (Finding) -> Unit) :
+    private class RowAdapter(
+        private val onClick: (Finding) -> Unit,
+        private val onFix: (Finding) -> Unit,
+        private val canFix: (Finding) -> Boolean
+    ) :
         ListAdapter<Row, RecyclerView.ViewHolder>(Diff) {
 
         class SectionHolder(val binding: ItemXionSecuritySectionBinding) : RecyclerView.ViewHolder(binding.root)
@@ -385,6 +529,8 @@ class SecurityCenterActivity : XionActivity() {
                     findingBadge.text = finding.badge
                     findingBadge.applyTone(finding.tone)
                     root.setOnClickListener { onClick(finding) }
+                    findingAction.isVisible = finding.kind == Kind.OVERRIDE && canFix(finding)
+                    findingAction.setOnClickListener { onFix(finding) }
                 }
             }
         }
@@ -406,10 +552,10 @@ class SecurityCenterActivity : XionActivity() {
         const val APPOPS_COMMAND =
             "for p in \$(pm list packages -3 | cut -d: -f2); do " +
                 "cmd appops get \$p 2>/dev/null | " +
-                "grep -E '^(CAMERA|RECORD_AUDIO|FINE_LOCATION|COARSE_LOCATION|READ_CONTACTS|" +
+                "grep -E '^(Uid mode: )?(CAMERA|RECORD_AUDIO|FINE_LOCATION|COARSE_LOCATION|READ_CONTACTS|" +
                 "READ_CALL_LOG|READ_SMS|SEND_SMS|READ_CALENDAR|BODY_SENSORS|CALL_PHONE|" +
                 "READ_PHONE_NUMBERS|ACTIVITY_RECOGNITION|SYSTEM_ALERT_WINDOW|GET_USAGE_STATS): " +
-                "(allow|foreground)' | sed \"s|^|\$p |\"; done"
+                "(allow|foreground|ignore|deny|default|ask|errored)' | sed \"s|^|\$p |\"; done"
 
         const val APPS_COMMAND = "pm list packages -3"
 

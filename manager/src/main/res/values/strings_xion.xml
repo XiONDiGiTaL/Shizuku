@@ -145,7 +145,13 @@
     <string name="xion_security_badge_off">OFF</string>
     <string name="xion_security_badge_granted">GRANTED</string>
     <string name="xion_security_override_meta">%1$s · %2$s</string>
-    <string name="xion_security_note">Overrides are per-package AppOps modes set to allow or foreground while the matching runtime permission is not granted. Uid-wide modes are not listed because the shell user cannot change them per package. Tapping a row opens the tool that changes it.</string>
+    <string name="xion_security_fix">Fix</string>
+    <string name="xion_security_fixing">Resetting %1$s…</string>
+    <string name="xion_security_fix_verified">Verified: %1$s now reads %2$s</string>
+    <string name="xion_security_fix_not_applied">Not applied: %1$s still reads %2$s</string>
+    <string name="xion_security_fix_failed">Change failed: %1$s</string>
+    <string name="xion_security_fix_unreadable">unreadable</string>
+    <string name="xion_security_note">Overrides are per-package AppOps modes set to allow or foreground while the matching runtime permission is not granted. Operations whose mode is set for the whole uid are not listed, because the shell user cannot change them per package. Fix resets a mode to default and reads it back. Tapping a row opens the tool that changes it.</string>
     <string name="xion_tools_security">Security and privacy</string>
     <string name="xion_tools_security_sub">App lock, sensitive permissions and AppOps overrides</string>
 
