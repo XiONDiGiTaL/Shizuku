@@ -10,6 +10,7 @@ import moe.shizuku.manager.databinding.ActivityXionToolsBinding
 import moe.shizuku.manager.databinding.XionNavRowBinding
 import moe.shizuku.manager.utils.ShizukuStateMachine
 import moe.shizuku.manager.xion.XionUi.applyScreenInsets
+import moe.shizuku.manager.xion.security.SecurityCenterActivity
 
 class ToolsActivity : XionActivity() {
 
@@ -22,6 +23,13 @@ class ToolsActivity : XionActivity() {
         applyScreenInsets(binding.root, extraTop = 4, extraBottom = 16)
 
         binding.btnBack.setOnClickListener { finish() }
+
+        row(
+            binding.navSecurity,
+            R.drawable.ic_x_shield,
+            R.string.xion_tools_security,
+            R.string.xion_tools_security_sub
+        ) { startActivity(Intent(this, SecurityCenterActivity::class.java)) }
 
         row(
             binding.navPackages,

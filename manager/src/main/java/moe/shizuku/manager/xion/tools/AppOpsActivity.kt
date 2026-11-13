@@ -48,6 +48,9 @@ class AppOpsActivity : XionActivity() {
     private var packageQuery = ""
 
     private var currentPackage: String? = null
+
+    /** Set when the security center opens this screen for one package. */
+    private var pendingPackage: String? = null
     private var ops: List<OpEntry> = emptyList()
     private var opQuery = ""
     private val opAdapter = OpAdapter { confirmChange(it) }
@@ -59,6 +62,7 @@ class AppOpsActivity : XionActivity() {
         binding = ActivityXionAppopsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         applyScreenInsets(binding.root, extraTop = 4, extraBottom = 8)
+        pendingPackage = intent.getStringExtra(EXTRA_PACKAGE)
 
         binding.btnBack.setOnClickListener { if (binding.detailScreen.isVisible) showPackages() else finish() }
         binding.btnRefresh.setOnClickListener { refresh() }
@@ -148,6 +152,12 @@ class AppOpsActivity : XionActivity() {
                 packages.add(PackageEntry(pkg, pkg in systemSet, label))
             }
             applyPackageFilter()
+
+            val target = pendingPackage
+            if (target != null) {
+                pendingPackage = null
+                packages.firstOrNull { it.packageName == target }?.let { openPackage(it) }
+            }
         }
     }
 
@@ -358,7 +368,10 @@ class AppOpsActivity : XionActivity() {
         override fun areContentsTheSame(oldItem: OpEntry, newItem: OpEntry) = oldItem == newItem
     }
 
-    private companion object {
+    companion object {
+        /** Extra package name: open this package straight away instead of the package list. */
+        const val EXTRA_PACKAGE = "moe.shizuku.manager.xion.extra.PACKAGE"
+
         val MODES = setOf("allow", "ignore", "deny", "default", "foreground", "ask", "errored")
     }
 }

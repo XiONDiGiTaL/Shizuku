@@ -55,6 +55,12 @@
             android:orientation="vertical">
 
             <include
+                android:id="@+id/navSecurity"
+                layout="@layout/xion_nav_row" />
+
+            <View style="@style/Widget.Xion.Divider" />
+
+            <include
                 android:id="@+id/navPackages"
                 layout="@layout/xion_nav_row" />
 

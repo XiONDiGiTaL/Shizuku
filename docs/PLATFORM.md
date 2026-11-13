@@ -260,6 +260,36 @@ Bug found and fixed during testing: an action dialog built with both a message a
 rendered the message only, so Run, Insert and Delete never appeared. The action list is now the dialog
 content, and the recipe name is the title.
 
+## Security and privacy center
+
+`xion/security/SecurityCenterActivity.kt` collects three answers on one screen:
+
+- **App lock**: whether the switch is on, whether the device still has the screen lock it relies on,
+  and a tap that opens the same toggle dialog the dashboard uses.
+- **AppOps overrides**: per-package modes set to allow or foreground while the matching runtime
+  permission is *not* granted, so the operation is allowed without the permission. Uid-wide modes are
+  excluded because the shell user cannot change them per package, and a mode that matches a granted
+  permission is normal and not listed.
+- **Sensitive permissions**: one row per user app with the sensitive runtime permissions it holds.
+
+Chips switch between both lists or one of them. Every row opens the tool that changes it: the AppOps
+manager or the permission inspector, both of which now accept a package name and open straight to it.
+
+The two scans run in parallel, about ten seconds on the reference device, and each is a single shell
+command: `dumpsys package` filtered to granted runtime permissions, and `cmd appops get` over the
+third-party packages filtered to the operations this screen reports on.
+
+Verified on the unrooted S23 Ultra:
+
+| Step | Evidence |
+|---|---|
+| Scan | `30 AppOps overrides · 89 apps with sensitive access` |
+| Override link | Row `READ_CONTACTS · adornkwgt.ld.kustom` opened AppOps detail for `adornkwgt.ld.kustom` |
+| Permission link | Row for `ai.perplexity.app.android` opened the permission inspector at `37 permissions, 27 granted` |
+| Filter | The Overrides chip hid the permissions section and kept the 30 override rows |
+| App lock | The row switched the lock ON then OFF, and the badge followed the stored state |
+| No service | The screen reports that the scan needs the service instead of showing zero findings |
+
 ## What each planned subsystem will use
 
 Nothing in the plan needs root. The mappings that follow are the basis for the phase estimates.
@@ -290,7 +320,7 @@ Nothing in the plan needs root. The mappings that follow are the basis for the p
 | 6. Optimization center | **IMPLEMENTED AND TESTED** | Three profiles with a live preview, verified writes and a one tap restore; scope is limited to four settings the shell can change |
 | 7. Advanced package manager | **PARTIALLY IMPLEMENTED** | Enable/disable, clear, uninstall per app exist; no inventory export, no compare, no debloat assistant |
 | 8. Command center 2.0 | **IMPLEMENTED AND TESTED** | Execution with exit codes, history recall, named recipes that can be run, inserted or deleted, and a transcript search |
-| 9. Security and privacy center | **NOT IMPLEMENTED** | App lock and diagnostics exist; no unified center |
+| 9. Security and privacy center | **IMPLEMENTED AND TESTED** | One screen with the app lock state, sensitive permissions, AppOps overrides and a link to the tool that changes each one |
 | 10. Device profiles | **NOT IMPLEMENTED** | Backup exports preferences only |
 | 11. Snapshot and restore | **IMPLEMENTED AND TESTED** | Named snapshots of supported settings, package enabled states and meaningful AppOps modes, with a diff preview and a verified restore |
 | 12. Intelligent diagnostics | **PARTIALLY IMPLEMENTED** | Data collection is real and honest; no problem detection or recommendations |

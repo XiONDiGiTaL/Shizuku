@@ -52,6 +52,9 @@ class PermissionInspectorActivity : XionActivity() {
     private var packageQuery = ""
 
     private var currentPackage: String? = null
+
+    /** Set when the security center opens this screen for one package. */
+    private var pendingPackage: String? = null
     private var permissions: List<PermissionEntry> = emptyList()
     private var permissionQuery = ""
     private val permissionAdapter = PermissionAdapter { confirmChange(it) }
@@ -63,6 +66,7 @@ class PermissionInspectorActivity : XionActivity() {
         binding = ActivityXionPermissionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         applyScreenInsets(binding.root, extraTop = 4, extraBottom = 8)
+        pendingPackage = intent.getStringExtra(EXTRA_PACKAGE)
 
         binding.btnBack.setOnClickListener { if (binding.detailScreen.isVisible) showPackages() else finish() }
         binding.btnRefresh.setOnClickListener { refresh() }
@@ -152,6 +156,12 @@ class PermissionInspectorActivity : XionActivity() {
                 packages.add(PackageEntry(pkg, pkg in systemSet, label))
             }
             applyPackageFilter()
+
+            val target = pendingPackage
+            if (target != null) {
+                pendingPackage = null
+                packages.firstOrNull { it.packageName == target }?.let { openPackage(it) }
+            }
         }
     }
 
@@ -373,7 +383,10 @@ class PermissionInspectorActivity : XionActivity() {
             oldItem == newItem
     }
 
-    private companion object {
+    companion object {
+        /** Extra package name: open this package straight away instead of the package list. */
+        const val EXTRA_PACKAGE = "moe.shizuku.manager.xion.extra.PACKAGE"
+
         val GRANTED_LINE = Regex(
             """^([A-Za-z0-9_.]+):\s*granted=(true|false)(?:,\s*flags=\[([^\]]*)\])?"""
         )

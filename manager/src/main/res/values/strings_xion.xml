@@ -123,6 +123,32 @@
     <string name="xion_shell_find_hint">Search output</string>
     <string name="xion_shell_matches">%1$d matching lines</string>
 
+    <!-- Security and privacy center -->
+    <string name="xion_security_title">Security and privacy</string>
+    <string name="xion_security_lede">App lock, sensitive access and AppOps overrides, each linked to the tool that changes it.</string>
+    <string name="xion_security_scanning">Scanning installed apps…</string>
+    <string name="xion_security_unavailable">Start the Shizuku service to scan permissions and AppOps.</string>
+    <string name="xion_security_scan_failed">Scan incomplete: %1$s</string>
+    <string name="xion_security_summary">%1$d AppOps overrides · %2$d apps with sensitive access</string>
+    <string name="xion_security_section_lock">App lock</string>
+    <string name="xion_security_section_overrides">AppOps overrides</string>
+    <string name="xion_security_section_permissions">Sensitive permissions</string>
+    <string name="xion_security_filter_all">All</string>
+    <string name="xion_security_filter_overrides">Overrides</string>
+    <string name="xion_security_filter_permissions">Permissions</string>
+    <string name="xion_security_empty_overrides">No operation is allowed without its permission.</string>
+    <string name="xion_security_empty_permissions">No user app holds a sensitive permission.</string>
+    <string name="xion_security_lock_meta_on">Asks for the device credential after a minute in the background</string>
+    <string name="xion_security_lock_meta_off">Off: the manager opens without asking for the device credential</string>
+    <string name="xion_security_lock_unavailable">No device screen lock is set, so there is nothing to ask for</string>
+    <string name="xion_security_badge_on">ON</string>
+    <string name="xion_security_badge_off">OFF</string>
+    <string name="xion_security_badge_granted">GRANTED</string>
+    <string name="xion_security_override_meta">%1$s · %2$s</string>
+    <string name="xion_security_note">Overrides are per-package AppOps modes set to allow or foreground while the matching runtime permission is not granted. Uid-wide modes are not listed because the shell user cannot change them per package. Tapping a row opens the tool that changes it.</string>
+    <string name="xion_tools_security">Security and privacy</string>
+    <string name="xion_tools_security_sub">App lock, sensitive permissions and AppOps overrides</string>
+
     <!-- Diagnostics -->
     <string name="xion_diag_title">Diagnostics</string>
     <string name="xion_diag_export">Export report</string>

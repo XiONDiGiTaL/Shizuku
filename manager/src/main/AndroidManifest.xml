@@ -137,6 +137,11 @@
             android:theme="@style/Theme.Xion"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".xion.security.SecurityCenterActivity"
+            android:exported="false"
+            android:label="@string/xion_security_title"
+            android:theme="@style/Theme.Xion" />
+        <activity
             android:name=".xion.tools.AppManagerActivity"
             android:exported="false"
             android:label="@string/xion_packages_title"
