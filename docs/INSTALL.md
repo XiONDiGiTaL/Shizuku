@@ -10,8 +10,9 @@
 | Service config | `/data/user_de/0/com.android.shell/shizuku.json` | `.../net_xiondigital_shizuku.json` |
 | Server process | `shizuku_server` | `xion_shizuku_server` |
 
-Both can be installed at the same time. This build never modifies, replaces or uninstalls the
-official app, and it does not touch the official app's stored authorisations.
+This build is meant to **replace** the official app, not to run beside it. It never modifies,
+replaces or uninstalls the official install, and it does not touch that app's stored authorisations,
+so you can install it, move your apps over, and remove the official one when you are satisfied.
 
 ## Requirements
 
@@ -54,13 +55,19 @@ a development key: do not treat its signature as a security boundary.
 3. The dashboard switches to **Service running** and shows the real privilege level
    (`ADB · API 13`, `uid 2000`) and port.
 
-## Verify coexistence
+## Verify it is running
 
 ```bash
 adb shell ps -A -o USER,PID,NAME | grep shizuku_server
 # shell  9355  shizuku_server          <- official, untouched
 # shell 11875  xion_shizuku_server     <- this build
 ```
+
+## Replace the official app
+
+Both packages can be installed during the migration, because Android authorises per package: grant
+access to your apps in this build first, then uninstall `moe.shizuku.privileged.api` from the system
+settings if you want only one Shizuku. Nothing here depends on the official app being gone.
 
 ## Uninstall
 

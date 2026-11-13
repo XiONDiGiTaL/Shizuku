@@ -8,9 +8,9 @@
 
 <br>
 
-[![Version](https://img.shields.io/badge/version-2.0.1--xion-3f80ff?style=for-the-badge&labelColor=0c0e11)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.0.2--xion-3f80ff?style=for-the-badge&labelColor=0c0e11)](CHANGELOG.md)
 [![Android](https://img.shields.io/badge/android-7.0%2B-3f80ff?style=for-the-badge&labelColor=0c0e11)](docs/INSTALL.md)
-[![Coexistence](https://img.shields.io/badge/runs_beside-official_shizuku-79a8ff?style=for-the-badge&labelColor=0c0e11)](docs/INSTALL.md)
+[![Replacement](https://img.shields.io/badge/replaces-shizuku-79a8ff?style=for-the-badge&labelColor=0c0e11)](docs/INSTALL.md)
 [![License](https://img.shields.io/badge/license-Apache--2.0-3f80ff?style=for-the-badge&labelColor=0c0e11)](LICENSE)
 
 **Shizuku's engine. A cockpit that finally tells you the truth.**
@@ -25,8 +25,10 @@ Shizuku is the quiet piece of Android tooling that makes ADB-level power availab
 apps. This fork keeps that engine exactly as it is, then rebuilds everything around it: a
 dark-first interface, tools that do real work, and reporting that refuses to lie to you.
 
-It installs as its own app — own package, own signature, own service, own configuration — so the
-Shizuku you already have keeps working, untouched.
+It is a replacement, not a companion: install it, authorise your apps in it, uninstall the official
+app. Everything Shizuku did, this does. It ships as its own app — own package, own signature, own
+service — which is what makes the switch reversible and leaves an existing install untouched until
+you remove it yourself.
 
 ## Three things you notice in the first minute
 
@@ -136,7 +138,8 @@ Unexpected deaths are recorded with a timestamp and surfaced in diagnostics and 
 
 Samsung SM-S918U · Android 17 (SDK 37) · One UI 9.0, over ADB:
 
-- clean build; installs beside the official Shizuku (`pm list packages` shows both);
+- clean build; installed while an official Shizuku was present, without modifying it
+  (`pm list packages` showed both during the migration);
 - service starts as `xion_shizuku_server` while the official `shizuku_server` keeps running;
 - dashboard reports `Service running`, `ADB · API 13`, `uid 2000`, port 5555;
 - 23 apps listed, cross-check "Android reports 24 holding the permission";
@@ -151,7 +154,7 @@ their real result — [docs/FEATURES.md](docs/FEATURES.md) marks each one.
 
 | | |
 |---|---|
-| [Install](docs/INSTALL.md) | Install, start, verify coexistence, uninstall |
+| [Install](docs/INSTALL.md) | Install, start, migrate off Shizuku, uninstall |
 | [Features](docs/FEATURES.md) | Every feature with its verification status |
 | [Automation](docs/AUTOMATION.md) | Intents, events, tiles, token handling |
 | [Diagnostics](docs/DIAGNOSTICS.md) | What the report contains and how to export it |

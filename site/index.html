@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shizuku Reimagined — XiØN</title>
-<meta name="description" content="Shizuku Reimagined by XiØN: a dark-first Shizuku build with honest authorisation reporting, privileged tools and a fix for the Android 17 / One UI 9.0 “Authorized 0 applications” bug. Installs beside the official Shizuku.">
+<meta name="description" content="Shizuku Reimagined by XiØN: a dark-first Shizuku build with honest authorisation reporting, privileged tools and a fix for the Android 17 / One UI 9.0 “Authorized 0 applications” bug. A drop-in replacement for Shizuku.">
 <meta name="theme-color" content="#050607">
 <meta property="og:title" content="Shizuku Reimagined — XiØN">
 <meta property="og:description" content="ADB-level access, without the terminal. A rebuilt Shizuku with truthful authorisation reporting and real privileged tools.">
@@ -46,7 +46,7 @@
         <a class="nav__link" href="#screens">Screens</a>
         <a class="nav__link" href="#fix">The fix</a>
         <a class="nav__link" href="#install">Install</a>
-        <a class="nav__link" href="#services">Coexistence</a>
+        <a class="nav__link" href="#services">Replaces</a>
       </nav>
 
       <div class="header__actions">
@@ -92,7 +92,7 @@
           <ul class="hero__meta">
             <li><span>Release</span> <strong>v2.0.2-xion</strong></li>
             <li><span>Android</span> <strong>7.0+</strong></li>
-            <li><span>Runs beside</span> <strong>official Shizuku</strong></li>
+            <li><span>Replaces</span> <strong>Shizuku 13.7.0</strong></li>
             <li><span>Status</span> <strong class="chip chip--ok chip--dot">verified on device</strong></li>
           </ul>
         </div>
@@ -112,7 +112,7 @@
           </p>
           <ul class="install-card__list">
             <li><span>01</span> Own package, own signature, own service</li>
-            <li><span>02</span> Never touches the official installation</li>
+            <li><span>02</span> Replaces it — official install untouched</li>
             <li><span>03</span> Wireless debugging or root to start</li>
           </ul>
           <p class="install-card__note">
@@ -324,7 +324,7 @@
         <div class="steps">
           <div class="step" data-reveal>
             <h3>Install the APK</h3>
-            <p>Download <code class="mono">ShizukuReimagined.apk</code> and install it. It coexists with the official Shizuku — nothing is replaced.</p>
+            <p>Download <code class="mono">ShizukuReimagined.apk</code> and install it. This is your Shizuku from now on: authorise your apps here, then uninstall the official app. This build never modifies that app, so the switch can be undone.</p>
             <pre>.\adb install -r ShizukuReimagined.apk</pre>
           </div>
           <div class="step" data-reveal>
@@ -349,18 +349,21 @@
       <div class="wrap">
         <div class="section__head" data-reveal>
           <div>
-            <p class="eyebrow">05 / Coexistence</p>
-            <h2 class="section__title">Two services, <em>no collisions</em></h2>
+            <p class="eyebrow">05 / Replacement</p>
+            <h2 class="section__title">Shizuku's job, <em>rebuilt</em></h2>
           </div>
           <p class="section__note">
-            Different package, process, config file and signing key. The native starter takes
-            <code class="mono">--server-name=</code>, so starting this one cannot terminate the other.
+            A fork is meant to replace what it forks, not to sit beside it. Install this, authorise
+            your apps here, uninstall the official app — everything Shizuku did, this does. It carries
+            its own package, signature and service name so the switch is reversible and an existing
+            install is never modified; that separation is there to make migrating safe, not to keep
+            both around forever.
           </p>
         </div>
 
         <table class="table" data-reveal>
           <thead>
-            <tr><th></th><th>Official Shizuku</th><th>Shizuku Reimagined</th></tr>
+            <tr><th></th><th>Shizuku (official)</th><th>Shizuku Reimagined</th></tr>
           </thead>
           <tbody>
             <tr><td><strong>Package</strong></td><td><code class="mono">moe.shizuku.privileged.api</code></td><td><code class="mono">net.xiondigital.shizuku</code></td></tr>
