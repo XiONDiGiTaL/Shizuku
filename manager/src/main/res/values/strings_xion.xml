@@ -74,6 +74,8 @@
     <string name="xion_tools_title">Tools</string>
     <string name="xion_tools_packages">Package manager</string>
     <string name="xion_tools_packages_sub">Disable, enable, clear or uninstall apps</string>
+    <string name="xion_tools_appops">AppOps manager</string>
+    <string name="xion_tools_appops_sub">Per-app operation modes, verified after each change</string>
     <string name="xion_tools_tweaks">System tweaks</string>
     <string name="xion_tools_tweaks_sub">Animation scales, timeouts and debugging</string>
     <string name="xion_tools_shell">Command center</string>
@@ -139,6 +141,34 @@
     <string name="xion_packages_confirm_disable_msg">Disabled system components can break device features. Only disable packages you understand.</string>
     <string name="xion_packages_system_warning">System package</string>
     <string name="xion_packages_essential_warning">Essential, disabling may break the device</string>
+
+    <!-- AppOps -->
+    <string name="xion_appops_title">AppOps manager</string>
+    <string name="xion_appops_detail_title">App operations</string>
+    <string name="xion_appops_refresh">Refresh</string>
+    <string name="xion_appops_search_packages">Search packages</string>
+    <string name="xion_appops_search_ops">Search operations</string>
+    <string name="xion_appops_filter_all">All</string>
+    <string name="xion_appops_filter_user">User</string>
+    <string name="xion_appops_filter_system">System</string>
+    <string name="xion_appops_packages_count">%1$d packages</string>
+    <string name="xion_appops_reading_packages">Reading packages…</string>
+    <string name="xion_appops_reading_ops">Reading operations…</string>
+    <string name="xion_appops_summary">%1$d operations, %2$d changed from default</string>
+    <string name="xion_appops_empty">This package reports no operations.</string>
+    <string name="xion_appops_unavailable">Start the Shizuku service to read AppOps.</string>
+    <string name="xion_appops_read_failed">Could not read AppOps: %1$s</string>
+    <string name="xion_appops_packages_failed">Could not list packages: %1$s</string>
+    <string name="xion_appops_change_title">Change %1$s</string>
+    <string name="xion_appops_mode_allow">Allow</string>
+    <string name="xion_appops_mode_foreground">Allow only in foreground</string>
+    <string name="xion_appops_mode_ignore">Ignore (deny)</string>
+    <string name="xion_appops_mode_default">Default</string>
+    <string name="xion_appops_verified">Verified: %1$s is now %2$s</string>
+    <string name="xion_appops_not_applied">Not applied: %1$s still reads %2$s</string>
+    <string name="xion_appops_write_failed">Write failed: %1$s</string>
+    <string name="xion_appops_unreadable">unreadable</string>
+    <string name="xion_appops_note">Modes are read with cmd appops get and written with cmd appops set. Every change is read back before it is reported. AppOps are not runtime permissions.</string>
 
     <!-- Tweaks -->
     <string name="xion_tweaks_title">System tweaks</string>

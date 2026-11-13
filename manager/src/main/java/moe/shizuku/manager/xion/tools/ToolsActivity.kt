@@ -31,6 +31,13 @@ class ToolsActivity : XionActivity() {
         ) { startActivity(Intent(this, AppManagerActivity::class.java)) }
 
         row(
+            binding.navAppOps,
+            R.drawable.ic_x_shield,
+            R.string.xion_tools_appops,
+            R.string.xion_tools_appops_sub
+        ) { startActivity(Intent(this, AppOpsActivity::class.java)) }
+
+        row(
             binding.navTweaks,
             R.drawable.ic_x_gear,
             R.string.xion_tools_tweaks,

@@ -97,6 +97,32 @@ while it was disabled.
 The diagnostics screen renders the snapshot under a Capabilities section, so the registry is visible
 in the product rather than being an unused abstraction.
 
+## AppOps manager (Phase 2, delivered)
+
+`xion/tools/AppOpsActivity.kt`, reachable from Tools. A package list with search and All, User and
+System filters leads to the operations the service reports for that package, each with a mode badge.
+Choosing an operation offers Allow, Allow only in foreground, Ignore (deny) and Default.
+
+Writes go through `cmd appops set <package> <op> <mode>` on the Shizuku service, and the result is
+never taken on trust: `cmd appops get <package> <op>` reads the mode back, and the screen reports
+success only when the read-back matches. Otherwise it says the change was not applied and what the
+service still reports.
+
+Verified on the unrooted S23 Ultra:
+
+| Step | Evidence |
+|---|---|
+| Read | 49 operations listed for a test app, 52 for the manager itself |
+| Change | VIBRATE set to allow from the UI; the row badge became ALLOW and the summary count updated |
+| Independent read-back | `adb shell cmd appops get net.xiondigital.shizuku VIBRATE` returned `VIBRATE: allow` |
+| Restore | Set back to Default from the UI; the shell returned `VIBRATE: default` |
+
+Limitation found while testing: operations that Android stores as UID modes (CAMERA, READ_CONTACTS,
+POST_NOTIFICATION and similar) cannot be changed per package on this Android 17 build. `cmd appops set`
+exits 0 and changes nothing, so the screen reports "Not applied: ... still reads ..." instead of a
+success. That is exactly what the read-back exists to catch, and the same applies to
+`SYSTEM_ALERT_WINDOW`, which the system also refuses to move off default here.
+
 ## What each planned subsystem will use
 
 Nothing in the plan needs root. The mappings that follow are the basis for the phase estimates.
@@ -121,7 +147,7 @@ Nothing in the plan needs root. The mappings that follow are the basis for the p
 |---|---|---|
 | 1. Architecture, capability registry | **PARTIALLY IMPLEMENTED** | Registry and diagnostics integration done; module boundaries and UI foundation still to build |
 | 2. Advanced permission inspector | **NOT IMPLEMENTED** | Existing Authorizations screen covers granted/denied per app only |
-| 3. AppOps manager | **NOT IMPLEMENTED** | Read capability probed; no UI, no writes |
+| 3. AppOps manager | **IMPLEMENTED AND TESTED** | Browse per package, change a mode, read it back; permission-backed UID modes are not writable on Android 17 and are reported as not applied |
 | 4. System component manager | **NOT IMPLEMENTED** | No component enumeration or disable/enable |
 | 5. Automation studio | **PARTIALLY IMPLEMENTED** | Broadcast triggers and token auth exist; no visual editor, conditions or actions |
 | 6. Optimization center | **NOT IMPLEMENTED** | Tweaks screen changes individual settings, no profiles or preview |
