@@ -201,6 +201,38 @@ Scope, stated in the screen: this changes four settings only. It does not touch 
 modes, CPU governors, refresh rate or battery policy, because those are not uniformly writable through
 the shell and would need per manufacturer adapters.
 
+## Snapshot and restore (Phase 2, delivered)
+
+`xion/tools/SnapshotsActivity.kt`, reachable from Tools. A snapshot records:
+
+- the four supported settings (three animation scales, screen timeout);
+- whether each user installed package is enabled, plus which are disabled;
+- AppOps modes for user apps that are allowed, foreground or denied.
+
+AppOps in the plain ignore state are deliberately not recorded: that is Android's baseline for most
+operations, it makes up the large majority of entries, and the shell cannot write it per package anyway.
+The screen states this in its footer.
+
+Restoring always previews first: it reads the current state and lists each difference as
+`current -> snapshot`, including package state changes. Only after confirming does it write, and each
+write is verified before it is counted. Items that cannot be put back are listed by name.
+
+Verified on the unrooted S23 Ultra:
+
+| Step | Evidence |
+|---|---|
+| Capture | Finished in 35 s: 4 settings, 306 apps, 1489 AppOps recorded |
+| Preview | After changing a scale outside the app, the preview read `1 change, window_animation_scale: 0.5 -> 1.0` |
+| Restore | Reported `1 item restored`; `settings get` returned `1.0` |
+| Second pass | Same flow on the transition scale: `1 change, transition_animation_scale: 0.5 -> 1.0`, restored to `1.0` |
+
+Performance note: the implementation originally compared each stored AppOp with its own shell call,
+which would have meant thousands of round trips for a real snapshot. Reads are grouped per package, so
+a preview costs one dump per app: 25 s for 306 apps on this device.
+
+Limits: a snapshot holds no app data, no runtime permissions and no system files, so it is a settings
+and state restore, not a backup. Disabled system packages are not captured.
+
 ## What each planned subsystem will use
 
 Nothing in the plan needs root. The mappings that follow are the basis for the phase estimates.
@@ -233,7 +265,7 @@ Nothing in the plan needs root. The mappings that follow are the basis for the p
 | 8. Command center 2.0 | **PARTIALLY IMPLEMENTED** | Execution, exit codes, duration, clear/copy exist; history has no recall UI, no recipes, no search |
 | 9. Security and privacy center | **NOT IMPLEMENTED** | App lock and diagnostics exist; no unified center |
 | 10. Device profiles | **NOT IMPLEMENTED** | Backup exports preferences only |
-| 11. Snapshot and restore | **PARTIALLY IMPLEMENTED** | Preference export/import only; no settings or AppOps snapshots |
+| 11. Snapshot and restore | **IMPLEMENTED AND TESTED** | Named snapshots of supported settings, package enabled states and meaningful AppOps modes, with a diff preview and a verified restore |
 | 12. Intelligent diagnostics | **PARTIALLY IMPLEMENTED** | Data collection is real and honest; no problem detection or recommendations |
 | 13. Control hub | **PARTIALLY IMPLEMENTED** | Dashboard shows service state, authorisations, watchdog; not modular or customisable |
 | 14. Module system | **NOT IMPLEMENTED** | No module abstraction |

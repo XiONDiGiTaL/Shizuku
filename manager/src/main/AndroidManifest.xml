@@ -142,6 +142,12 @@
             android:label="@string/xion_packages_title"
             android:theme="@style/Theme.Xion" />
         <activity
+            android:name=".xion.tools.SnapshotsActivity"
+            android:exported="false"
+            android:label="@string/xion_snapshots_title"
+            android:theme="@style/Theme.Xion"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".xion.tools.OptimizationCenterActivity"
             android:exported="false"
             android:label="@string/xion_optimize_title"

@@ -91,6 +91,12 @@
             <View style="@style/Widget.Xion.Divider" />
 
             <include
+                android:id="@+id/navSnapshots"
+                layout="@layout/xion_nav_row" />
+
+            <View style="@style/Widget.Xion.Divider" />
+
+            <include
                 android:id="@+id/navShell"
                 layout="@layout/xion_nav_row" />
         </LinearLayout>

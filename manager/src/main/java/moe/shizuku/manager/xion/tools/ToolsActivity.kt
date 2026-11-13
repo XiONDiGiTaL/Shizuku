@@ -66,6 +66,13 @@ class ToolsActivity : XionActivity() {
         ) { startActivity(Intent(this, OptimizationCenterActivity::class.java)) }
 
         row(
+            binding.navSnapshots,
+            R.drawable.ic_x_clock,
+            R.string.xion_tools_snapshots,
+            R.string.xion_tools_snapshots_sub
+        ) { startActivity(Intent(this, SnapshotsActivity::class.java)) }
+
+        row(
             binding.navShell,
             R.drawable.ic_x_terminal,
             R.string.xion_tools_shell,

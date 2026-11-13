@@ -78,6 +78,8 @@
     <string name="xion_tools_appops_sub">Per-app operation modes, verified after each change</string>
     <string name="xion_tools_permissions">Permission inspector</string>
     <string name="xion_tools_permissions_sub">Granted and denied permissions, verified after each change</string>
+    <string name="xion_tools_snapshots">Snapshot and restore</string>
+    <string name="xion_tools_snapshots_sub">Save settings, AppOps and package states</string>
     <string name="xion_tools_optimize">Optimization center</string>
     <string name="xion_tools_optimize_sub">Profiles with a preview, a check and a restore</string>
     <string name="xion_tools_components">Component manager</string>
@@ -147,6 +149,48 @@
     <string name="xion_packages_confirm_disable_msg">Disabled system components can break device features. Only disable packages you understand.</string>
     <string name="xion_packages_system_warning">System package</string>
     <string name="xion_packages_essential_warning">Essential, disabling may break the device</string>
+
+    <!-- Snapshots -->
+    <string name="xion_snapshots_title">Snapshot and restore</string>
+    <string name="xion_snapshots_new">New snapshot</string>
+    <string name="xion_snapshots_note">Snapshots hold the supported settings, the AppOps modes of user apps and whether those apps are enabled. Restoring previews the differences first.</string>
+    <string name="xion_snapshots_footer_ops">AppOps that are allowed, foreground or denied are recorded; the default ignore state is not.</string>
+    <string name="xion_snapshots_footer">Snapshots never include app data, permissions or system files.</string>
+    <string name="xion_snapshots_empty">No snapshots yet. Capture one to record the current state.</string>
+    <string name="xion_snapshots_name_title">Snapshot name</string>
+    <string name="xion_snapshots_capture">Capture</string>
+    <string name="xion_snapshots_reading_settings">Reading settings…</string>
+    <string name="xion_snapshots_reading_packages">Reading package states…</string>
+    <string name="xion_snapshots_reading_ops">Reading AppOps %1$d of %2$d…</string>
+    <string name="xion_snapshots_saved">Saved %1$s</string>
+    <string name="xion_snapshots_restore">Restore</string>
+    <string name="xion_snapshots_delete">Delete</string>
+    <string name="xion_snapshots_delete_title">Delete %1$s?</string>
+    <string name="xion_snapshots_delete_msg">The snapshot is removed from this device. Nothing on the system changes.</string>
+    <string name="xion_snapshots_comparing">Comparing with the current state…</string>
+    <string name="xion_snapshots_restoring">Restoring…</string>
+    <string name="xion_snapshots_no_changes">This device already matches the snapshot.</string>
+    <plurals name="xion_snapshots_changes">
+        <item quantity="one">%1$d change</item>
+        <item quantity="other">%1$d changes</item>
+    </plurals>
+    <string name="xion_snapshots_more">and %1$d more</string>
+    <string name="xion_snapshots_preview_title">Preview restore of %1$s</string>
+    <string name="xion_snapshots_restored_title">Snapshot restored</string>
+    <plurals name="xion_snapshots_restored_partial">
+        <item quantity="one">%1$d item could not be restored</item>
+        <item quantity="other">%1$d items could not be restored</item>
+    </plurals>
+    <plurals name="xion_snapshots_restored_count">
+        <item quantity="one">%1$d item restored</item>
+        <item quantity="other">%1$d items restored</item>
+    </plurals>
+    <string name="xion_snapshots_meta">%1$d settings · %2$d apps · %3$d AppOps · %4$s</string>
+    <string name="xion_snapshots_package_line">%1$s: %2$s -> %3$s</string>
+    <string name="xion_snapshots_state_enabled">enabled</string>
+    <string name="xion_snapshots_state_disabled">disabled</string>
+    <string name="xion_snapshots_unset">unset</string>
+    <string name="xion_snapshots_unavailable">Start the Shizuku service to capture a snapshot.</string>
 
     <!-- Optimization center -->
     <string name="xion_optimize_title">Optimization center</string>
