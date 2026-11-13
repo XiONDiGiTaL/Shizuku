@@ -76,6 +76,8 @@
     <string name="xion_tools_packages_sub">Disable, enable, clear or uninstall apps</string>
     <string name="xion_tools_appops">AppOps manager</string>
     <string name="xion_tools_appops_sub">Per-app operation modes, verified after each change</string>
+    <string name="xion_tools_permissions">Permission inspector</string>
+    <string name="xion_tools_permissions_sub">Granted and denied permissions, verified after each change</string>
     <string name="xion_tools_tweaks">System tweaks</string>
     <string name="xion_tools_tweaks_sub">Animation scales, timeouts and debugging</string>
     <string name="xion_tools_shell">Command center</string>
@@ -141,6 +143,36 @@
     <string name="xion_packages_confirm_disable_msg">Disabled system components can break device features. Only disable packages you understand.</string>
     <string name="xion_packages_system_warning">System package</string>
     <string name="xion_packages_essential_warning">Essential, disabling may break the device</string>
+
+    <!-- Permission inspector -->
+    <string name="xion_perms_title">Permission inspector</string>
+    <string name="xion_perms_detail_title">App permissions</string>
+    <string name="xion_perms_refresh">Refresh</string>
+    <string name="xion_perms_search_packages">Search packages</string>
+    <string name="xion_perms_search_permissions">Search permissions</string>
+    <string name="xion_perms_filter_all">All</string>
+    <string name="xion_perms_filter_user">User</string>
+    <string name="xion_perms_filter_system">System</string>
+    <string name="xion_perms_packages_count">%1$d packages</string>
+    <string name="xion_perms_reading_packages">Reading packages…</string>
+    <string name="xion_perms_reading">Reading permissions…</string>
+    <string name="xion_perms_summary">%1$d permissions, %2$d granted</string>
+    <string name="xion_perms_empty">This package reports no permissions.</string>
+    <string name="xion_perms_unavailable">Start the Shizuku service to read permissions.</string>
+    <string name="xion_perms_read_failed">Could not read permissions: %1$s</string>
+    <string name="xion_perms_packages_failed">Could not list packages: %1$s</string>
+    <string name="xion_perms_grant">Grant</string>
+    <string name="xion_perms_revoke">Revoke</string>
+    <string name="xion_perms_grant_msg">Grant this runtime permission to the app now. The result is read back from the package manager.</string>
+    <string name="xion_perms_revoke_msg">Revoking can stop the app immediately and may break features that need this permission. The result is read back from the package manager.</string>
+    <string name="xion_perms_install_time">This permission is fixed at install time. Android does not allow ADB to grant or revoke it.</string>
+    <string name="xion_perms_verified">Verified: %1$s is now %2$s</string>
+    <string name="xion_perms_not_applied">Not applied: %1$s still reads %2$s</string>
+    <string name="xion_perms_write_failed">Change failed: %1$s</string>
+    <string name="xion_perms_unreadable">unreadable</string>
+    <string name="xion_perms_state_granted">granted</string>
+    <string name="xion_perms_state_denied">denied</string>
+    <string name="xion_perms_note">States come from dumpsys package. Grant and revoke run pm grant and pm revoke, then read the permission back before reporting. Install-time permissions cannot be changed without root or a privileged install.</string>
 
     <!-- AppOps -->
     <string name="xion_appops_title">AppOps manager</string>

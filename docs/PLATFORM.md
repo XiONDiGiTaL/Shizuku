@@ -123,6 +123,30 @@ exits 0 and changes nothing, so the screen reports "Not applied: ... still reads
 success. That is exactly what the read-back exists to catch, and the same applies to
 `SYSTEM_ALERT_WINDOW`, which the system also refuses to move off default here.
 
+## Permission inspector (Phase 2, delivered)
+
+`xion/tools/PermissionInspectorActivity.kt`, reachable from Tools. Same package browser as AppOps,
+then every permission the package manager reports for that app with a GRANTED or DENIED badge and a
+runtime or install-time label. Search narrows the list.
+
+States come from `dumpsys package <package>`. Runtime permissions can be granted or revoked with
+`pm grant` / `pm revoke`, and the permission is read back with the same dump afterwards: the row and
+the count only change when the package manager reports the requested state. Install-time permissions
+are shown with an explanation instead of a button, because ADB cannot change them.
+
+Verified on the unrooted S23 Ultra:
+
+| Step | Evidence |
+|---|---|
+| Read | 15 permissions listed for the manager itself, 14 granted |
+| Grant | NEARBY_WIFI_DEVICES granted from the UI; badge became GRANTED and the count went to 15 of 15 |
+| Independent read-back | `adb shell dumpsys package net.xiondigital.shizuku` returned `NEARBY_WIFI_DEVICES: granted=true` |
+| Revoke | Revoked from the UI; the dump returned `granted=false` and the count returned to 14 of 15 |
+
+Caveat that the dialog states plainly: revoking a permission from the app that owns the screen stops
+that app immediately. Android killed and restarted the manager process when its own permission was
+revoked, which is expected system behaviour, not a defect in the inspector.
+
 ## What each planned subsystem will use
 
 Nothing in the plan needs root. The mappings that follow are the basis for the phase estimates.
@@ -146,7 +170,7 @@ Nothing in the plan needs root. The mappings that follow are the basis for the p
 | Section | Status | Notes |
 |---|---|---|
 | 1. Architecture, capability registry | **PARTIALLY IMPLEMENTED** | Registry and diagnostics integration done; module boundaries and UI foundation still to build |
-| 2. Advanced permission inspector | **NOT IMPLEMENTED** | Existing Authorizations screen covers granted/denied per app only |
+| 2. Advanced permission inspector | **IMPLEMENTED AND TESTED** | Per-package runtime and install-time permissions, grant and revoke with read-back; install-time permissions are read-only |
 | 3. AppOps manager | **IMPLEMENTED AND TESTED** | Browse per package, change a mode, read it back; permission-backed UID modes are not writable on Android 17 and are reported as not applied |
 | 4. System component manager | **NOT IMPLEMENTED** | No component enumeration or disable/enable |
 | 5. Automation studio | **PARTIALLY IMPLEMENTED** | Broadcast triggers and token auth exist; no visual editor, conditions or actions |

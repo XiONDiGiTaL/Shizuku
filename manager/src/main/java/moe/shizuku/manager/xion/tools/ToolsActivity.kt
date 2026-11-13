@@ -38,6 +38,13 @@ class ToolsActivity : XionActivity() {
         ) { startActivity(Intent(this, AppOpsActivity::class.java)) }
 
         row(
+            binding.navPermissions,
+            R.drawable.ic_x_check,
+            R.string.xion_tools_permissions,
+            R.string.xion_tools_permissions_sub
+        ) { startActivity(Intent(this, PermissionInspectorActivity::class.java)) }
+
+        row(
             binding.navTweaks,
             R.drawable.ic_x_gear,
             R.string.xion_tools_tweaks,
