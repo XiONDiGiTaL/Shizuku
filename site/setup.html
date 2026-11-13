@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=5">
+<link rel="stylesheet" href="assets/style.css?v=6">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -76,10 +76,13 @@
               so that <code class="mono">C:\platform-tools\adb.exe</code> exists. Do not run the installer from inside
               the zip.
             </p>
-            <pre>macOS / Linux
-curl -O https://dl.google.com/android/repository/platform-tools-latest-darwin.zip
+            <div class="cmd">
+              <span class="cmd__label">macOS / Linux</span>
+              <pre id="cmd-platform-tools">curl -O https://dl.google.com/android/repository/platform-tools-latest-darwin.zip
 unzip platform-tools-latest-darwin.zip      # linux: -latest-linux.zip
 cd platform-tools</pre>
+              <button class="btn btn--ghost btn--sm cmd__copy" type="button" data-copy="#cmd-platform-tools">Copy</button>
+            </div>
           </div>
 
           <div class="step">
@@ -108,9 +111,18 @@ cd platform-tools</pre>
               PowerShell needs the <code class="mono">.\</code> prefix to run a program from the current folder; cmd
               does not.
             </p>
-            <pre>PowerShell                          cmd
-cd C:\platform-tools                cd /d C:\platform-tools
-.\adb devices                       adb devices</pre>
+            <div class="cmd">
+              <span class="cmd__label">PowerShell</span>
+              <pre id="cmd-devices-pwsh">cd C:\platform-tools
+.\adb devices</pre>
+              <button class="btn btn--ghost btn--sm cmd__copy" type="button" data-copy="#cmd-devices-pwsh">Copy</button>
+            </div>
+            <div class="cmd">
+              <span class="cmd__label">cmd</span>
+              <pre id="cmd-devices-cmd">cd /d C:\platform-tools
+adb devices</pre>
+              <button class="btn btn--ghost btn--sm cmd__copy" type="button" data-copy="#cmd-devices-cmd">Copy</button>
+            </div>
             <p>
               You want your phone's serial followed by <code class="mono">device</code>:
             </p>
@@ -125,8 +137,16 @@ R5CW71H8GEZ     device</pre>
               and move it into <code class="mono">C:\platform-tools</code>, next to <code class="mono">adb.exe</code>.
               The filename never changes between releases, so this command stays valid forever.
             </p>
-            <pre>PowerShell                                  cmd
-.\adb install -r ShizukuReimagined.apk      adb install -r ShizukuReimagined.apk</pre>
+            <div class="cmd">
+              <span class="cmd__label">PowerShell</span>
+              <pre id="cmd-install-pwsh">.\adb install -r ShizukuReimagined.apk</pre>
+              <button class="btn btn--ghost btn--sm cmd__copy" type="button" data-copy="#cmd-install-pwsh">Copy</button>
+            </div>
+            <div class="cmd">
+              <span class="cmd__label">cmd</span>
+              <pre id="cmd-install-cmd">adb install -r ShizukuReimagined.apk</pre>
+              <button class="btn btn--ghost btn--sm cmd__copy" type="button" data-copy="#cmd-install-cmd">Copy</button>
+            </div>
             <p>Expect <code class="mono">Performing Streamed Install</code> then <code class="mono">Success</code>.</p>
           </div>
 
@@ -144,9 +164,22 @@ R5CW71H8GEZ     device</pre>
             <p>
               One line, identical in PowerShell, cmd, Windows Terminal, macOS and Linux:
             </p>
-            <pre>.\adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh</pre>
+            <div class="cmd">
+              <span class="cmd__label">PowerShell / cmd</span>
+              <pre id="cmd-start">.\adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh</pre>
+              <button class="btn btn--ghost btn--sm cmd__copy" type="button" data-copy="#cmd-start">Copy</button>
+            </div>
+            <div class="cmd">
+              <span class="cmd__label">cmd, without the prefix</span>
+              <pre id="cmd-start-cmd">adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh</pre>
+              <button class="btn btn--ghost btn--sm cmd__copy" type="button" data-copy="#cmd-start-cmd">Copy</button>
+            </div>
+            <div class="cmd">
+              <span class="cmd__label">macOS / Linux</span>
+              <pre id="cmd-start-posix">./adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh</pre>
+              <button class="btn btn--ghost btn--sm cmd__copy" type="button" data-copy="#cmd-start-posix">Copy</button>
+            </div>
             <p>
-              On macOS/Linux use <code class="mono">./adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh</code>.
               The script prints the starter log and then stays in the foreground — that is the service running.
             </p>
             <pre>info: starter begin
@@ -235,9 +268,12 @@ info: shizuku_starter exit with 0</pre>
             What the script contains — three lines, and the two paths change on every app update, which is why it is
             rewritten each time the app starts:
           </p>
-          <pre>#!/system/bin/sh
+          <div class="cmd">
+            <pre id="cmd-script">#!/system/bin/sh
 # Shizuku Reimagined: starts the service from a computer.
 exec "/data/app/…/lib/arm64/libshizuku.so" --server-name=xion_shizuku_server --apk="/data/app/…/base.apk"</pre>
+            <button class="btn btn--ghost btn--sm cmd__copy" type="button" data-copy="#cmd-script">Copy</button>
+          </div>
           <p>
             Prefer no cable? <a href="index.html#install">Wireless debugging and root</a> both start the service from
             inside the app. This build never touches the official Shizuku's installation or its authorisations.
@@ -260,6 +296,8 @@ exec "/data/app/…/lib/arm64/libshizuku.so" --server-name=xion_shizuku_server -
   </footer>
 
 </div>
+
+<script src="assets/app.js?v=4"></script>
 
 </body>
 </html>

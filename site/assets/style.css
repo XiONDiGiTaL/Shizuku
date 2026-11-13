@@ -1123,3 +1123,31 @@ img { max-width: 100%; display: block; }
   line-height: 1.65;
   color: var(--muted);
 }
+
+/* Copy affordances on the guide page: same behaviour as the homepage card. */
+
+.cmd { margin-top: 12px; }
+
+.cmd__label {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cmd pre { margin: 0; }
+
+.cmd__copy {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cmd pre + .cmd__copy:only-of-type { margin-top: 8px; }
+
+.guide__foot .cmd { margin-top: 0; }
