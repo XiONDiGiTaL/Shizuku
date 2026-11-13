@@ -183,6 +183,102 @@
      Scroll reveal
      ------------------------------------------------------- */
 
+  /* -------------------------------------------------------
+     Screenshot lightbox
+     ------------------------------------------------------- */
+
+  const gallery = Array.prototype.slice.call(document.querySelectorAll("[data-gallery] .shot"));
+  const lightbox = document.getElementById("lightbox");
+
+  if (gallery.length && lightbox) {
+    const image = document.getElementById("lightboxImage");
+    const title = document.getElementById("lightboxTitle");
+    const sub = document.getElementById("lightboxSub");
+    const counter = document.getElementById("lightboxCount");
+    const closeButton = lightbox.querySelector(".lightbox__close");
+    const prevButton = lightbox.querySelector("[data-lightbox-prev]");
+    const nextButton = lightbox.querySelector("[data-lightbox-next]");
+
+    let index = 0;
+    let lastFocus = null;
+
+    const pad = function (n) {
+      return String(n).padStart(2, "0");
+    };
+
+    function show(next) {
+      index = (next + gallery.length) % gallery.length;
+      const card = gallery[index];
+      const source = card.querySelector("img");
+
+      image.src = card.dataset.shot;
+      image.alt = source ? source.alt : "";
+      title.textContent = card.dataset.title || "";
+      sub.textContent = card.dataset.sub || "";
+      counter.textContent = pad(index + 1) + " / " + pad(gallery.length);
+    }
+
+    function open(at) {
+      lastFocus = document.activeElement;
+      show(at);
+      lightbox.hidden = false;
+      document.body.style.overflow = "hidden";
+      if (closeButton) closeButton.focus();
+      sfx.select();
+    }
+
+    function close() {
+      lightbox.hidden = true;
+      document.body.style.overflow = "";
+      image.removeAttribute("src");
+      if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+    }
+
+    function step(delta) {
+      show(index + delta);
+      sfx.hover();
+    }
+
+    gallery.forEach(function (card, at) {
+      card.addEventListener("click", function () {
+        open(at);
+      });
+    });
+
+    lightbox.querySelectorAll("[data-lightbox-close]").forEach(function (el) {
+      el.addEventListener("click", close);
+    });
+
+    if (prevButton) prevButton.addEventListener("click", function () { step(-1); });
+    if (nextButton) nextButton.addEventListener("click", function () { step(1); });
+
+    document.addEventListener("keydown", function (event) {
+      if (lightbox.hidden) return;
+
+      if (event.key === "Escape") {
+        close();
+        return;
+      }
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        step(-1);
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        step(1);
+      }
+      if (event.key === "Tab") {
+        // Keep focus inside the dialog while it is open.
+        const focusable = [closeButton, prevButton, nextButton].filter(Boolean);
+        if (!focusable.length) return;
+        const current = focusable.indexOf(document.activeElement);
+        const nextAt = (current + (event.shiftKey ? -1 : 1) + focusable.length) % focusable.length;
+        event.preventDefault();
+        focusable[nextAt].focus();
+      }
+    });
+  }
+
   const revealables = Array.prototype.slice.call(document.querySelectorAll("[data-reveal]"));
 
   // IntersectionObserver is the usual tool here, but it does not fire in every context (hidden

@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=2">
+<link rel="stylesheet" href="assets/style.css?v=4">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -211,31 +211,49 @@ adb shell <b>libshizuku.so</b> \
           </p>
         </div>
 
-        <div class="shots">
-          <figure class="shot" data-reveal>
+        <div class="shots" data-gallery>
+          <button class="shot" type="button" data-reveal data-shot="assets/shots/dashboard.png"
+                  data-title="Dashboard" data-sub="state, privilege, port"
+                  aria-label="Open the Dashboard screenshot at full size">
             <img src="assets/shots/dashboard.png" alt="Dashboard showing service running as ADB with 23 authorised apps" loading="lazy">
-            <figcaption><strong>Dashboard</strong><span>state, privilege, port</span></figcaption>
-          </figure>
-          <figure class="shot" data-reveal>
+            <span class="shot__meta"><strong>Dashboard</strong><span>state, privilege, port</span></span>
+            <span class="shot__hint" aria-hidden="true">Expand</span>
+          </button>
+          <button class="shot" type="button" data-reveal data-shot="assets/shots/authorizations.png"
+                  data-title="Authorizations" data-sub="23 listed · 24 hold it"
+                  aria-label="Open the Authorizations screenshot at full size">
             <img src="assets/shots/authorizations.png" alt="Authorizations screen listing authorised apps with a cross-check" loading="lazy">
-            <figcaption><strong>Authorizations</strong><span>23 listed · 24 hold it</span></figcaption>
-          </figure>
-          <figure class="shot" data-reveal>
+            <span class="shot__meta"><strong>Authorizations</strong><span>23 listed · 24 hold it</span></span>
+            <span class="shot__hint" aria-hidden="true">Expand</span>
+          </button>
+          <button class="shot" type="button" data-reveal data-shot="assets/shots/tools.png"
+                  data-title="Tools" data-sub="packages, tweaks, shell"
+                  aria-label="Open the Tools screenshot at full size">
             <img src="assets/shots/tools.png" alt="Tools screen" loading="lazy">
-            <figcaption><strong>Tools</strong><span>packages, tweaks, shell</span></figcaption>
-          </figure>
-          <figure class="shot" data-reveal>
+            <span class="shot__meta"><strong>Tools</strong><span>packages, tweaks, shell</span></span>
+            <span class="shot__hint" aria-hidden="true">Expand</span>
+          </button>
+          <button class="shot" type="button" data-reveal data-shot="assets/shots/command-center.png"
+                  data-title="Command center" data-sub="real exit codes"
+                  aria-label="Open the Command center screenshot at full size">
             <img src="assets/shots/command-center.png" alt="Command center" loading="lazy">
-            <figcaption><strong>Command center</strong><span>real exit codes</span></figcaption>
-          </figure>
-          <figure class="shot" data-reveal>
+            <span class="shot__meta"><strong>Command center</strong><span>real exit codes</span></span>
+            <span class="shot__hint" aria-hidden="true">Expand</span>
+          </button>
+          <button class="shot" type="button" data-reveal data-shot="assets/shots/diagnostics.png"
+                  data-title="Diagnostics" data-sub="device and service"
+                  aria-label="Open the Diagnostics screenshot at full size">
             <img src="assets/shots/diagnostics.png" alt="Diagnostics screen" loading="lazy">
-            <figcaption><strong>Diagnostics</strong><span>device and service</span></figcaption>
-          </figure>
-          <figure class="shot" data-reveal>
+            <span class="shot__meta"><strong>Diagnostics</strong><span>device and service</span></span>
+            <span class="shot__hint" aria-hidden="true">Expand</span>
+          </button>
+          <button class="shot" type="button" data-reveal data-shot="assets/shots/automation.png"
+                  data-title="Automation" data-sub="intents and events"
+                  aria-label="Open the Automation screenshot at full size">
             <img src="assets/shots/automation.png" alt="Automation screen with auth token and control intents" loading="lazy">
-            <figcaption><strong>Automation</strong><span>intents and events</span></figcaption>
-          </figure>
+            <span class="shot__meta"><strong>Automation</strong><span>intents and events</span></span>
+            <span class="shot__hint" aria-hidden="true">Expand</span>
+          </button>
         </div>
       </div>
     </section>
@@ -375,6 +393,30 @@ adb shell <b>libshizuku.so</b> \
 
 </div>
 
-<script src="assets/app.js?v=2"></script>
+<!-- screenshot lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle" hidden>
+  <div class="lightbox__backdrop" data-lightbox-close></div>
+  <button class="lightbox__close" type="button" data-lightbox-close aria-label="Close screenshot">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+      <path d="M6 6l12 12M18 6L6 18"/>
+    </svg>
+  </button>
+  <button class="lightbox__nav lightbox__nav--prev" type="button" data-lightbox-prev aria-label="Previous screenshot">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <figure class="lightbox__figure">
+    <img id="lightboxImage" src="" alt="">
+    <figcaption class="lightbox__caption">
+      <strong id="lightboxTitle">Screenshot</strong>
+      <span id="lightboxSub"></span>
+      <span class="lightbox__count" id="lightboxCount"></span>
+    </figcaption>
+  </figure>
+  <button class="lightbox__nav lightbox__nav--next" type="button" data-lightbox-next aria-label="Next screenshot">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
+</div>
+
+<script src="assets/app.js?v=4"></script>
 </body>
 </html>
