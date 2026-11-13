@@ -78,7 +78,7 @@ object DiagnosticsCollector {
                     "Privilege uid" to if (running) PrivilegedShell.serviceUid().toString() else "n/a",
                     "Privilege level" to when {
                         !running -> "none"
-                        PrivilegedShell.isRoot() -> "root"
+                        PrivilegedShell.isRoot() -> "root (optional)"
                         else -> "adb (shell)"
                     },
                     "API version" to if (running) runCatching { Shizuku.getVersion() }.getOrDefault(-1).toString() else "n/a",

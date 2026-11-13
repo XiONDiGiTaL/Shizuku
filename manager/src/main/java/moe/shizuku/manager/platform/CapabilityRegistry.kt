@@ -18,7 +18,8 @@ import moe.shizuku.manager.xion.shell.PrivilegedShell
  * - a capability is AVAILABLE only when a read-only probe succeeded on this device;
  * - a failed probe means UNAVAILABLE, with the reason kept;
  * - if something cannot be checked without changing state, the state is UNKNOWN, never ASSUMED;
- * - nothing in this file runs `su`, and a root-privileged service is not treated as a capability.
+ * - root is optional and additive. Nothing in this file runs `su`; a service that happens to be
+ *   root-privileged is reported as such, and every capability below still works at uid 2000.
  */
 object CapabilityRegistry {
 
@@ -42,8 +43,13 @@ object CapabilityRegistry {
         Manufacturer.OTHER -> Build.MANUFACTURER
     }
 
-    /** True when the running service is the shell user, which is the only privilege model we support. */
+    /** True when the service is running with shell privilege, the baseline every feature is built on. */
     fun isShellPrivileged(): Boolean = ShizukuStateMachine.isRunning() && PrivilegedShell.serviceUid() == 2000
+
+    /** Root is supported where it exists, but no feature may require it. */
+    fun isRootPrivileged(): Boolean = ShizukuStateMachine.isRunning() && PrivilegedShell.serviceUid() == 0
+
+    private fun usable(uid: Int): Boolean = uid == 2000 || uid == 0
 
     suspend fun snapshot(context: Context): List<Capability> = withContext(Dispatchers.IO) {
         val list = ArrayList<Capability>()
@@ -55,21 +61,31 @@ object CapabilityRegistry {
                 "service.shell",
                 "Shizuku service (shell privilege)",
                 Tier.SHIZUKU_ADB,
-                when {
-                    uid == 2000 -> CapabilityState.AVAILABLE
-                    uid == 0 -> CapabilityState.UNAVAILABLE
-                    else -> CapabilityState.UNAVAILABLE
-                },
+                if (uid == 2000 || uid == 0) CapabilityState.AVAILABLE else CapabilityState.UNAVAILABLE,
                 when {
                     uid == 2000 -> "running as uid 2000 (shell)"
-                    uid == 0 -> "running as uid 0; this platform does not use root privilege"
+                    uid == 0 -> "running as uid 0 (root), which also covers every shell operation"
                     running -> "service running but uid was not readable"
                     else -> "service not running"
                 }
             )
         )
 
-        if (running && uid == 2000) {
+        list.add(
+            Capability(
+                "service.root",
+                "Root privilege (optional)",
+                Tier.SHIZUKU_ADB,
+                if (uid == 0) CapabilityState.AVAILABLE else CapabilityState.UNAVAILABLE,
+                if (uid == 0) {
+                    "service is root-privileged; no feature requires it"
+                } else {
+                    "not in use; every feature works at shell privilege"
+                }
+            )
+        )
+
+        if (usable(uid)) {
             val idProbe = PrivilegedShell.run("id -u")
             list.add(
                 Capability(

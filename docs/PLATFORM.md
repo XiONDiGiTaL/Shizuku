@@ -21,9 +21,14 @@ The platform runs on three sources of authority only:
 2. Android runtime permissions the user grants.
 3. Manufacturer or public Android APIs and settings that are open to those two.
 
-`su`, root shells, Magisk, root filesystems, privileged installs and exploits are out of scope. A
-service that happens to be running as uid 0 is treated as **unavailable** by the capability registry,
-not as a bonus, and no feature depends on it.
+**Root is optional and additive.** Existing root support stays, because devices that can use it should
+not lose it. The rule is not that root is forbidden, it is that **no feature may require it**: every
+screen and every action has to work at uid 2000 (shell) through Shizuku and ADB, and root can only
+make the same things easier. A service running as uid 0 is reported as root-privileged in the
+capability registry, and the shell-tier probes run against it just the same.
+
+The reference device for this rule is a US Snapdragon Galaxy S23 Ultra, which cannot be rooted. If a
+feature needs root there, the feature is broken, not the device.
 
 ## Audit of the existing code (evidence)
 
@@ -43,6 +48,36 @@ references:
 The libsu dependency and root launch paths are the main non-root violations. They are **not removed
 yet**: removing them changes the classic screens and must be done in its own step with device testing,
 tracked as Phase 1b below.
+
+## Non-root parity audit
+
+Every `isRooted()` gate in the app was inspected. None of them gate a general feature:
+
+| Location | What it gates | Non-root behaviour |
+|---|---|---|
+| `home/AutomationViewHolder.kt:110` | A note about the device restriction for automation on Android 10 and older | Note shown, everything else identical |
+| `settings/SettingsFragment.kt:124` | Start-on-boot preference availability | Available on Android 11 and newer regardless of root, which covers the S23 |
+| `home/HomeAdapter.kt:60` | The root restart card | Card hidden; ADB and wireless start remain |
+| `starter/StarterActivity.kt` | Root start path | Unreachable without a root shell; ADB path unaffected |
+| `receiver/ShizukuReceiverStarter.kt` | Root start branch | Returns without starting; the wireless ADB worker is the supported path |
+| `xion/service/ServiceController.kt` | Root launch mode | Only taken when the last mode was root and a root shell exists |
+
+### Verified on the unrooted reference device
+
+Galaxy S23 Ultra SM-S918U, Android 17 (SDK 37), One UI 9.0, service at uid 2000, no root:
+
+| Feature | Evidence |
+|---|---|
+| Service start and status | Dashboard shows "Service running", "ADB · API 13", "Running as shell (uid 2000) · port 5555" |
+| Shell execution | Command center header reads "ADB privileges (uid 2000)"; running `id` returned `uid=2000(shell) gid=2000(shell) groups=2000(shell),1004(input),1007(log),1011(adb),...` |
+| Package manager | 784 packages listed with All, User and System filters, search and export |
+| System tweaks | Animation scale read live from settings, "Current: 1.0" |
+| Diagnostics | Capability rows report probe evidence for every entry |
+| Authorisations | 24 requesting apps tracked, 23 granted |
+| App lock | Available because the device has a secure lock |
+
+What root changes on a device that has it: the root restart card appears and the optional root start
+path becomes reachable. Nothing else in the table depends on it.
 
 ## Capability registry (delivered in Phase 1)
 
@@ -99,7 +134,7 @@ Nothing in the plan needs root. The mappings that follow are the basis for the p
 | 13. Control hub | **PARTIALLY IMPLEMENTED** | Dashboard shows service state, authorisations, watchdog; not modular or customisable |
 | 14. Module system | **NOT IMPLEMENTED** | No module abstraction |
 | 15. Manufacturer compatibility | **NOT IMPLEMENTED** | Registry detects manufacturer; no adapters |
-| 16. Non-root enforcement | **PARTIALLY IMPLEMENTED** | Policy adopted and registry refuses root privilege; libsu and root launch paths still present |
+| 16. Non-root enforcement | **PARTIALLY IMPLEMENTED** | Root kept as an optional path by decision, registry reports it without requiring it; parity audit found no feature that requires root |
 | 17. UI and UX | **PARTIALLY IMPLEMENTED** | Existing Material 3 dark and light UI; new subsystems not designed yet |
 | 18. Development and testing | **PARTIALLY IMPLEMENTED** | Branch separation and device testing in place; no automated regression suite |
 | 19. Documentation | **PARTIALLY IMPLEMENTED** | This document plus existing docs; new features have no docs yet |
