@@ -152,9 +152,10 @@
             <h3 class="card__title">Command center</h3>
             <p class="card__copy">
               Run shell commands through the service with its real privilege level. Exit codes, stderr and
-              duration are shown exactly as they came back, with presets for the usual checks.
+              duration are shown exactly as they came back, with presets, command history, saved recipes
+              and transcript search.
             </p>
-            <div class="card__tags"><span class="chip">uid 2000</span><span class="chip">presets</span></div>
+            <div class="card__tags"><span class="chip">uid 2000</span><span class="chip">presets</span><span class="chip">recipes</span></div>
           </article>
 
           <article class="card" data-reveal>
@@ -229,18 +230,18 @@
             <span class="shot__meta"><strong>Authorizations</strong><span>23 listed · 24 hold it</span></span>
             <span class="shot__hint" aria-hidden="true">Expand</span>
           </button>
-          <button class="shot" type="button" data-reveal data-shot="assets/shots/tools.png"
+          <button class="shot" type="button" data-reveal data-shot="assets/shots/tools.png?v=2"
                   data-title="Tools" data-sub="packages, tweaks, shell"
                   aria-label="Open the Tools screenshot at full size">
-            <img src="assets/shots/tools.png" alt="Tools screen" loading="lazy">
-            <span class="shot__meta"><strong>Tools</strong><span>packages, tweaks, shell</span></span>
+            <img src="assets/shots/tools.png?v=2" alt="Tools screen" loading="lazy">
+            <span class="shot__meta"><strong>Tools</strong><span>packages, tweaks, security, shell</span></span>
             <span class="shot__hint" aria-hidden="true">Expand</span>
           </button>
-          <button class="shot" type="button" data-reveal data-shot="assets/shots/command-center.png"
-                  data-title="Command center" data-sub="real exit codes"
+          <button class="shot" type="button" data-reveal data-shot="assets/shots/command-center.png?v=2"
+                  data-title="Command center" data-sub="history, recipes, real exit codes"
                   aria-label="Open the Command center screenshot at full size">
-            <img src="assets/shots/command-center.png" alt="Command center" loading="lazy">
-            <span class="shot__meta"><strong>Command center</strong><span>real exit codes</span></span>
+            <img src="assets/shots/command-center.png?v=2" alt="Command center" loading="lazy">
+            <span class="shot__meta"><strong>Command center</strong><span>history, recipes, real exit codes</span></span>
             <span class="shot__hint" aria-hidden="true">Expand</span>
           </button>
           <button class="shot" type="button" data-reveal data-shot="assets/shots/diagnostics.png"
@@ -255,6 +256,55 @@
                   aria-label="Open the Automation screenshot at full size">
             <img src="assets/shots/automation.png" alt="Automation screen with auth token and control intents" loading="lazy">
             <span class="shot__meta"><strong>Automation</strong><span>intents and events</span></span>
+            <span class="shot__hint" aria-hidden="true">Expand</span>
+          </button>
+          <button class="shot" type="button" data-reveal data-shot="assets/shots/security-center.png"
+                  data-title="Security and privacy" data-sub="overrides, each with a verified fix"
+                  aria-label="Open the Security and privacy screenshot at full size">
+            <img src="assets/shots/security-center.png" alt="Security and privacy screen listing AppOps overrides with Fix buttons" loading="lazy">
+            <span class="shot__meta"><strong>Security and privacy</strong><span>overrides, each with a verified fix</span></span>
+            <span class="shot__hint" aria-hidden="true">Expand</span>
+          </button>
+          <button class="shot" type="button" data-reveal data-shot="assets/shots/appops.png"
+                  data-title="AppOps manager" data-sub="per operation modes, read back"
+                  aria-label="Open the AppOps manager screenshot at full size">
+            <img src="assets/shots/appops.png" alt="App operation modes for Dropbox with allow, ignore and foreground badges" loading="lazy">
+            <span class="shot__meta"><strong>AppOps manager</strong><span>per operation modes, read back</span></span>
+            <span class="shot__hint" aria-hidden="true">Expand</span>
+          </button>
+          <button class="shot" type="button" data-reveal data-shot="assets/shots/permissions.png"
+                  data-title="Permissions" data-sub="grant and revoke, verified"
+                  aria-label="Open the Permissions screenshot at full size">
+            <img src="assets/shots/permissions.png" alt="Permission inspector showing 30 permissions, 30 granted" loading="lazy">
+            <span class="shot__meta"><strong>Permissions</strong><span>grant and revoke, verified</span></span>
+            <span class="shot__hint" aria-hidden="true">Expand</span>
+          </button>
+          <button class="shot" type="button" data-reveal data-shot="assets/shots/components.png"
+                  data-title="Components" data-sub="activities, services, receivers"
+                  aria-label="Open the Components screenshot at full size">
+            <img src="assets/shots/components.png" alt="App components screen listing activities with an enabled package" loading="lazy">
+            <span class="shot__meta"><strong>Components</strong><span>activities, services, receivers</span></span>
+            <span class="shot__hint" aria-hidden="true">Expand</span>
+          </button>
+          <button class="shot" type="button" data-reveal data-shot="assets/shots/optimization-center.png"
+                  data-title="Optimization center" data-sub="profiles and one restore"
+                  aria-label="Open the Optimization center screenshot at full size">
+            <img src="assets/shots/optimization-center.png" alt="Optimization center with profiles and a preview" loading="lazy">
+            <span class="shot__meta"><strong>Optimization center</strong><span>profiles and one restore</span></span>
+            <span class="shot__hint" aria-hidden="true">Expand</span>
+          </button>
+          <button class="shot" type="button" data-reveal data-shot="assets/shots/snapshots.png"
+                  data-title="Snapshots" data-sub="settings, apps and AppOps"
+                  aria-label="Open the Snapshots screenshot at full size">
+            <img src="assets/shots/snapshots.png" alt="Snapshot and restore screen listing a saved snapshot" loading="lazy">
+            <span class="shot__meta"><strong>Snapshots</strong><span>settings, apps and AppOps</span></span>
+            <span class="shot__hint" aria-hidden="true">Expand</span>
+          </button>
+          <button class="shot" type="button" data-reveal data-shot="assets/shots/backup.png"
+                  data-title="Backup" data-sub="export and import"
+                  aria-label="Open the Backup screenshot at full size">
+            <img src="assets/shots/backup.png" alt="Backup and restore screen for app settings" loading="lazy">
+            <span class="shot__meta"><strong>Backup</strong><span>export and import</span></span>
             <span class="shot__hint" aria-hidden="true">Expand</span>
           </button>
         </div>
