@@ -102,6 +102,26 @@
     <string name="xion_shell_danger_title">Potentially destructive command</string>
     <string name="xion_shell_danger_msg">This command can break apps or the system:\n\n%1$s\n\nRun it anyway?</string>
     <string name="xion_shell_no_service">The Shizuku service is not running.</string>
+    <string name="xion_shell_history">History</string>
+    <string name="xion_shell_history_title">History</string>
+    <string name="xion_shell_history_clear">Clear history</string>
+    <string name="xion_shell_history_empty">No commands yet.</string>
+    <string name="xion_shell_recipes">Recipes</string>
+    <string name="xion_shell_recipes_title">Recipes</string>
+    <string name="xion_shell_recipes_empty">No recipes saved yet.</string>
+    <string name="xion_shell_recipe_name">Recipe name</string>
+    <string name="xion_shell_recipe_save">Save</string>
+    <string name="xion_shell_recipe_saved">Saved recipe %1$s</string>
+    <string name="xion_shell_recipe_actions">%1$s</string>
+    <string name="xion_shell_recipe_run">Run</string>
+    <string name="xion_shell_recipe_insert">Insert</string>
+    <string name="xion_shell_recipe_delete">Delete</string>
+    <string name="xion_shell_recipe_deleted">Recipe deleted</string>
+    <string name="xion_shell_recipe_empty_command">Enter a command first.</string>
+    <string name="xion_shell_save_recipe">Save recipe</string>
+    <string name="xion_shell_find">Find</string>
+    <string name="xion_shell_find_hint">Search output</string>
+    <string name="xion_shell_matches">%1$d matching lines</string>
 
     <!-- Diagnostics -->
     <string name="xion_diag_title">Diagnostics</string>

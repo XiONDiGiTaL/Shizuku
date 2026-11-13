@@ -233,6 +233,33 @@ a preview costs one dump per app: 25 s for 306 apps on this device.
 Limits: a snapshot holds no app data, no runtime permissions and no system files, so it is a settings
 and state restore, not a backup. Disabled system packages are not captured.
 
+## Command center (Phase 2, delivered)
+
+`xion/tools/CommandCenterActivity.kt` now keeps the transcript as recorded lines and adds:
+
+- **History**: the last 20 commands, recalled into the input, with a clear action.
+- **Recipes**: named commands, saved from the current input, then run, inserted or deleted.
+- **Find**: filters the transcript by substring and reports how many lines match, without discarding
+  the transcript.
+
+History and recipes are local records of commands, not results: only the transcript, written from
+actual command results, claims that something ran. A recipe with a destructive pattern still goes
+through the same confirmation as a typed command.
+
+Verified on the unrooted S23 Ultra:
+
+| Step | Evidence |
+|---|---|
+| Run | `uptime` returned `load average: 0.45, 1.01, 1.14` with `[exit 0 · 106 ms]` |
+| Recipe | Saved as `uptime`, listed under Recipes, actions showed Run, Insert, Delete |
+| Recipe run | Transcript then held two `load average` lines, the second at a later timestamp |
+| History | Dialog listed `uptime` and recalled it into the input |
+| Find | Searching `load` reported `2 matching lines` and rendered only those two |
+
+Bug found and fixed during testing: an action dialog built with both a message and an item list
+rendered the message only, so Run, Insert and Delete never appeared. The action list is now the dialog
+content, and the recipe name is the title.
+
 ## What each planned subsystem will use
 
 Nothing in the plan needs root. The mappings that follow are the basis for the phase estimates.
@@ -262,7 +289,7 @@ Nothing in the plan needs root. The mappings that follow are the basis for the p
 | 5. Automation studio | **PARTIALLY IMPLEMENTED** | Broadcast triggers and token auth exist; no visual editor, conditions or actions |
 | 6. Optimization center | **IMPLEMENTED AND TESTED** | Three profiles with a live preview, verified writes and a one tap restore; scope is limited to four settings the shell can change |
 | 7. Advanced package manager | **PARTIALLY IMPLEMENTED** | Enable/disable, clear, uninstall per app exist; no inventory export, no compare, no debloat assistant |
-| 8. Command center 2.0 | **PARTIALLY IMPLEMENTED** | Execution, exit codes, duration, clear/copy exist; history has no recall UI, no recipes, no search |
+| 8. Command center 2.0 | **IMPLEMENTED AND TESTED** | Execution with exit codes, history recall, named recipes that can be run, inserted or deleted, and a transcript search |
 | 9. Security and privacy center | **NOT IMPLEMENTED** | App lock and diagnostics exist; no unified center |
 | 10. Device profiles | **NOT IMPLEMENTED** | Backup exports preferences only |
 | 11. Snapshot and restore | **IMPLEMENTED AND TESTED** | Named snapshots of supported settings, package enabled states and meaningful AppOps modes, with a diff preview and a verified restore |
