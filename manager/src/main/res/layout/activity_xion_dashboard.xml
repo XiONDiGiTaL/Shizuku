@@ -435,6 +435,12 @@
                 <View style="@style/Widget.Xion.Divider" />
 
                 <include
+                    android:id="@+id/navLock"
+                    layout="@layout/xion_nav_row" />
+
+                <View style="@style/Widget.Xion.Divider" />
+
+                <include
                     android:id="@+id/navBackup"
                     layout="@layout/xion_nav_row" />
             </LinearLayout>

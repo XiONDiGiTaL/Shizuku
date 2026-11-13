@@ -3,6 +3,19 @@
 All notable changes to this fork are documented here. The fork continues the work of
 [thedjchi/Shizuku](https://github.com/thedjchi/Shizuku) (13.7.0) under the [XiØN](https://github.com/XiONDiGiTaL) identity.
 
+## Unreleased
+
+### App lock
+
+- Optional **App lock**: the manager asks for the device's own screen lock (PIN, pattern, password
+  or biometric) before any screen opens, and re-locks after a minute in the background. It is off by
+  default, needs a secure screen lock to turn on, and turns itself off if the screen lock is later
+  removed. Android holds the secret; the app only learns whether the unlock succeeded.
+- The gate lives in a shared `XionActivity`, so sub-screens are covered too, not only the dashboard.
+- Adapted from **Shevery** by HmnDev-Tech (https://github.com/HmnDev-Tech/shevery, Apache-2.0), which
+  offers per-action biometric protection. Theirs is broader; this is one switch. Credit is also in
+  the README's credits section.
+
 ## 2.0.1-xion
 
 ### Wireless debugging

@@ -8,17 +8,17 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import moe.shizuku.manager.R
+import moe.shizuku.manager.xion.XionActivity
 import moe.shizuku.manager.ShizukuSettings
 import moe.shizuku.manager.databinding.ActivityXionAutomationBinding
 import moe.shizuku.manager.xion.XionUi
 import moe.shizuku.manager.xion.XionUi.applyScreenInsets
 
-class AutomationActivity : AppCompatActivity() {
+class AutomationActivity : XionActivity() {
 
     private lateinit var binding: ActivityXionAutomationBinding
 

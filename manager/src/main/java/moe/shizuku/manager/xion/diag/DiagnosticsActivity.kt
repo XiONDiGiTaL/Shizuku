@@ -9,18 +9,18 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.card.MaterialCardView
 import java.io.File
 import kotlinx.coroutines.launch
 import moe.shizuku.manager.R
+import moe.shizuku.manager.xion.XionActivity
 import moe.shizuku.manager.databinding.ActivityXionDiagnosticsBinding
 import moe.shizuku.manager.xion.XionUi
 import moe.shizuku.manager.xion.XionUi.applyScreenInsets
 
-class DiagnosticsActivity : AppCompatActivity() {
+class DiagnosticsActivity : XionActivity() {
 
     private lateinit var binding: ActivityXionDiagnosticsBinding
     private var report: String = ""

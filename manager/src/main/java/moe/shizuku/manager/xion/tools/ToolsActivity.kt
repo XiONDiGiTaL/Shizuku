@@ -3,15 +3,15 @@ package moe.shizuku.manager.xion.tools
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import moe.shizuku.manager.R
+import moe.shizuku.manager.xion.XionActivity
 import moe.shizuku.manager.databinding.ActivityXionToolsBinding
 import moe.shizuku.manager.databinding.XionNavRowBinding
 import moe.shizuku.manager.utils.ShizukuStateMachine
 import moe.shizuku.manager.xion.XionUi.applyScreenInsets
 
-class ToolsActivity : AppCompatActivity() {
+class ToolsActivity : XionActivity() {
 
     private lateinit var binding: ActivityXionToolsBinding
 

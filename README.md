@@ -163,4 +163,11 @@ Built on [thedjchi/Shizuku](https://github.com/thedjchi/Shizuku), itself a fork 
 model are theirs. The interface, tooling, authorisation reporting, watchdog and documentation here
 are [XiØN](https://github.com/XiONDiGiTaL)'s.
 
+**Shevery** by [HmnDev-Tech](https://github.com/HmnDev-Tech/shevery) — another Shizuku fork, also
+Apache 2.0 — is where the app lock comes from. Their build asks for biometrics or the device
+credential before privileged actions, per action and with configurable timeouts; this build adapts
+that idea into a single app-wide switch implemented against Android's own keyguard
+(`xion/security/AppLock.kt`, `xion/XionActivity.kt`). Thanks to them for the pattern, and for
+showing what else a Shizuku manager can be.
+
 Apache 2.0, same as upstream — see [LICENSE](LICENSE).

@@ -5,12 +5,12 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 import moe.shizuku.manager.R
+import moe.shizuku.manager.xion.XionActivity
 import moe.shizuku.manager.databinding.ActivityXionShellBinding
 import moe.shizuku.manager.utils.ShizukuStateMachine
 import moe.shizuku.manager.xion.XionPrefs
@@ -20,7 +20,7 @@ import moe.shizuku.manager.xion.XionUi.applyTone
 import moe.shizuku.manager.xion.shell.PrivilegedShell
 import org.json.JSONArray
 
-class CommandCenterActivity : AppCompatActivity() {
+class CommandCenterActivity : XionActivity() {
 
     private lateinit var binding: ActivityXionShellBinding
     private val transcript = StringBuilder()

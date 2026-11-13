@@ -7,7 +7,7 @@ import android.provider.Settings
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -30,6 +30,7 @@ import moe.shizuku.manager.utils.EnvironmentUtils
 import moe.shizuku.manager.utils.ShizukuStateMachine
 import moe.shizuku.manager.xion.auth.AuthLoadResult
 import moe.shizuku.manager.xion.auth.AuthorizationRepository
+import moe.shizuku.manager.xion.security.AppLock
 import moe.shizuku.manager.xion.service.ServiceController
 import moe.shizuku.manager.xion.shell.PrivilegedShell
 import moe.shizuku.manager.xion.automation.AutomationActivity
@@ -38,13 +39,15 @@ import moe.shizuku.manager.xion.diag.DiagnosticsActivity
 import moe.shizuku.manager.xion.tools.ToolsActivity
 import rikka.shizuku.Shizuku
 
-class DashboardActivity : AppCompatActivity() {
+class DashboardActivity : XionActivity() {
 
     private lateinit var binding: ActivityXionDashboardBinding
 
     private val stateListener: (ShizukuStateMachine.State) -> Unit = {
         runOnUiThread { refresh() }
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +83,10 @@ class DashboardActivity : AppCompatActivity() {
         ShizukuStateMachine.addListener(stateListener)
     }
 
+    override fun onUnlocked() {
+        refresh()
+    }
+
     override fun onStop() {
         ShizukuStateMachine.removeListener(stateListener)
         super.onStop()
@@ -88,6 +95,35 @@ class DashboardActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         refresh()
+        refreshLockRow()
+    }
+
+    private fun refreshLockRow() {
+        binding.navLock.subtitle.setText(
+            if (AppLock.isEnabled(this)) R.string.xion_lock_on else R.string.xion_nav_lock_sub
+        )
+    }
+
+    private fun showLockDialog() {
+        val on = AppLock.isEnabled(this)
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.xion_lock_title)
+            .setMessage(R.string.xion_lock_body)
+            .setPositiveButton(if (on) "Turn off" else "Turn on") { _, _ ->
+                if (on) {
+                    AppLock.setEnabled(this, false)
+                    Toast.makeText(this, R.string.xion_lock_off, Toast.LENGTH_SHORT).show()
+                } else if (!AppLock.isDeviceSecure(this)) {
+                    Toast.makeText(this, R.string.xion_lock_no_device_lock, Toast.LENGTH_LONG).show()
+                    runCatching { startActivity(Intent(Settings.ACTION_SECURITY_SETTINGS)) }
+                } else {
+                    AppLock.setEnabled(this, true)
+                    Toast.makeText(this, R.string.xion_lock_on, Toast.LENGTH_SHORT).show()
+                }
+                refreshLockRow()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     /**
@@ -152,6 +188,9 @@ class DashboardActivity : AppCompatActivity() {
         }
         nav(binding.navSettings, R.drawable.ic_x_gear, R.string.xion_nav_settings, R.string.xion_nav_settings_sub) {
             startActivity(Intent(this, SettingsActivity::class.java))
+        }
+        nav(binding.navLock, R.drawable.ic_x_shield, R.string.xion_nav_lock, R.string.xion_nav_lock_sub) {
+            showLockDialog()
         }
         binding.cardAuthorized.setOnClickListener { startActivity(Intent(this, AuthorizationsActivity::class.java)) }
         binding.cardWatchdog.setOnClickListener { showWatchdogDialog() }

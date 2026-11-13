@@ -7,7 +7,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import java.text.SimpleDateFormat
@@ -15,12 +14,13 @@ import java.util.Date
 import java.util.Locale
 import kotlinx.coroutines.launch
 import moe.shizuku.manager.R
+import moe.shizuku.manager.xion.XionActivity
 import moe.shizuku.manager.databinding.ActivityXionBackupBinding
 import moe.shizuku.manager.xion.XionPrefs
 import moe.shizuku.manager.xion.XionUi
 import moe.shizuku.manager.xion.XionUi.applyScreenInsets
 
-class BackupActivity : AppCompatActivity() {
+class BackupActivity : XionActivity() {
 
     private lateinit var binding: ActivityXionBackupBinding
 

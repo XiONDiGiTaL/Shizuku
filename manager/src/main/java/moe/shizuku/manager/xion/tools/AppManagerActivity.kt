@@ -8,7 +8,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +19,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.File
 import kotlinx.coroutines.launch
 import moe.shizuku.manager.R
+import moe.shizuku.manager.xion.XionActivity
 import moe.shizuku.manager.databinding.ActivityXionPackagesBinding
 import moe.shizuku.manager.databinding.ItemXionPackageBinding
 import moe.shizuku.manager.xion.XionUi.applyScreenInsets
@@ -32,7 +32,7 @@ import moe.shizuku.manager.xion.shell.PrivilegedShell
  * destructive actions always ask first. System packages are marked, and a short list of
  * components that genuinely break a device when disabled is called out explicitly.
  */
-class AppManagerActivity : AppCompatActivity() {
+class AppManagerActivity : XionActivity() {
 
     data class PackageEntry(
         val packageName: String,

@@ -41,6 +41,14 @@
     <string name="xion_nav_diagnostics_sub">Device, service and report export</string>
     <string name="xion_nav_backup">Backup &amp; restore</string>
     <string name="xion_nav_backup_sub">Export this app\'s configuration</string>
+    <string name="xion_nav_lock">App lock</string>
+    <string name="xion_nav_lock_sub">Require your device unlock to open this app</string>
+    <string name="xion_lock_title">App lock</string>
+    <string name="xion_lock_body">Ask for your device screen lock — PIN, pattern, password or biometric — before the manager opens. Android keeps the secret; this app only learns whether the unlock succeeded. It re-locks after a minute in the background.</string>
+    <string name="xion_lock_no_device_lock">Set a screen lock on the device first; there is nothing to ask for yet.</string>
+    <string name="xion_lock_on">App lock on</string>
+    <string name="xion_lock_off">App lock off</string>
+    <string name="xion_lock_cancelled">Unlock cancelled</string>
     <string name="xion_nav_settings">Settings</string>
     <string name="xion_nav_settings_sub">Watchdog, startup and appearance</string>
     <string name="xion_nav_classic">Classic dashboard</string>

@@ -9,7 +9,6 @@ import android.provider.Settings
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import moe.shizuku.manager.R
 import moe.shizuku.manager.ShizukuSettings
@@ -29,7 +28,7 @@ import rikka.shizuku.Shizuku
  * mDNS + ADB-protocol starter), so this screen only reports what the device says and hands the
  * work to them — instead of a dialog that only described the situation.
  */
-class WirelessActivity : AppCompatActivity() {
+class WirelessActivity : XionActivity() {
 
     private lateinit var binding: ActivityXionWirelessBinding
 

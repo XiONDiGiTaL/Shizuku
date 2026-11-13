@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
@@ -25,7 +24,7 @@ import moe.shizuku.manager.xion.auth.AuthorizationRepository
 import moe.shizuku.manager.xion.auth.AuthorizationState
 import moe.shizuku.manager.xion.auth.AuthorizedApp
 
-class AuthorizationsActivity : AppCompatActivity() {
+class AuthorizationsActivity : XionActivity() {
 
     private lateinit var binding: ActivityXionAuthorizationsBinding
     private val adapter = AuthAdapter { app -> confirmRevoke(app) }

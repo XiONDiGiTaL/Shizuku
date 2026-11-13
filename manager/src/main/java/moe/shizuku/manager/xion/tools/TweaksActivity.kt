@@ -5,13 +5,13 @@ import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 import moe.shizuku.manager.R
+import moe.shizuku.manager.xion.XionActivity
 import moe.shizuku.manager.databinding.ActivityXionTweaksBinding
 import moe.shizuku.manager.xion.XionUi
 import moe.shizuku.manager.xion.XionUi.applyScreenInsets
@@ -22,7 +22,7 @@ import moe.shizuku.manager.xion.shell.PrivilegedShell
  * what the device actually holds. Anything that cannot be read is reported as unavailable
  * instead of being offered as if it worked.
  */
-class TweaksActivity : AppCompatActivity() {
+class TweaksActivity : XionActivity() {
 
     private data class Tweak(
         val namespace: String,
