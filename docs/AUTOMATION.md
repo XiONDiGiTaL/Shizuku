@@ -19,9 +19,9 @@ From Tasker/MacroDroid/Automate, send the same explicit broadcast to the package
 
 | Action | Effect | Extras |
 |---|---|---|
-| `net.xiondigital.shizuku.START` | Start the service with the last successful method (root or wireless debugging) | — |
-| `net.xiondigital.shizuku.STOP` | Stop the service and its binder | — |
-| `net.xiondigital.shizuku.RESTART` | Stop, then start again through the same path the UI uses | — |
+| `net.xiondigital.shizuku.START` | Start the service with the last successful method (root or wireless debugging) |, |
+| `net.xiondigital.shizuku.STOP` | Stop the service and its binder |, |
+| `net.xiondigital.shizuku.RESTART` | Stop, then start again through the same path the UI uses |, |
 | `net.xiondigital.shizuku.WATCHDOG` | Enable or disable the foreground watchdog | `enabled: true\|false` |
 
 `WATCHDOG` without the extra flips the current value.

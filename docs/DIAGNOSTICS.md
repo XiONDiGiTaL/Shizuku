@@ -11,11 +11,11 @@ read from the device; nothing is uploaded.
 | Device | manufacturer, model, device, Android release and SDK, One UI version, build id, fingerprint, ABI, form factor |
 | Service | state, running flag, privilege uid, privilege level (root / ADB / none), API version, server patch level, SELinux context, last start/stop/crash, start-on-boot and watchdog settings, recorded restarts |
 | Wireless debugging | USB debugging, wireless debugging, ADB TCP port, TCP mode, mDNS pairing support, battery-optimisation exemption |
-| Authorizations | reported by service, granted, denied, unresolved, remembered but absent — or the failure message and detail if the list could not be read |
+| Authorizations | reported by service, granted, denied, unresolved, remembered but absent, or the failure message and detail if the list could not be read |
 | Resources | battery level and charging state, memory, low-memory flag, data storage |
 | Package inventory | installed and third-party package counts, read through the service |
 
-Rows that depend on the service read "—" or "not running" when there is no service rather than
+Rows that depend on the service read "-" or "not running" when there is no service rather than
 inventing a value.
 
 ## Export

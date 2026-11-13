@@ -54,8 +54,8 @@ commit count, so every build is uniquely identifiable in Diagnostics.
 
 The starter (`manager/src/main/jni/starter.cpp`) is compiled into `libshizuku.so` and parses:
 
-- `--apk=<path>` — manager APK whose secondary dex holds the server;
-- `--server-name=<name>` — process name of the server to manage and replace. The development
+- `--apk=<path>`, manager APK whose secondary dex holds the server;
+- `--server-name=<name>`, process name of the server to manage and replace. The development
   build passes `xion_shizuku_server` so it never kills an official `shizuku_server`.
 
 ## Notes

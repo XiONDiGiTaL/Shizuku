@@ -49,7 +49,7 @@ class ToolsActivity : XionActivity() {
         super.onResume()
         val running = ShizukuStateMachine.isRunning()
         binding.statusNote.text = if (running) {
-            "Service running — tools will execute with ADB privileges."
+            "Service running, tools will execute with ADB privileges."
         } else {
             getString(R.string.xion_tools_requires_service)
         }

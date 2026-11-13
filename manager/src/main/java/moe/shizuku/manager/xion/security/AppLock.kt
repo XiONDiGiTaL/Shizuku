@@ -8,7 +8,7 @@ import android.content.Intent
  * Optional app lock: the manager asks for the device's own screen lock before it will show the
  * service controls.
  *
- * The device credential is deliberate rather than a private PIN — Android already stores and rate
+ * The device credential is deliberate rather than a private PIN, Android already stores and rate
  * limits it, biometrics are handled by the keyguard, and the app never sees the secret. The idea of
  * a master lock guarding Shizuku's privileged actions comes from Shevery by HmnDev-Tech
  * (https://github.com/HmnDev-Tech/shevery, Apache-2.0). This is a smaller version: one switch for the

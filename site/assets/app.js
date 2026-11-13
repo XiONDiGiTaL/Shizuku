@@ -1,5 +1,5 @@
 /* =========================================================
-   xiondigital.net/shizuku — interaction layer
+   xiondigital.net/shizuku, interaction layer
    Same vocabulary as xiondigital.net/arcade:
    synthesised interface sound (no audio files),
    pointer spotlight, scroll reveal, copy affordances.
@@ -104,14 +104,14 @@
      ------------------------------------------------------- */
 
   document
-    .querySelectorAll(".btn, .nav__link, .footer__link, .sfx, .brand, .card, .shot, .step")
+    .querySelectorAll(".btn.nav__link.footer__link.sfx.brand.card.shot.step")
     .forEach(function (el) {
       el.addEventListener("pointerenter", function () {
         sfx.hover();
       });
     });
 
-  document.querySelectorAll('a[href^="https://github.com"], .btn--primary').forEach(function (el) {
+  document.querySelectorAll('a[href^="https://github.com"].btn--primary').forEach(function (el) {
     el.addEventListener("click", function () {
       sfx.launch();
     });
@@ -127,7 +127,7 @@
      Pointer spotlight
      ------------------------------------------------------- */
 
-  document.querySelectorAll(".card, .shot").forEach(function (card) {
+  document.querySelectorAll(".card.shot").forEach(function (card) {
     card.addEventListener("pointermove", function (event) {
       if (reducedMotion.matches) return;
       const rect = card.getBoundingClientRect();

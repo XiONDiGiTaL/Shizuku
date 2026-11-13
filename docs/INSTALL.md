@@ -69,6 +69,11 @@ Both packages can be installed during the migration, because Android authorises 
 access to your apps in this build first, then uninstall `moe.shizuku.privileged.api` from the system
 settings if you want only one Shizuku. Nothing here depends on the official app being gone.
 
+This build still carries its own package name, so client apps that use the Shizuku API will bind to
+the official package, not this one. Replacing the package identity outright is scoped in
+[docs/REPLACEMENT.md](REPLACEMENT.md): it needs the official app uninstalled first, and it is not
+implemented yet.
+
 ## Uninstall
 
 Uninstalling this app removes only its own installation and its own service configuration.

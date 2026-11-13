@@ -9,8 +9,8 @@ All notable changes to this fork are documented here. The fork continues the wor
 
 - The app now writes its own `start.sh` at
   `/sdcard/Android/data/net.xiondigital.shizuku/start.sh`, the same arrangement the official Shizuku
-  uses. Starting the service over USB is one line —
-  `adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh` — with no `<base.apk>`
+  uses. Starting the service over USB is one line -
+  `adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh`, with no `<base.apk>`
   placeholder, no `<nativeLibraryDir>` to look up, and no `\` line continuation, which PowerShell
   does not accept. That last point is why the old command failed for people who pasted it into
   PowerShell.
@@ -37,8 +37,8 @@ All notable changes to this fork are documented here. The fork continues the wor
 
 ### Wireless debugging
 
-- New **Wireless debugging** screen with the device's real state — wireless and USB debugging,
-  service uid, restart port — instead of a read-only dialog behind the Connection card.
+- New **Wireless debugging** screen with the device's real state, wireless and USB debugging,
+  service uid, restart port, instead of a read-only dialog behind the Connection card.
 - **Pair now** opens the existing pairing flow and asks for `POST_NOTIFICATIONS` first. On Android
   13+ the pairing code arrives as a notification, so without the permission the flow could never
   complete; that was the actual reason pairing appeared to do nothing.
@@ -59,7 +59,7 @@ All notable changes to this fork are documented here. The fork continues the wor
 - Below 360dp of width the brand title stacks and the action buttons drop their icons, so a large
   display-size setting no longer breaks labels into one letter per line.
 
-## 2.0.0-xion — Shizuku Reimagined
+## 2.0.0-xion: Shizuku Reimagined
 
 ### Identity and coexistence
 
@@ -121,7 +121,7 @@ All notable changes to this fork are documented here. The fork continues the wor
   broadcasts (`SERVICE_STARTED`, `SERVICE_STOPPED`, `SERVICE_CRASHED`, `SERVICE_RESTARTED`,
   `WIRELESS_DEBUGGING`), with an auth token shown in the app.
 - **Backup & restore**: export and import this app's own settings, watchdog history and startup
-  preferences. Authorisations are deliberately not included — Android does not allow an app to
+  preferences. Authorisations are deliberately not included, Android does not allow an app to
   read or restore them.
 - **Watchdog 2.0**: binder health loop with exponential backoff, per-window attempt cap, restart
   history, recovery/gave-up notifications, battery awareness and automation events.

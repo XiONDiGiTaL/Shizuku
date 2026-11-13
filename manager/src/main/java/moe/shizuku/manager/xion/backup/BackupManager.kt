@@ -11,7 +11,7 @@ import org.json.JSONObject
 
 /**
  * Exports the configuration this app actually owns: its own preferences (watchdog tuning,
- * startup preferences, UI state, histories). It cannot export Shizuku authorisations —
+ * startup preferences, UI state, histories). It cannot export Shizuku authorisations -
  * those live in the service's own store and are not readable by the manager.
  */
 object BackupManager {

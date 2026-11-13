@@ -68,7 +68,7 @@ hard-to-restore action was not executed during testing.
 The original home screen is reachable from the dashboard's last row. Its "duplicate app" guard is
 skipped in the development identity, because that identity intentionally does not own the
 Shizuku permission (the official app does) and would otherwise be mistaken for a broken install.
-Status: verified on device — the classic screen opens and reports service state and the
+Status: verified on device, the classic screen opens and reports service state and the
 authorised count.
 
 ## Preserved fork features

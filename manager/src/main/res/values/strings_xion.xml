@@ -25,7 +25,7 @@
     <string name="xion_metric_watchdog">Watchdog</string>
     <string name="xion_metric_wireless">Wireless ADB</string>
     <string name="xion_metric_uptime">Uptime</string>
-    <string name="xion_metric_unknown">—</string>
+    <string name="xion_metric_unknown">n/a</string>
     <string name="xion_section_service">Service</string>
     <string name="xion_section_app">App</string>
     <string name="xion_nav_wireless">Wireless</string>
@@ -44,7 +44,7 @@
     <string name="xion_nav_lock">App lock</string>
     <string name="xion_nav_lock_sub">Require your device unlock to open this app</string>
     <string name="xion_lock_title">App lock</string>
-    <string name="xion_lock_body">Ask for your device screen lock — PIN, pattern, password or biometric — before the manager opens. Android keeps the secret; this app only learns whether the unlock succeeded. It re-locks after a minute in the background.</string>
+    <string name="xion_lock_body">Ask for your device screen lock, PIN, pattern, password or biometric, before the manager opens. Android keeps the secret; this app only learns whether the unlock succeeded. It re-locks after a minute in the background.</string>
     <string name="xion_lock_no_device_lock">Set a screen lock on the device first; there is nothing to ask for yet.</string>
     <string name="xion_lock_on">App lock on</string>
     <string name="xion_lock_off">App lock off</string>
@@ -138,7 +138,7 @@
     <string name="xion_packages_confirm_disable">Disable %1$s?</string>
     <string name="xion_packages_confirm_disable_msg">Disabled system components can break device features. Only disable packages you understand.</string>
     <string name="xion_packages_system_warning">System package</string>
-    <string name="xion_packages_essential_warning">Essential — disabling may break the device</string>
+    <string name="xion_packages_essential_warning">Essential, disabling may break the device</string>
 
     <!-- Tweaks -->
     <string name="xion_tweaks_title">System tweaks</string>
@@ -162,7 +162,7 @@
 
     <!-- Wireless debugging -->
     <string name="xion_wireless_title">Wireless debugging</string>
-    <string name="xion_wireless_lede">Shizuku starts through Android\'s own wireless debugging: pair once, then the app can start the service by itself — no cable, no computer.</string>
+    <string name="xion_wireless_lede">Shizuku starts through Android\'s own wireless debugging: pair once, then the app can start the service by itself, no cable, no computer.</string>
     <string name="xion_wireless_connection">Connection</string>
     <string name="xion_wireless_row_wireless">Wireless debugging</string>
     <string name="xion_wireless_row_usb">USB debugging</string>
@@ -171,14 +171,14 @@
     <string name="xion_wireless_on">On</string>
     <string name="xion_wireless_off">Off</string>
     <string name="xion_wireless_pair_title">1 · Pair this phone</string>
-    <string name="xion_wireless_pair_body">Android only allows a wireless start after a one-time pairing. Turn on Wireless debugging in Developer options, then tap Pair — the six-digit code arrives as a notification you can answer from the shade.</string>
+    <string name="xion_wireless_pair_body">Android only allows a wireless start after a one-time pairing. Turn on Wireless debugging in Developer options, then tap Pair, the six-digit code arrives as a notification you can answer from the shade.</string>
     <string name="xion_wireless_pair_button">Pair now</string>
     <string name="xion_wireless_dev_options">Developer options</string>
     <string name="xion_wireless_start_title">2 · Start over wireless</string>
     <string name="xion_wireless_start_body">Finds the phone\'s wireless debugging port and starts the service over the loopback address. Wireless debugging has to be switched on.</string>
     <string name="xion_wireless_start_button">Start over wireless</string>
     <string name="xion_wireless_tcp_title">Keep the connection</string>
-    <string name="xion_wireless_tcp_body">TCP mode moves the connection to port %1$d and keeps it there, so a restart does not have to find the wireless port again. Android switches wireless debugging off whenever the ADB daemon restarts on that port — that is the system, not this app — so leave TCP mode off if you would rather wireless debugging stay on between starts.</string>
+    <string name="xion_wireless_tcp_body">TCP mode moves the connection to port %1$d and keeps it there, so a restart does not have to find the wireless port again. Android switches wireless debugging off whenever the ADB daemon restarts on that port, that is the system, not this app, so leave TCP mode off if you would rather wireless debugging stay on between starts.</string>
     <string name="xion_wireless_tcp_on">TCP mode on · port %1$d</string>
     <string name="xion_wireless_tcp_off">TCP mode off</string>
     <string name="xion_wireless_note">Android 11 and newer do not let an app switch wireless debugging on by itself, so that part stays a manual step.</string>

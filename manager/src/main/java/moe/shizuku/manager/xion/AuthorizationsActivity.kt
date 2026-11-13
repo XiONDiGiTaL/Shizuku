@@ -55,7 +55,7 @@ class AuthorizationsActivity : XionActivity() {
                     val snapshot = result.snapshot
                     binding.grantedCount.text = snapshot.grantedCount.toString()
                     binding.grantedSub.text = if (snapshot.reportingAnomaly) {
-                        "${snapshot.candidateCount} apps hold the permission, but the service reported none — reporting failure"
+                        "${snapshot.candidateCount} apps hold the permission, but the service reported none: reporting failure"
                     } else buildString {
                         append("Android reports ${snapshot.candidateCount} holding the permission")
                         if (snapshot.deniedCount > 0) append(" · ${snapshot.deniedCount} denied")

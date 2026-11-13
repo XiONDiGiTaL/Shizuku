@@ -118,7 +118,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/xion_chip_neutral"
                         android:fontFamily="monospace"
-                        android:text="API —"
+                        android:text="API"
                         android:textColor="@color/xion_text_body"
                         android:textSize="11sp" />
                 </LinearLayout>
@@ -325,7 +325,7 @@
                         android:id="@+id/metricWirelessSub"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="—"
+                        android:text="n/a"
                         android:textAppearance="@style/TextAppearance.Xion.Body.Muted" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -362,7 +362,7 @@
                         android:id="@+id/metricUptimeSub"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="—"
+                        android:text="n/a"
                         android:textAppearance="@style/TextAppearance.Xion.Body.Muted" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

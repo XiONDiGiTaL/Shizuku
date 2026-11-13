@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Install from a computer — Shizuku Reimagined</title>
+<title>Install from a computer, Shizuku Reimagined</title>
 <meta name="description" content="Step-by-step guide to installing Shizuku Reimagined and starting its service over USB from Windows PowerShell or cmd, with platform-tools setup, adb devices checks and troubleshooting.">
 <meta name="theme-color" content="#050607">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -99,7 +99,7 @@ cd platform-tools</pre>
             <p>
               Use a data cable, not a charge-only one. When the phone asks, choose <strong>File transfer</strong>
               (some phones say <em>Android Auto</em> or <em>Use USB for</em>). Then accept
-              <strong>Allow USB debugging?</strong> — tick <em>Always allow from this computer</em>.
+              <strong>Allow USB debugging?</strong>, tick <em>Always allow from this computer</em>.
             </p>
           </div>
 
@@ -154,7 +154,7 @@ R5CW71H8GEZ     device</pre>
             <h3>Open the app once on the phone</h3>
             <p>
               Launch <strong>Shizuku Reimagined</strong> and let it draw the dashboard. This is what writes the start
-              script the next command runs — the same idea as the official Shizuku's
+              script the next command runs, the same idea as the official Shizuku's
               <code class="mono">start.sh</code>. Its path is also listed in Diagnostics → Application → <em>ADB start script</em>.
             </p>
           </div>
@@ -180,7 +180,7 @@ R5CW71H8GEZ     device</pre>
               <button class="btn btn--ghost btn--sm cmd__copy" type="button" data-copy="#cmd-start-posix">Copy</button>
             </div>
             <p>
-              The script prints the starter log and then stays in the foreground — that is the service running.
+              The script prints the starter log and then stays in the foreground. That is the service running.
             </p>
             <pre>info: starter begin
 info: shizuku_starter exit with 0</pre>
@@ -242,7 +242,7 @@ info: shizuku_starter exit with 0</pre>
               </tr>
               <tr>
                 <td><code class="mono">sh: …/start.sh: No such file or directory</code></td>
-                <td>The app has not been opened since install or update, so the script was never written —
+                <td>The app has not been opened since install or update, so the script was never written,
                   or external storage is unavailable.</td>
                 <td>Open the app once and retry. Diagnostics → <em>ADB start script</em> shows the real path; if it says
                   <em>unavailable</em>, the phone has no usable external storage.</td>
@@ -265,7 +265,7 @@ info: shizuku_starter exit with 0</pre>
 
         <div class="guide__foot">
           <p>
-            What the script contains — three lines, and the two paths change on every app update, which is why it is
+            What the script contains: three lines, and the two paths change on every app update, which is why it is
             rewritten each time the app starts:
           </p>
           <div class="cmd">

@@ -75,15 +75,15 @@ object DiagnosticsCollector {
                 listOf(
                     "State" to ShizukuStateMachine.get().name,
                     "Running" to running.toString(),
-                    "Privilege uid" to if (running) PrivilegedShell.serviceUid().toString() else "—",
+                    "Privilege uid" to if (running) PrivilegedShell.serviceUid().toString() else "n/a",
                     "Privilege level" to when {
                         !running -> "none"
                         PrivilegedShell.isRoot() -> "root"
                         else -> "adb (shell)"
                     },
-                    "API version" to if (running) runCatching { Shizuku.getVersion() }.getOrDefault(-1).toString() else "—",
-                    "Server patch" to if (running) runCatching { Shizuku.getServerPatchVersion() }.getOrDefault(-1).toString() else "—",
-                    "SELinux context" to if (running) runCatching { Shizuku.getSELinuxContext() }.getOrDefault("—") else "—",
+                    "API version" to if (running) runCatching { Shizuku.getVersion() }.getOrDefault(-1).toString() else "n/a",
+                    "Server patch" to if (running) runCatching { Shizuku.getServerPatchVersion() }.getOrDefault(-1).toString() else "n/a",
+                    "SELinux context" to if (running) runCatching { Shizuku.getSELinuxContext() }.getOrDefault("n/a") else "n/a",
                     "Last start" to Format.timeAgo(XionPrefs.lastStartedAt(context)),
                     "Last stop" to Format.timeAgo(XionPrefs.lastStoppedAt(context)),
                     "Last crash" to Format.timeAgo(XionPrefs.lastCrashedAt(context)),
@@ -126,7 +126,7 @@ object DiagnosticsCollector {
                         "Unresolved" to auth.snapshot.unknownCount.toString(),
                         "Remembered but absent" to auth.snapshot.missingCount.toString()
                     )
-                    is AuthLoadResult.Failure -> listOf("Could not read" to auth.message, "Detail" to (auth.detail ?: "—"))
+                    is AuthLoadResult.Failure -> listOf("Could not read" to auth.message, "Detail" to (auth.detail ?: "n/a"))
                 }
             )
         )
@@ -165,7 +165,7 @@ object DiagnosticsCollector {
     }
 
     fun render(sections: List<Section>): String = buildString {
-        appendLine("Shizuku Reimagined — diagnostic report")
+        appendLine("Shizuku Reimagined, diagnostic report")
         appendLine("Generated: ${java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z", java.util.Locale.US).format(java.util.Date())}")
         appendLine()
         sections.forEach { section ->

@@ -69,7 +69,7 @@
                     android:id="@+id/grantedCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="—"
+                    android:text="n/a"
                     android:textAppearance="@style/TextAppearance.Xion.Metric"
                     android:textSize="34sp" />
 

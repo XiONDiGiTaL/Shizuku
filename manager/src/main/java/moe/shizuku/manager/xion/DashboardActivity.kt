@@ -291,7 +291,7 @@ class DashboardActivity : XionActivity() {
             "max ${XionPrefs.watchdogMaxRestarts(this)} restarts"
         } else "not monitoring"
 
-        // Wireless debugging (read from system settings — real device state)
+        // Wireless debugging (read from system settings, real device state)
         val adbEnabled = runCatching {
             Settings.Global.getInt(contentResolver, Settings.Global.ADB_ENABLED, 0)
         }.getOrDefault(0)
@@ -318,7 +318,7 @@ class DashboardActivity : XionActivity() {
             binding.metricUptime.text = formatDuration(System.currentTimeMillis() - startedAt)
             binding.metricUptimeSub.text = "since ${formatTime(startedAt)}"
         } else {
-            binding.metricUptime.text = "—"
+            binding.metricUptime.text = "n/a"
             binding.metricUptimeSub.text = if (startedAt > 0) "last ${formatTime(startedAt)}" else "never started here"
         }
 
@@ -344,7 +344,7 @@ class DashboardActivity : XionActivity() {
                 }
             }
         } else {
-            binding.metricAuthorized.text = "—"
+            binding.metricAuthorized.text = "n/a"
             binding.metricAuthorizedSub.text = "service offline"
         }
     }
@@ -405,7 +405,7 @@ class DashboardActivity : XionActivity() {
             val result = PrivilegedShell.run("ps -A -o USER,PID,PPID,NAME | grep -i shizuku_server")
             val api = runCatching { Shizuku.getVersion() }.getOrDefault(-1)
             val patch = runCatching { Shizuku.getServerPatchVersion() }.getOrDefault(-1)
-            val se = runCatching { Shizuku.getSELinuxContext() }.getOrDefault("—")
+            val se = runCatching { Shizuku.getSELinuxContext() }.getOrDefault("n/a")
             val uid = runCatching { Shizuku.getUid() }.getOrDefault(-1)
             val msg = buildString {
                 appendLine("uid: $uid")

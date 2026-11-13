@@ -26,7 +26,7 @@ import rikka.shizuku.Shizuku
  * Shizuku cannot switch wireless debugging on by itself on Android 11+, and the start itself needs
  * a one-time pairing. Both halves already exist in the app (the pairing foreground service and the
  * mDNS + ADB-protocol starter), so this screen only reports what the device says and hands the
- * work to them — instead of a dialog that only described the situation.
+ * work to them, instead of a dialog that only described the situation.
  */
 class WirelessActivity : XionActivity() {
 

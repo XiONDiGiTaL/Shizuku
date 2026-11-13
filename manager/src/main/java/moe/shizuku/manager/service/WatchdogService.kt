@@ -240,7 +240,7 @@ class WatchdogService : Service() {
 
         val text = when {
             gaveUp -> "Stopped restarting after repeated failures"
-            pendingRestart -> "Service interrupted — recovery in progress"
+            pendingRestart -> "Service interrupted, recovery in progress"
             else -> "Watching the service"
         }
 
@@ -291,7 +291,7 @@ class WatchdogService : Service() {
     private fun notifyGaveUp() {
         notify(
             "The service could not be restarted after ${maxAttempts()} attempts. " +
-                "Automatic recovery is paused — open Shizuku Reimagined to start it manually."
+                "Automatic recovery is paused, open Shizuku Reimagined to start it manually."
         )
         AutomationContract.sendEvent(
             applicationContext,
