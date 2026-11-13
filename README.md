@@ -156,6 +156,7 @@ their real result, [docs/FEATURES.md](docs/FEATURES.md) marks each one.
 |---|---|
 | [Install](docs/INSTALL.md) | Install, start, migrate off Shizuku, uninstall |
 | [Replacement](docs/REPLACEMENT.md) | Scope of a true replacement build under the official package name |
+| [Platform](docs/PLATFORM.md) | Non-root platform plan, capability registry and feature status |
 | [Features](docs/FEATURES.md) | Every feature with its verification status |
 | [Automation](docs/AUTOMATION.md) | Intents, events, tiles, token handling |
 | [Diagnostics](docs/DIAGNOSTICS.md) | What the report contains and how to export it |

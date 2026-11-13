@@ -94,6 +94,21 @@ object DiagnosticsCollector {
             )
         )
 
+        // Capabilities are probed, not assumed: each row carries the evidence behind its state.
+        sections.add(
+            Section(
+                "Capabilities",
+                moe.shizuku.manager.platform.CapabilityRegistry.snapshot(context).map { cap ->
+                    val state = when (cap.state) {
+                        moe.shizuku.manager.platform.CapabilityState.AVAILABLE -> "available"
+                        moe.shizuku.manager.platform.CapabilityState.UNAVAILABLE -> "unavailable"
+                        moe.shizuku.manager.platform.CapabilityState.UNKNOWN -> "unknown"
+                    }
+                    "${cap.label} [${cap.tier.label}]" to "$state: ${cap.detail}"
+                }
+            )
+        )
+
         val adbEnabled = runCatching {
             android.provider.Settings.Global.getInt(context.contentResolver, android.provider.Settings.Global.ADB_ENABLED, 0)
         }.getOrDefault(0)
