@@ -131,7 +131,11 @@ afterEvaluate {
 
 android.applicationVariants.configureEach { variant ->
     variant.outputs.configureEach {
-        outputFileName = "shizuku-v${variant.versionName}-${variant.name}.apk"
+        // One stable filename, so the download link and the adb command never change between
+        // releases. The version is inside the APK; the archives under out/apk keep the number.
+        outputFileName = variant.name == "release"
+                ? "ShizukuReimagined.apk"
+                : "ShizukuReimagined-${variant.name}.apk"
 
         variant.assembleProvider.get().doLast {
             def outDir = new File(rootDir, "out")
@@ -147,6 +151,7 @@ android.applicationVariants.configureEach { variant ->
                 copy {
                     from outputFile
                     into apkDir
+                    rename { "ShizukuReimagined-${variant.versionName}.apk" }
                 }
             }
         }

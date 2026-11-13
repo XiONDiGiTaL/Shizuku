@@ -96,18 +96,22 @@ one. Verified live: both servers running at once, official config byte-identical
 ## Install
 
 ```bash
-adb install -r shizuku-v2.0.1-xion-debug.apk
+adb install -r ShizukuReimagined.apk
 ```
 
-Open the app → **Start** (wireless debugging or root), or launch the service from ADB:
+The file name is the same in every release, so this command never needs editing.
+
+Open the app → **Start** (wireless debugging or root), or start the service from a computer. The app
+writes its own `start.sh`, the same way the official Shizuku does, so the command is one line with
+nothing to fill in and it works in PowerShell, cmd, macOS and Linux alike:
 
 ```bash
-adb shell <nativeLibraryDir>/libshizuku.so \
-  --server-name=xion_shizuku_server \
-  --apk=<base.apk>
+adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh
 ```
 
-Step-by-step, including how to confirm both services are alive: [docs/INSTALL.md](docs/INSTALL.md).
+Never used ADB from Windows? [The full guide](site/setup.html) walks through downloading
+platform-tools, `adb devices` and authorising the phone, in both PowerShell and cmd. Local copy of
+the steps, including how to confirm both services are alive: [docs/INSTALL.md](docs/INSTALL.md).
 
 ## Automate it
 
@@ -154,7 +158,7 @@ their real result — [docs/FEATURES.md](docs/FEATURES.md) marks each one.
 | [Compatibility](docs/COMPATIBILITY.md) | The One UI 9.0 issue, evidence, Samsung limits |
 | [Troubleshooting](docs/TROUBLESHOOTING.md) | Common failures and what to check |
 | [Building](docs/BUILDING.md) | Toolchain, signing, native starter |
-| [Changelog](CHANGELOG.md) | What changed in 2.0.1-xion |
+| [Changelog](CHANGELOG.md) | What changed in 2.0.2-xion |
 
 ## Credits
 

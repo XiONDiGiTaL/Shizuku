@@ -3,7 +3,24 @@
 All notable changes to this fork are documented here. The fork continues the work of
 [thedjchi/Shizuku](https://github.com/thedjchi/Shizuku) (13.7.0) under the [XiØN](https://github.com/XiONDiGiTaL) identity.
 
-## Unreleased
+## 2.0.2-xion
+
+### One command to start it from a computer
+
+- The app now writes its own `start.sh` at
+  `/sdcard/Android/data/net.xiondigital.shizuku/start.sh`, the same arrangement the official Shizuku
+  uses. Starting the service over USB is one line —
+  `adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh` — with no `<base.apk>`
+  placeholder, no `<nativeLibraryDir>` to look up, and no `\` line continuation, which PowerShell
+  does not accept. That last point is why the old command failed for people who pasted it into
+  PowerShell.
+- The script is rewritten each launch, because the app's native library and APK paths change on
+  update. Diagnostics reports its path under *ADB start script*.
+- The release APK is now always named `ShizukuReimagined.apk` (`ShizukuReimagined-debug.apk` for
+  debug builds) instead of embedding the version, so the download link and the `adb install` command
+  stay the same across releases.
+- New [install guide](site/setup.html) for Windows: platform-tools download, enabling USB debugging,
+  `adb devices` in PowerShell and cmd, the install and start commands, and what each error means.
 
 ### App lock
 

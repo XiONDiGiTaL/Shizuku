@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.topjohnwu.superuser.Shell
 import moe.shizuku.manager.ktx.logd
 import moe.shizuku.manager.service.WatchdogService
+import moe.shizuku.manager.starter.Starter
 import moe.shizuku.manager.utils.ShizukuStateMachine
 import org.lsposed.hiddenapibypass.HiddenApiBypass
 import rikka.core.util.BuildUtils.atLeast30
@@ -51,6 +52,10 @@ class ShizukuApplication : Application() {
         application = this
         appContext = applicationContext
         init(this)
+
+        // The ADB start script is looked up by people following the install guide; write it now so
+        // it is there whether or not they ever open the screen that shows the command.
+        Thread { runCatching { Starter.ensureAdbScript() } }.apply { isDaemon = true }.start()
     }
 
 }

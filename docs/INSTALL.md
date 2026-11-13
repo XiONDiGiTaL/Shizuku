@@ -22,8 +22,12 @@ official app, and it does not touch the official app's stored authorisations.
 ## Install
 
 ```bash
-adb install -r shizuku-v2.0.1-xion-debug.apk
+adb install -r ShizukuReimagined.apk
 ```
+
+The release and debug builds both use that stable file name (`ShizukuReimagined.apk` and
+`ShizukuReimagined-debug.apk`), so the command is identical for every version. On a phone without
+a computer, install the APK straight from the release page instead.
 
 The debug APK produced by the build is signed with a local development key
 (`keystore/xion-dev.jks`, alias `xiondev`); that file and `signing.properties` are deliberately
@@ -34,14 +38,19 @@ a development key: do not treat its signature as a security boundary.
 
 1. Open **Shizuku Reimagined**.
 2. Tap **Start**. With wireless debugging enabled the app walks through pairing; with root it
-   starts immediately; otherwise run the command shown under Diagnostics with ADB:
+   starts immediately; otherwise run the script the app writes, from a computer:
 
    ```bash
-   adb shell <nativeLibraryDir>/libshizuku.so --server-name=xion_shizuku_server --apk=<base.apk path>
+   adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh
    ```
 
-   The `--server-name` argument is what keeps this service separate from a running official
-   Shizuku server.
+   This mirrors the official Shizuku's `start.sh`: the app writes the script at launch with its own
+   native library and APK paths, so there are no placeholders to fill in and no line continuations
+   (PowerShell rejects `\`). The path is also shown in Diagnostics → Application → *ADB start script*,
+   and the script is rewritten on every launch because those paths change when the app updates.
+
+   The script passes `--server-name=xion_shizuku_server`, which is what keeps this service separate
+   from a running official Shizuku server.
 3. The dashboard switches to **Service running** and shows the real privilege level
    (`ADB · API 13`, `uid 2000`) and port.
 

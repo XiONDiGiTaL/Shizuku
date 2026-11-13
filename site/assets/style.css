@@ -1068,3 +1068,58 @@ img { max-width: 100%; display: block; }
   [data-reveal] { opacity: 1; transform: none; transition: none; }
   .card, .shot, .btn { transition: none; }
 }
+
+/* ---------------------------------------------------------
+   Install guide page + install card note
+   --------------------------------------------------------- */
+
+.steps--stack { grid-template-columns: minmax(0, 1fr); }
+
+.guide .step pre {
+  font-size: 0.76rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.guide .step p + p { margin-top: 10px; }
+
+.guide .step a { color: var(--blue-hi); text-decoration: underline; text-underline-offset: 2px; }
+
+.table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-wrap .table { min-width: 680px; }
+
+.guide__foot {
+  display: grid;
+  gap: 12px;
+  margin-top: 30px;
+  max-width: 760px;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.guide__foot pre {
+  margin: 0;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.45);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.7;
+  color: var(--ink);
+  overflow-x: auto;
+}
+
+.guide__foot a { color: var(--blue-hi); }
+
+.install-card__note {
+  margin: 10px 0 0;
+  font-size: 0.72rem;
+  line-height: 1.65;
+  color: var(--muted);
+}

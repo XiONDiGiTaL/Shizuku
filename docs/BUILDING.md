@@ -28,7 +28,8 @@ export PATH="$JAVA_HOME/bin:$PATH"
 ./gradlew :manager:assembleDebug
 ```
 
-Output: `manager/build/outputs/apk/debug/shizuku-v2.0.1-xion-debug.apk`
+Output: `manager/build/outputs/apk/debug/ShizukuReimagined-debug.apk` (release:
+`manager/build/outputs/apk/release/ShizukuReimagined.apk`; versioned copies land in `out/apk/`).
 
 ## Signing
 

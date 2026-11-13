@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install from a computer — Shizuku Reimagined</title>
+<meta name="description" content="Step-by-step guide to installing Shizuku Reimagined and starting its service over USB from Windows PowerShell or cmd, with platform-tools setup, adb devices checks and troubleshooting.">
+<meta name="theme-color" content="#050607">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/style.css?v=5">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<div class="ambient" aria-hidden="true">
+  <span class="ambient__glow ambient__glow--a"></span>
+  <span class="ambient__glow ambient__glow--b"></span>
+  <span class="ambient__grid"></span>
+</div>
+
+<div class="site">
+
+  <header class="site-header">
+    <div class="wrap header__inner">
+      <a class="brand" href="index.html" aria-label="XiØN, back to the overview">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.6 4.4 6v6.1c0 4.9 3.3 9.4 7.6 10.5 4.3-1.1 7.6-5.6 7.6-10.5V6L12 2.6Z"/>
+            <path d="M12 11.6h6.4M12 11.6V7.2"/>
+          </svg>
+        </span>
+        <span class="brand__word">Xi<span class="brand__o">Ø</span>N</span>
+        <span class="brand__tag">Shizuku</span>
+      </a>
+
+      <nav class="nav" aria-label="Sections">
+        <a class="nav__link" href="index.html#install">Install</a>
+        <a class="nav__link" href="index.html#services">Coexistence</a>
+        <a class="nav__link" href="index.html">Overview</a>
+      </nav>
+
+      <div class="header__actions">
+        <a class="btn btn--primary btn--sm" href="https://github.com/XiONDiGiTaL/Shizuku/releases/latest/download/ShizukuReimagined.apk">
+          Download
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow">Guide / Windows · macOS · Linux</p>
+            <h2 class="section__title">Install from <em>a computer</em></h2>
+          </div>
+          <p class="section__note">
+            Two commands, no placeholders, no line continuations (PowerShell does not accept the
+            <code class="mono">\</code> continuation that <code class="mono">cmd</code> uses, which is why the old
+            command failed for so many people). Roughly six minutes, once.
+          </p>
+        </div>
+
+        <div class="steps steps--stack guide">
+          <div class="step">
+            <h3>Get the Android platform-tools</h3>
+            <p>
+              <code class="mono">adb</code> ships in Google's platform-tools, not in Windows.
+              <a href="https://developer.android.com/tools/releases/platform-tools">Download it here</a>
+              (<em>SDK Platform-Tools for Windows</em>), then unzip it to <code class="mono">C:\platform-tools</code>
+              so that <code class="mono">C:\platform-tools\adb.exe</code> exists. Do not run the installer from inside
+              the zip.
+            </p>
+            <pre>macOS / Linux
+curl -O https://dl.google.com/android/repository/platform-tools-latest-darwin.zip
+unzip platform-tools-latest-darwin.zip      # linux: -latest-linux.zip
+cd platform-tools</pre>
+          </div>
+
+          <div class="step">
+            <h3>Turn on USB debugging on the phone</h3>
+            <p>
+              Settings → About phone → Software information → tap <strong>Build number</strong> seven times.
+              Go back one screen → <strong>Developer options</strong> → turn on <strong>USB debugging</strong>.
+              On Samsung it lives at Settings → Developer options; on other phones it may be under System.
+            </p>
+          </div>
+
+          <div class="step">
+            <h3>Plug in and authorise the computer</h3>
+            <p>
+              Use a data cable, not a charge-only one. When the phone asks, choose <strong>File transfer</strong>
+              (some phones say <em>Android Auto</em> or <em>Use USB for</em>). Then accept
+              <strong>Allow USB debugging?</strong> — tick <em>Always allow from this computer</em>.
+            </p>
+          </div>
+
+          <div class="step">
+            <h3>Open a terminal in that folder and check the connection</h3>
+            <p>
+              In Explorer, open <code class="mono">C:\platform-tools</code>, then Shift + right-click the empty
+              space → <em>Open PowerShell window here</em>. In cmd, <code class="mono">cd /d C:\platform-tools</code>.
+              PowerShell needs the <code class="mono">.\</code> prefix to run a program from the current folder; cmd
+              does not.
+            </p>
+            <pre>PowerShell                          cmd
+cd C:\platform-tools                cd /d C:\platform-tools
+.\adb devices                       adb devices</pre>
+            <p>
+              You want your phone's serial followed by <code class="mono">device</code>:
+            </p>
+            <pre>List of devices attached
+R5CW71H8GEZ     device</pre>
+          </div>
+
+          <div class="step">
+            <h3>Install Shizuku Reimagined</h3>
+            <p>
+              Download <a href="https://github.com/XiONDiGiTaL/Shizuku/releases/latest/download/ShizukuReimagined.apk">ShizukuReimagined.apk</a>
+              and move it into <code class="mono">C:\platform-tools</code>, next to <code class="mono">adb.exe</code>.
+              The filename never changes between releases, so this command stays valid forever.
+            </p>
+            <pre>PowerShell                                  cmd
+.\adb install -r ShizukuReimagined.apk      adb install -r ShizukuReimagined.apk</pre>
+            <p>Expect <code class="mono">Performing Streamed Install</code> then <code class="mono">Success</code>.</p>
+          </div>
+
+          <div class="step">
+            <h3>Open the app once on the phone</h3>
+            <p>
+              Launch <strong>Shizuku Reimagined</strong> and let it draw the dashboard. This is what writes the start
+              script the next command runs — the same idea as the official Shizuku's
+              <code class="mono">start.sh</code>. Its path is also listed in Diagnostics → Application → <em>ADB start script</em>.
+            </p>
+          </div>
+
+          <div class="step">
+            <h3>Start the service</h3>
+            <p>
+              One line, identical in PowerShell, cmd, Windows Terminal, macOS and Linux:
+            </p>
+            <pre>.\adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh</pre>
+            <p>
+              On macOS/Linux use <code class="mono">./adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh</code>.
+              The script prints the starter log and then stays in the foreground — that is the service running.
+            </p>
+            <pre>info: starter begin
+info: shizuku_starter exit with 0</pre>
+            <p>
+              The dashboard should now read <strong>Service running</strong>, <strong>ADB · API 13</strong>,
+              <strong>uid 2000</strong>, port 5555.
+            </p>
+          </div>
+
+          <div class="step">
+            <h3>Unplug</h3>
+            <p>
+              The service keeps running after the cable is removed (and after the adb command is closed), until the
+              phone reboots, the app's <strong>Stop</strong> is pressed, or Android kills it for memory. Re-run the same
+              command after a reboot.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow">When it does not work</p>
+            <h2 class="section__title">What the error <em>actually means</em></h2>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr><th>Message</th><th>Cause</th><th>Fix</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code class="mono">'adb' is not recognized…</code></td>
+                <td>You are not in the platform-tools folder, or used <code class="mono">adb</code> in PowerShell.</td>
+                <td><code class="mono">cd C:\platform-tools</code>, then <code class="mono">.\adb devices</code>.</td>
+              </tr>
+              <tr>
+                <td>Empty <code class="mono">List of devices attached</code></td>
+                <td>Charge-only cable or port, USB debugging off, or a missing driver.</td>
+                <td>Try another cable (ideally the one that came with the phone) and a rear USB port, then
+                  <code class="mono">.\adb kill-server</code> and <code class="mono">.\adb devices</code> again.</td>
+              </tr>
+              <tr>
+                <td>Serial followed by <code class="mono">unauthorized</code></td>
+                <td>The phone's prompt was dismissed or denied.</td>
+                <td>Unlock the phone, pull the cable, replug, and tap <strong>Allow</strong> with
+                  <em>Always allow</em> ticked. If no prompt appears: Developer options → <em>Revoke USB debugging
+                  authorisations</em>, replug.</td>
+              </tr>
+              <tr>
+                <td>Serial followed by <code class="mono">offline</code></td>
+                <td>Stale adb connection after a replug or sleep.</td>
+                <td><code class="mono">.\adb kill-server</code>, replug, <code class="mono">.\adb devices</code>.</td>
+              </tr>
+              <tr>
+                <td><code class="mono">sh: …/start.sh: No such file or directory</code></td>
+                <td>The app has not been opened since install or update, so the script was never written —
+                  or external storage is unavailable.</td>
+                <td>Open the app once and retry. Diagnostics → <em>ADB start script</em> shows the real path; if it says
+                  <em>unavailable</em>, the phone has no usable external storage.</td>
+              </tr>
+              <tr>
+                <td><code class="mono">Permission denied</code> on the script</td>
+                <td>Rare: the file lost its execute bit after a restore.</td>
+                <td><code class="mono">.\adb shell chmod 755 /sdcard/Android/data/net.xiondigital.shizuku/start.sh</code></td>
+              </tr>
+              <tr>
+                <td>Service runs, but an app says it has no permission</td>
+                <td>Authorisations belong to a package. Apps authorised for the official Shizuku are not
+                  authorised for this build.</td>
+                <td>Open <strong>Authorizations</strong> in the app and grant access there; both builds can be
+                  authorised at once.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="guide__foot">
+          <p>
+            What the script contains — three lines, and the two paths change on every app update, which is why it is
+            rewritten each time the app starts:
+          </p>
+          <pre>#!/system/bin/sh
+# Shizuku Reimagined: starts the service from a computer.
+exec "/data/app/…/lib/arm64/libshizuku.so" --server-name=xion_shizuku_server --apk="/data/app/…/base.apk"</pre>
+          <p>
+            Prefer no cable? <a href="index.html#install">Wireless debugging and root</a> both start the service from
+            inside the app. This build never touches the official Shizuku's installation or its authorisations.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer__inner">
+      <p class="footer__note">Shizuku Reimagined · built on thedjchi/Shizuku and RikkaApps/Shizuku · Apache 2.0</p>
+      <div class="footer__links">
+        <a href="index.html">Overview</a>
+        <a href="https://github.com/XiONDiGiTaL/Shizuku">Repository</a>
+        <a href="https://xiondigital.net/">xiondigital.net</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

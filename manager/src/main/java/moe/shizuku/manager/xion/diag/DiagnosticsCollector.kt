@@ -39,6 +39,7 @@ object DiagnosticsCollector {
                     "Build type" to BuildConfig.BUILD_TYPE,
                     "Identity" to if (BuildConfig.DEV_IDENTITY) "development (coexists with official Shizuku)" else "official",
                     "Installed upstream Shizuku" to if (isInstalled(context, BuildConfig.UPSTREAM_MANAGER_ID)) "yes" else "no",
+                    "ADB start script" to (moe.shizuku.manager.starter.Starter.adbScriptPath ?: "unavailable"),
                     "App lock" to if (moe.shizuku.manager.xion.security.AppLock.isEnabled(context)) "on" else "off",
                     "App lock idea" to "Shevery (HmnDev-Tech, Apache-2.0)"
                 )

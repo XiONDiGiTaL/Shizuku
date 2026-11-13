@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=4">
+<link rel="stylesheet" href="assets/style.css?v=5">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -57,7 +57,7 @@
             <path d="M19.5 7a7.5 7.5 0 0 1 0 10"/>
           </svg>
         </button>
-        <a class="btn btn--primary btn--sm" href="https://github.com/XiONDiGiTaL/Shizuku/releases/latest">
+        <a class="btn btn--primary btn--sm" href="https://github.com/XiONDiGiTaL/Shizuku/releases/latest/download/ShizukuReimagined.apk">
           Download
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg>
         </a>
@@ -82,7 +82,7 @@
           </p>
 
           <div class="hero__actions">
-            <a class="btn btn--primary btn--lg" href="https://github.com/XiONDiGiTaL/Shizuku/releases/latest">
+            <a class="btn btn--primary btn--lg" href="https://github.com/XiONDiGiTaL/Shizuku/releases/latest/download/ShizukuReimagined.apk">
               Download APK
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg>
             </a>
@@ -90,7 +90,7 @@
           </div>
 
           <ul class="hero__meta">
-            <li><span>Release</span> <strong>v2.0.0-xion</strong></li>
+            <li><span>Release</span> <strong>v2.0.2-xion</strong></li>
             <li><span>Android</span> <strong>7.0+</strong></li>
             <li><span>Runs beside</span> <strong>official Shizuku</strong></li>
             <li><span>Status</span> <strong class="chip chip--ok chip--dot">verified on device</strong></li>
@@ -99,14 +99,16 @@
 
         <aside class="install-card" aria-label="Quick install">
           <p class="install-card__label">Install from a computer</p>
-          <pre class="install-card__cmd" id="adb-command">adb install -r <b>shizuku-v2.0.0-xion.apk</b>
-adb shell <b>libshizuku.so</b> \
-  --server-name=xion_shizuku_server \
-  --apk=&lt;base.apk&gt;</pre>
+          <pre class="install-card__cmd" id="adb-command">adb install -r <b>ShizukuReimagined.apk</b>
+adb shell sh <b>/sdcard/Android/data/net.xiondigital.shizuku/start.sh</b></pre>
           <div class="install-card__row">
             <button class="btn btn--ghost btn--sm" type="button" data-copy="#adb-command">Copy command</button>
-            <a class="btn btn--ghost btn--sm" href="#install">Full steps</a>
+            <a class="btn btn--ghost btn--sm" href="setup.html">Full steps</a>
           </div>
+          <p class="install-card__note">
+            Two separate lines — paste them one at a time. Works unchanged in PowerShell, cmd and a
+            POSIX shell; no version numbers, no placeholders, no <code class="mono">\</code> continuations.
+          </p>
           <ul class="install-card__list">
             <li><span>01</span> Own package, own signature, own service</li>
             <li><span>02</span> Never touches the official installation</li>
@@ -313,21 +315,22 @@ adb shell <b>libshizuku.so</b> \
           </div>
           <p class="section__note">
             This is a self-signed build, so Android will ask you to allow installing unknown apps once.
+            First time with ADB? <a href="setup.html">The full Windows guide</a> covers downloading the
+            tools, enabling USB debugging and reading <code class="mono">adb devices</code>.
           </p>
         </div>
 
         <div class="steps">
           <div class="step" data-reveal>
             <h3>Install the APK</h3>
-            <p>Download the release and install it. It coexists with the official Shizuku — nothing is replaced.</p>
-            <pre>adb install -r shizuku-v2.0.0-xion.apk</pre>
+            <p>Download <code class="mono">ShizukuReimagined.apk</code> and install it. It coexists with the official Shizuku — nothing is replaced.</p>
+            <pre>adb install -r ShizukuReimagined.apk</pre>
           </div>
           <div class="step" data-reveal>
             <h3>Start the service</h3>
-            <p>Wireless debugging or root, from the app. Or from a computer:</p>
-            <pre>adb shell libshizuku.so \
-  --server-name=xion_shizuku_server \
-  --apk=&lt;base.apk&gt;</pre>
+            <p>Open the app once from the phone, then run its start script from the computer. No placeholders to fill in:</p>
+            <pre>adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh</pre>
+            <p>Wireless debugging or root still work from inside the app if you prefer.</p>
           </div>
           <div class="step" data-reveal>
             <h3>Check both are alive</h3>
