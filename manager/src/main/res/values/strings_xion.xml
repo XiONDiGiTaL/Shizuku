@@ -78,6 +78,8 @@
     <string name="xion_tools_appops_sub">Per-app operation modes, verified after each change</string>
     <string name="xion_tools_permissions">Permission inspector</string>
     <string name="xion_tools_permissions_sub">Granted and denied permissions, verified after each change</string>
+    <string name="xion_tools_components">Component manager</string>
+    <string name="xion_tools_components_sub">Activities, services and receivers, with an undo list</string>
     <string name="xion_tools_tweaks">System tweaks</string>
     <string name="xion_tools_tweaks_sub">Animation scales, timeouts and debugging</string>
     <string name="xion_tools_shell">Command center</string>
@@ -143,6 +145,46 @@
     <string name="xion_packages_confirm_disable_msg">Disabled system components can break device features. Only disable packages you understand.</string>
     <string name="xion_packages_system_warning">System package</string>
     <string name="xion_packages_essential_warning">Essential, disabling may break the device</string>
+
+    <!-- Component manager -->
+    <string name="xion_components_title">Component manager</string>
+    <string name="xion_components_detail_title">App components</string>
+    <string name="xion_components_changes">Changes</string>
+    <string name="xion_components_changes_count">Changes (%1$d)</string>
+    <string name="xion_components_changes_title">Recorded changes</string>
+    <string name="xion_components_refresh">Refresh</string>
+    <string name="xion_components_search_packages">Search packages</string>
+    <string name="xion_components_filter_all">All</string>
+    <string name="xion_components_filter_user">User</string>
+    <string name="xion_components_filter_system">System</string>
+    <string name="xion_components_packages_count">%1$d packages</string>
+    <string name="xion_components_reading_packages">Reading packages…</string>
+    <string name="xion_components_reading">Reading components…</string>
+    <string name="xion_components_summary">%1$d components · package %2$s</string>
+    <string name="xion_components_state_enabled">enabled</string>
+    <string name="xion_components_state_disabled">disabled</string>
+    <string name="xion_components_unavailable">Start the Shizuku service to read components.</string>
+    <string name="xion_components_read_failed">Could not read components: %1$s</string>
+    <string name="xion_components_packages_failed">Could not list packages: %1$s</string>
+    <string name="xion_components_disable">Disable</string>
+    <string name="xion_components_enable">Enable</string>
+    <string name="xion_components_disable_title">Disable %1$s?</string>
+    <string name="xion_components_enable_title">Enable %1$s?</string>
+    <string name="xion_components_disable_msg">Features that rely on this component stop working until it is enabled again. The change is recorded so it can be undone here.</string>
+    <string name="xion_components_enable_msg">The component becomes available again. The change is recorded so it can be undone here.</string>
+    <string name="xion_components_disable_package">Disable package</string>
+    <string name="xion_components_enable_package">Enable package</string>
+    <string name="xion_components_package_disable_msg">Every component of this package stops, including the ones that start it in the background. The change is recorded so it can be undone here.</string>
+    <string name="xion_components_package_enable_msg">The package becomes available again. The change is recorded so it can be undone here.</string>
+    <string name="xion_components_package_disabled_note">The package itself is disabled, so none of its components can run. Enable the package to bring them back.</string>
+    <string name="xion_components_blocked">Android refused the component change: the shell user is not allowed to change component state on this version. Disabling the whole package still works and is recorded.</string>
+    <string name="xion_components_verified">Verified: %1$s is now %2$s</string>
+    <string name="xion_components_not_applied">Not applied: %1$s still reads %2$s</string>
+    <string name="xion_components_write_failed">Change failed: %1$s</string>
+    <string name="xion_components_restored">Restored %1$s</string>
+    <string name="xion_components_no_changes">No changes recorded yet.</string>
+    <string name="xion_components_whole_package">Entire package</string>
+    <string name="xion_components_note">Components come from the package manager resolver tables, so components without intent filters are not listed. Every change is verified before it is recorded, and the undo list restores the previous state.</string>
 
     <!-- Permission inspector -->
     <string name="xion_perms_title">Permission inspector</string>

@@ -45,6 +45,13 @@ class ToolsActivity : XionActivity() {
         ) { startActivity(Intent(this, PermissionInspectorActivity::class.java)) }
 
         row(
+            binding.navComponents,
+            R.drawable.ic_x_bolt,
+            R.string.xion_tools_components,
+            R.string.xion_tools_components_sub
+        ) { startActivity(Intent(this, ComponentManagerActivity::class.java)) }
+
+        row(
             binding.navTweaks,
             R.drawable.ic_x_gear,
             R.string.xion_tools_tweaks,

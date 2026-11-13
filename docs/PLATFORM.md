@@ -147,6 +147,36 @@ Caveat that the dialog states plainly: revoking a permission from the app that o
 that app immediately. Android killed and restarted the manager process when its own permission was
 revoked, which is expected system behaviour, not a defect in the inspector.
 
+## Component manager (Phase 2, delivered)
+
+`xion/tools/ComponentManagerActivity.kt`, reachable from Tools. Package browser, then the activities,
+services and receivers the package manager lists for that package, with an ENABLED or DISABLED badge.
+Tapping a component offers to disable or enable it. A package-level toggle is offered too, and every
+change that actually lands is recorded in a Changes list attached to that screen.
+
+Components come from the resolver tables in `dumpsys package`, which list every component that
+declares an intent filter. A component with no filter is not in that output and is not listed, which
+the screen states instead of implying the list is complete.
+
+Verified on the unrooted S23 Ultra:
+
+| Step | Evidence |
+|---|---|
+| Read | 8 components listed for a test app, activities and receivers with state badges |
+| Component toggle | Confirmed the prompt; Android answered with a SecurityException, the badge stayed ENABLED and nothing was recorded |
+| Package disable | Summary became "8 components · package disabled", Changes showed 1, `pm list packages -d` listed the package |
+| Undo | The entry read "Entire package, disabled · just now"; restoring returned "package enabled", cleared the entry and `pm list packages -d` no longer listed it |
+
+Limit on this Android version: the shell user cannot change component state at all. `pm disable-user
+--user 0 <package>/<component>` answers with `SecurityException: Shell cannot change component state`,
+so component toggles are reported as refused and are never recorded. Package-level enable and disable
+still work, which is why that action exists here and why the undo list is built around it.
+
+Bug found and fixed during testing: the first undo implementation stored the state after the change as
+if it were the state before it, so restoring compared the package against the change it had just made,
+dropped the entry, and left the package disabled. The record now carries both previous and current
+state, and the undo verifies against the previous one. Re-tested end to end afterwards.
+
 ## What each planned subsystem will use
 
 Nothing in the plan needs root. The mappings that follow are the basis for the phase estimates.
@@ -172,7 +202,7 @@ Nothing in the plan needs root. The mappings that follow are the basis for the p
 | 1. Architecture, capability registry | **PARTIALLY IMPLEMENTED** | Registry and diagnostics integration done; module boundaries and UI foundation still to build |
 | 2. Advanced permission inspector | **IMPLEMENTED AND TESTED** | Per-package runtime and install-time permissions, grant and revoke with read-back; install-time permissions are read-only |
 | 3. AppOps manager | **IMPLEMENTED AND TESTED** | Browse per package, change a mode, read it back; permission-backed UID modes are not writable on Android 17 and are reported as not applied |
-| 4. System component manager | **NOT IMPLEMENTED** | No component enumeration or disable/enable |
+| 4. System component manager | **PARTIALLY IMPLEMENTED** | Components listed and browsable; component enable/disable is refused by Android 17 for the shell user and reported honestly; package enable/disable works with a verified undo list |
 | 5. Automation studio | **PARTIALLY IMPLEMENTED** | Broadcast triggers and token auth exist; no visual editor, conditions or actions |
 | 6. Optimization center | **NOT IMPLEMENTED** | Tweaks screen changes individual settings, no profiles or preview |
 | 7. Advanced package manager | **PARTIALLY IMPLEMENTED** | Enable/disable, clear, uninstall per app exist; no inventory export, no compare, no debloat assistant |
