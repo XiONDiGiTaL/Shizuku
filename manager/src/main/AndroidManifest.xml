@@ -142,6 +142,11 @@
             android:label="@string/xion_packages_title"
             android:theme="@style/Theme.Xion" />
         <activity
+            android:name=".xion.tools.OptimizationCenterActivity"
+            android:exported="false"
+            android:label="@string/xion_optimize_title"
+            android:theme="@style/Theme.Xion" />
+        <activity
             android:name=".xion.tools.ComponentManagerActivity"
             android:exported="false"
             android:label="@string/xion_components_title"

@@ -59,6 +59,13 @@ class ToolsActivity : XionActivity() {
         ) { startActivity(Intent(this, TweaksActivity::class.java)) }
 
         row(
+            binding.navOptimize,
+            R.drawable.ic_x_chart,
+            R.string.xion_tools_optimize,
+            R.string.xion_tools_optimize_sub
+        ) { startActivity(Intent(this, OptimizationCenterActivity::class.java)) }
+
+        row(
             binding.navShell,
             R.drawable.ic_x_terminal,
             R.string.xion_tools_shell,

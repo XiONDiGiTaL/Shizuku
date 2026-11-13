@@ -78,6 +78,8 @@
     <string name="xion_tools_appops_sub">Per-app operation modes, verified after each change</string>
     <string name="xion_tools_permissions">Permission inspector</string>
     <string name="xion_tools_permissions_sub">Granted and denied permissions, verified after each change</string>
+    <string name="xion_tools_optimize">Optimization center</string>
+    <string name="xion_tools_optimize_sub">Profiles with a preview, a check and a restore</string>
     <string name="xion_tools_components">Component manager</string>
     <string name="xion_tools_components_sub">Activities, services and receivers, with an undo list</string>
     <string name="xion_tools_tweaks">System tweaks</string>
@@ -145,6 +147,24 @@
     <string name="xion_packages_confirm_disable_msg">Disabled system components can break device features. Only disable packages you understand.</string>
     <string name="xion_packages_system_warning">System package</string>
     <string name="xion_packages_essential_warning">Essential, disabling may break the device</string>
+
+    <!-- Optimization center -->
+    <string name="xion_optimize_title">Optimization center</string>
+    <string name="xion_optimize_note">Profiles change only the settings shown in the preview. Each write is read back before it counts, and one restore puts the previous values back.</string>
+    <string name="xion_optimize_footer">Only settings exposed by Android to the shell user are changed. Vendor specific options are not touched.</string>
+    <string name="xion_optimize_restore">Restore</string>
+    <string name="xion_optimize_restore_title">Restore previous values?</string>
+    <string name="xion_optimize_restore_msg">Every setting changed by %1$s (%2$s) goes back to the value it had before. Nothing else is touched.</string>
+    <string name="xion_optimize_restored">Restored the values from before %1$s</string>
+    <string name="xion_optimize_restore_failed">Some settings could not be restored: %1$s</string>
+    <string name="xion_optimize_last_applied">Last applied: %1$s · %2$s</string>
+    <string name="xion_optimize_preview_title">Preview %1$s</string>
+    <string name="xion_optimize_apply">Apply</string>
+    <string name="xion_optimize_applied_title">%1$s applied</string>
+    <string name="xion_optimize_partial_title">%1$d of %2$d settings applied</string>
+    <string name="xion_optimize_failed_line">%1$s NOT applied, still %2$s</string>
+    <string name="xion_optimize_unset">unset</string>
+    <string name="xion_optimize_unavailable">Start the Shizuku service to change settings.</string>
 
     <!-- Component manager -->
     <string name="xion_components_title">Component manager</string>

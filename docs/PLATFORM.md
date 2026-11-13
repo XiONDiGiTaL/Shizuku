@@ -177,6 +177,30 @@ if it were the state before it, so restoring compared the package against the ch
 dropped the entry, and left the package disabled. The record now carries both previous and current
 state, and the undo verifies against the previous one. Re-tested end to end afterwards.
 
+## Optimization center (Phase 2, delivered)
+
+`xion/tools/OptimizationCenterActivity.kt`, reachable from Tools. Three profiles, each a named set of
+values for settings Android exposes to the shell: window, transition and animator scales plus the
+screen timeout. Tapping a profile reads the current value of every setting and shows `current -> new`
+for each before anything is written.
+
+Applying writes each setting with `settings put`, reads it back, and only reports the setting as
+applied when the value matches. Anything the device refuses is listed as NOT applied with the value it
+still holds. Every written setting is stored with the value it replaced, and Restore puts those values
+back, verifying each one again before clearing the record.
+
+Verified on the unrooted S23 Ultra, starting from `1.0 / 1.0 / 1.0` and a 30 second timeout:
+
+| Step | Evidence |
+|---|---|
+| Preview | `window_animation_scale: 1.0 -> 0.0`, same shape for the other two scales and the timeout |
+| Apply | Dialog reported "Instant applied" with all four settings; `settings get` returned `0.0`, `0.0`, `0.0`, `30000` |
+| Restore | Confirmed; `settings get` returned `1.0`, `1.0`, `1.0`, `30000` and the last applied line disappeared |
+
+Scope, stated in the screen: this changes four settings only. It does not touch vendor performance
+modes, CPU governors, refresh rate or battery policy, because those are not uniformly writable through
+the shell and would need per manufacturer adapters.
+
 ## What each planned subsystem will use
 
 Nothing in the plan needs root. The mappings that follow are the basis for the phase estimates.
@@ -204,7 +228,7 @@ Nothing in the plan needs root. The mappings that follow are the basis for the p
 | 3. AppOps manager | **IMPLEMENTED AND TESTED** | Browse per package, change a mode, read it back; permission-backed UID modes are not writable on Android 17 and are reported as not applied |
 | 4. System component manager | **PARTIALLY IMPLEMENTED** | Components listed and browsable; component enable/disable is refused by Android 17 for the shell user and reported honestly; package enable/disable works with a verified undo list |
 | 5. Automation studio | **PARTIALLY IMPLEMENTED** | Broadcast triggers and token auth exist; no visual editor, conditions or actions |
-| 6. Optimization center | **NOT IMPLEMENTED** | Tweaks screen changes individual settings, no profiles or preview |
+| 6. Optimization center | **IMPLEMENTED AND TESTED** | Three profiles with a live preview, verified writes and a one tap restore; scope is limited to four settings the shell can change |
 | 7. Advanced package manager | **PARTIALLY IMPLEMENTED** | Enable/disable, clear, uninstall per app exist; no inventory export, no compare, no debloat assistant |
 | 8. Command center 2.0 | **PARTIALLY IMPLEMENTED** | Execution, exit codes, duration, clear/copy exist; history has no recall UI, no recipes, no search |
 | 9. Security and privacy center | **NOT IMPLEMENTED** | App lock and diagnostics exist; no unified center |
