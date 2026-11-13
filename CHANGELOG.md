@@ -3,6 +3,70 @@
 All notable changes to this fork are documented here. The fork continues the work of
 [thedjchi/Shizuku](https://github.com/thedjchi/Shizuku) (13.7.0) under the [XiØN](https://github.com/XiONDiGiTaL) identity.
 
+## 2.0.3-xion
+
+A system management release. Every feature below runs with ADB privileges only, and every write is
+read back before the app reports it.
+
+### AppOps manager
+
+- Browse any installed package, see its operation modes as the service reports them, change one and
+  verify the new mode with `cmd appops get <package> <op>`.
+- Operations Android keeps for the whole uid (camera, microphone, location, contacts and the like)
+  cannot be changed per package on Android 17. The screen reports "Not applied" with the mode it
+  still reads instead of claiming success.
+
+### Permission inspector
+
+- Per-package runtime and install-time permissions with their granted state from `dumpsys package`.
+- Grant and revoke for runtime permissions, each read back afterwards. Install-time permissions are
+  shown but not offered for change, because ADB cannot revoke them.
+
+### Component manager
+
+- Lists activities, services and receivers of any package from the package manager resolver tables.
+- Android 17 refuses component level enable and disable for the shell user (`SecurityException:
+  Shell cannot change component state`). The screen states that, records nothing, and offers the
+  package level toggle, which works and is recorded with an undo list.
+
+### Optimization center
+
+- Three profiles (Instant, Balanced, Battery) that change only the animation scales and screen
+  timeout, with a preview of each value before anything is written.
+- One restore returns every value the profile touched to what it was before.
+
+### Snapshot and restore
+
+- Named snapshots of supported settings, package enabled states and AppOps modes that are allow,
+  foreground or deny. Default ignore states are left out: they are the Android baseline, and there
+  are thousands of them.
+- Restoring shows a diff first, then writes and verifies each item, reporting what was restored and
+  what was not.
+
+### Command center 2.0
+
+- History of the last 20 commands, recalled into the input.
+- Named recipes: save the current command, then run, insert or delete it.
+- Transcript search that reports how many lines match without discarding the transcript.
+
+### Security and privacy center
+
+- One screen with the app lock state, every user app that holds a sensitive runtime permission, and
+  the AppOps overrides where an operation is allowed without its permission.
+- Each override row has a one-tap **Fix** that resets the mode to default and reads it back. The row
+  only disappears when Android answers `default`; a refused write keeps the row, names the mode still
+  in force and hides that row's button.
+- Every row opens the tool that changes it: the AppOps manager or the permission inspector, both of
+  which now open straight to a package.
+
+### Fixes found while testing
+
+- The security center's first scan counted AppOps usage records as overrides. On Android 17 a
+  permission backed operation prints both a uid state and a second per-package line, and only an
+  operation that appears once can be set per package. The list went from 30 rows to 13 real ones.
+- A recipe action dialog built with both a message and an item list rendered the message only, so Run,
+  Insert and Delete never appeared. The list is now the dialog content.
+
 ## 2.0.2-xion
 
 ### One command to start it from a computer

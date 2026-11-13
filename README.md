@@ -8,7 +8,7 @@
 
 <br>
 
-[![Version](https://img.shields.io/badge/version-2.0.2--xion-3f80ff?style=for-the-badge&labelColor=0c0e11)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.0.3--xion-3f80ff?style=for-the-badge&labelColor=0c0e11)](CHANGELOG.md)
 [![Android](https://img.shields.io/badge/android-7.0%2B-3f80ff?style=for-the-badge&labelColor=0c0e11)](docs/INSTALL.md)
 [![Replacement](https://img.shields.io/badge/replaces-shizuku-79a8ff?style=for-the-badge&labelColor=0c0e11)](docs/INSTALL.md)
 [![License](https://img.shields.io/badge/license-Apache--2.0-3f80ff?style=for-the-badge&labelColor=0c0e11)](LICENSE)
@@ -61,7 +61,7 @@ Full write-up, evidence and the genuine Samsung limits: [docs/COMPATIBILITY.md](
 <table>
 <tr>
 <td width="50%"><img src="screenshots/authorizations.png" alt="Authorizations"><br><sub><b>Authorizations</b>: real list, per-app revoke, live cross-check</sub></td>
-<td width="50%"><img src="screenshots/tools.png" alt="Tools"><br><sub><b>Tools</b>: packages, tweaks, command center</sub></td>
+<td width="50%"><img src="screenshots/tools.png" alt="Tools"><br><sub><b>Tools</b>: packages, AppOps, permissions, command center</sub></td>
 </tr>
 <tr>
 <td><img src="screenshots/command-center.png" alt="Command center"><br><sub><b>Command center</b>: exit codes and duration, not vibes</sub></td>
@@ -134,6 +134,24 @@ Watchdog 2.0 watches the binder instead of hoping: exponential backoff, a hard a
 15-minute window, restart history, and notifications that separate *recovered* from *gave up*.
 Unexpected deaths are recorded with a timestamp and surfaced in diagnostics and automation events.
 
+## Real tools, verified results
+
+Everything under **Tools** runs through the service and reports what happened, not what was attempted.
+
+| Tool | What it does | Verified on the S23 |
+|---|---|---|
+| Package manager | Disable, enable, clear data and uninstall per app | package disable, then enable again from the recorded undo |
+| AppOps manager | Browse and change per-app operation modes | VIBRATE set to allow, restored, read back with `cmd appops get` |
+| Permission inspector | Runtime and install-time permissions, grant and revoke | NEARBY_WIFI_DEVICES granted then revoked, confirmed by `dumpsys package` |
+| Component manager | Activities, services and receivers, with an undo list | package disable and undo recorded; Android 17 refuses per-component changes for shell and the screen says so |
+| Optimization center | Profiles with a live preview and one-tap restore | Instant applied `0.0/0.0/0.0/30000`, restore returned `1.0/1.0/1.0/30000` |
+| Snapshot and restore | Settings, package states and meaningful AppOps, with a diff preview | 4 settings, 306 apps and 1489 AppOps captured; a restore moved `0.5` to `1.0` and read back `1.0` |
+| Command center | Shell with exit codes, history recall, named recipes and transcript search | `uptime` exited 0, the saved recipe ran again, search reported 2 matching lines |
+| Security and privacy | App lock state, sensitive permissions and AppOps overrides with a one-tap reset | 13 overrides and 89 apps with sensitive access; a reset went from 13 to 12 with `default` read back |
+
+No root is used anywhere in that table. The service runs as uid 2000 on the reference device, and
+anything Android refuses is shown as refused.
+
 ## Verified on a real device
 
 Samsung SM-S918U · Android 17 (SDK 37) · One UI 9.0, over ADB:
@@ -144,7 +162,9 @@ Samsung SM-S918U · Android 17 (SDK 37) · One UI 9.0, over ADB:
 - dashboard reports `Service running`, `ADB · API 13`, `uid 2000`, port 5555;
 - 23 apps listed, cross-check "Android reports 24 holding the permission";
 - shell commands execute with real exit codes; diagnostics collect live device data;
-- every screen in the gallery above opened and inspected on the device.
+- every screen in the gallery above opened and inspected on the device;
+- every tool in the table above was exercised on the device and its result read back from Android,
+  not assumed from an exit code.
 
 Not executed in this round: package-manager actions, system tweaks, backup import/export, watchdog
 restarts, quick-settings tiles, boot start, TV layout, root start. They are implemented and report
@@ -163,7 +183,7 @@ their real result, [docs/FEATURES.md](docs/FEATURES.md) marks each one.
 | [Compatibility](docs/COMPATIBILITY.md) | The One UI 9.0 issue, evidence, Samsung limits |
 | [Troubleshooting](docs/TROUBLESHOOTING.md) | Common failures and what to check |
 | [Building](docs/BUILDING.md) | Toolchain, signing, native starter |
-| [Changelog](CHANGELOG.md) | What changed in 2.0.2-xion |
+| [Changelog](CHANGELOG.md) | What changed in 2.0.3-xion |
 
 ## Credits
 
