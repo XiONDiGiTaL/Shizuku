@@ -64,12 +64,24 @@ Full write-up, evidence and the genuine Samsung limits: [docs/COMPATIBILITY.md](
 <td width="50%"><img src="screenshots/tools.png" alt="Tools"><br><sub><b>Tools</b>: packages, AppOps, permissions, command center</sub></td>
 </tr>
 <tr>
-<td><img src="screenshots/command-center.png" alt="Command center"><br><sub><b>Command center</b>: exit codes and duration, not vibes</sub></td>
+<td><img src="screenshots/command-center.png" alt="Command center"><br><sub><b>Command center</b>: exit codes, history, recipes, search</sub></td>
 <td><img src="screenshots/diagnostics.png" alt="Diagnostics"><br><sub><b>Diagnostics</b>: device, service, resources, export</sub></td>
 </tr>
 <tr>
 <td><img src="screenshots/automation.png" alt="Automation"><br><sub><b>Automation</b>: intents, events, auth token</sub></td>
 <td><img src="screenshots/backup.png" alt="Backup and restore"><br><sub><b>Backup</b>: export and import app settings</sub></td>
+</tr>
+<tr>
+<td><img src="screenshots/appops.png" alt="AppOps manager"><br><sub><b>AppOps manager</b>: per-app operation modes, read back after every change</sub></td>
+<td><img src="screenshots/permissions.png" alt="Permission inspector"><br><sub><b>Permission inspector</b>: runtime permissions, grant and revoke</sub></td>
+</tr>
+<tr>
+<td><img src="screenshots/components.png" alt="Component manager"><br><sub><b>Component manager</b>: activities, services and receivers</sub></td>
+<td><img src="screenshots/optimization-center.png" alt="Optimization center"><br><sub><b>Optimization center</b>: profiles, preview, one restore</sub></td>
+</tr>
+<tr>
+<td><img src="screenshots/snapshots.png" alt="Snapshot and restore"><br><sub><b>Snapshots</b>: settings, apps and AppOps with a diff</sub></td>
+<td><img src="screenshots/security-center.png" alt="Security and privacy"><br><sub><b>Security and privacy</b>: overrides with a verified fix</sub></td>
 </tr>
 </table>
 
