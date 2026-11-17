@@ -61,11 +61,14 @@
     <string name="xion_auth_not_requested">Not authorized</string>
     <string name="xion_auth_unknown">Unknown</string>
     <string name="xion_auth_uninstalled">No longer installed</string>
+    <string name="xion_auth_grant">Grant</string>
     <string name="xion_auth_revoke">Revoke</string>
     <string name="xion_auth_empty">No applications use this Shizuku service yet.</string>
     <string name="xion_auth_unavailable">Authorization state could not be read from the service.</string>
     <string name="xion_auth_failed_title">Could not read authorizations</string>
     <string name="xion_auth_diag">Diagnostics</string>
+    <string name="xion_auth_grant_confirm">Grant Shizuku access for %1$s?</string>
+    <string name="xion_auth_grant_confirm_msg">The app receives the service binder and can use ADB-level operations again.</string>
     <string name="xion_auth_revoke_confirm">Revoke Shizuku access for %1$s?</string>
     <string name="xion_auth_revoke_confirm_msg">The app will lose access immediately. You can grant it again the next time it asks.</string>
     <string name="xion_auth_history_note">Shown from local history: this app held access but is no longer installed.</string>

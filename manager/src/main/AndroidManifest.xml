@@ -36,25 +36,21 @@
         android:name="android.hardware.touchscreen"
         android:required="false" />
 
-    <!-- Development identity: the official Shizuku installation owns this permission group and
-         the API permission. Android rejects a second package that redeclares them, so this build
-         must not declare them. The permission *name* used by client apps is unchanged, and the
-         service still grants and checks that exact name, so client compatibility is preserved.
-         A standalone (non-coexisting) release would own these declarations again. -->
+    <!-- This build owns the official package id, so it also owns the permission group and the
+         API permission that client apps request. Without these declarations a client cannot be
+         granted access at all, and Android reports its check as denied forever. -->
     <permission-group
         android:name="moe.shizuku.manager.permission-group.API"
         android:description="@string/permission_group_description"
         android:icon="@drawable/ic_system_icon"
-        android:label="@string/permission_group_label"
-        tools:node="remove" />
+        android:label="@string/permission_group_label" />
 
-    <!-- Signature-level permission for the manager itself. It must follow the application id:
-         the official Shizuku already defines the historical name, and two packages cannot both
-         define the same signature permission. -->
+    <!-- Signature-level permission for the manager itself. The server looks this name up as a
+         fixed string, so it must not follow the application id. -->
     <permission
-        android:name="${applicationId}.permission.MANAGER"
+        android:name="moe.shizuku.manager.permission.MANAGER"
         android:protectionLevel="signature" />
-    <uses-permission android:name="${applicationId}.permission.MANAGER" />
+    <uses-permission android:name="moe.shizuku.manager.permission.MANAGER" />
 
     <permission
         android:name="moe.shizuku.manager.permission.API_V23"
@@ -62,11 +58,8 @@
         android:icon="@drawable/ic_system_icon"
         android:label="@string/permission_label"
         android:permissionGroup="moe.shizuku.manager.permission-group.API"
-        android:protectionLevel="dangerous"
-        tools:node="remove" />
-    <uses-permission
-        android:name="moe.shizuku.manager.permission.API_V23"
-        tools:node="remove" />
+        android:protectionLevel="dangerous" />
+    <uses-permission android:name="moe.shizuku.manager.permission.API_V23" />
 
     <permission
         android:name="${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"

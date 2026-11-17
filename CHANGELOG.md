@@ -3,6 +3,38 @@
 All notable changes to this fork are documented here. The fork continues the work of
 [thedjchi/Shizuku](https://github.com/thedjchi/Shizuku) (13.7.0) under the [XiØN](https://github.com/XiONDiGiTaL) identity.
 
+## 2.0.4-xion
+
+### It is the real package now
+
+- The build installs as `moe.shizuku.privileged.api`, the package every Shizuku client app hardcodes
+  when it looks for the manager. Under the old `net.xiondigital.shizuku` id no client could discover
+  it: InstallerX Revived answered "Please activate Sui or Shizuku and grant permission, binder
+  haven't been received" no matter how the service was started.
+- It owns `moe.shizuku.manager.permission.API_V23` and `moe.shizuku.manager.permission.MANAGER`
+  again, so a client can be granted access instead of having its permission check fail forever.
+- It starts `shizuku_server`, reads `/data/user_de/0/com.android.shell/shizuku.json` and delivers
+  the binder to client apps, all of which were disabled while it claimed a separate identity.
+- The native starter now passes `--server-name=shizuku_server`, so the app and the starter agree on
+  which process they manage.
+- The official app has to be uninstalled first: the signing keys differ, so Android refuses an in
+  place update. Grants live in the shell config, so they carry over.
+
+### Authorizations can grant again
+
+- Each app row offers **Grant** when it is not authorised and **Revoke** when it is, and the list is
+  read back from the service afterwards. Previously the screen could only revoke, so an app whose
+  access had been revoked could not be restored from this build.
+
+### Verified on the S23 Ultra
+
+- Installed over the removed official app; the service started as `shizuku_server`, uid 2000, port
+  5555, and the dashboard read `Service running`, `ADB · API 13`.
+- InstallerX Revived reported `Shizuku (Shell)` and one available privilege. Revoking it from
+  Authorizations dropped it to Not authorized and removed the grant; granting it again restored it.
+- Granting `app.morphe.manager` from the new button read back
+  `moe.shizuku.manager.permission.API_V23: granted=true` from the package manager.
+
 ## 2.0.3-xion
 
 A system management release. Every feature below runs with ADB privileges only, and every write is

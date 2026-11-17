@@ -4,15 +4,20 @@
 
 | | Official Shizuku | Shizuku Reimagined (this build) |
 |---|---|---|
-| Package | `moe.shizuku.privileged.api` | `net.xiondigital.shizuku` |
+| Package | `moe.shizuku.privileged.api` | `moe.shizuku.privileged.api` |
 | Name | Shizuku | Shizuku Reimagined |
 | Signing key | upstream | independent |
-| Service config | `/data/user_de/0/com.android.shell/shizuku.json` | `.../net_xiondigital_shizuku.json` |
-| Server process | `shizuku_server` | `xion_shizuku_server` |
+| Service config | `/data/user_de/0/com.android.shell/shizuku.json` | same file |
+| Server process | `shizuku_server` | `shizuku_server` |
 
-This build is meant to **replace** the official app, not to run beside it. It never modifies,
-replaces or uninstalls the official install, and it does not touch that app's stored authorisations,
-so you can install it, move your apps over, and remove the official one when you are satisfied.
+This build **replaces** the official app. It uses the same package id, because every Shizuku client
+app hardcodes that id when it looks for the manager; a different id is never discovered, and client
+apps report "binder haven't been received". The signing key is different, so Android will not update
+the official app in place:
+
+1. Uninstall the official Shizuku.
+2. Install this APK.
+3. Start the service, then authorise your apps here. Grants already in the shell config survive.
 
 ## Requirements
 
@@ -42,7 +47,7 @@ a development key: do not treat its signature as a security boundary.
    starts immediately; otherwise run the script the app writes, from a computer:
 
    ```bash
-   adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh
+   adb shell sh /sdcard/Android/data/moe.shizuku.privileged.api/start.sh
    ```
 
    This mirrors the official Shizuku's `start.sh`: the app writes the script at launch with its own
@@ -50,7 +55,7 @@ a development key: do not treat its signature as a security boundary.
    (PowerShell rejects `\`). The path is also shown in Diagnostics → Application → *ADB start script*,
    and the script is rewritten on every launch because those paths change when the app updates.
 
-   The script passes `--server-name=xion_shizuku_server`, which is what keeps this service separate
+   The script passes `--server-name=shizuku_server`, which is what keeps this service separate
    from a running official Shizuku server.
 3. The dashboard switches to **Service running** and shows the real privilege level
    (`ADB · API 13`, `uid 2000`) and port.
@@ -59,25 +64,23 @@ a development key: do not treat its signature as a security boundary.
 
 ```bash
 adb shell ps -A -o USER,PID,NAME | grep shizuku_server
-# shell  9355  shizuku_server          <- official, untouched
-# shell 11875  xion_shizuku_server     <- this build
+# shell 11875  shizuku_server     <- this build
 ```
 
-## Replace the official app
+## Replacing the official app
 
-Both packages can be installed during the migration, because Android authorises per package: grant
-access to your apps in this build first, then uninstall `moe.shizuku.privileged.api` from the system
-settings if you want only one Shizuku. Nothing here depends on the official app being gone.
+Because the package id is the same, the two cannot be installed at once: uninstall the official app,
+then install this build. The authorisations themselves live in the shell user's config file, so a
+swap does not lose them.
 
-This build still carries its own package name, so client apps that use the Shizuku API will bind to
-the official package, not this one. Replacing the package identity outright is scoped in
-[docs/REPLACEMENT.md](REPLACEMENT.md): it needs the official app uninstalled first, and it is not
-implemented yet.
+The signing keys differ, so this can never be installed as an update over the official app, and the
+official app can never be installed as an update over this one. Uninstall first, every time.
 
 ## Uninstall
 
-Uninstalling this app removes only its own installation and its own service configuration.
-The official Shizuku app and its authorisations are unaffected.
+Uninstalling this app removes the package and its data. The authorisation state in
+`/data/user_de/0/com.android.shell/shizuku.json` belongs to the shell user and stays behind, so a
+later official install finds the grants again.
 
 ## First run after install
 

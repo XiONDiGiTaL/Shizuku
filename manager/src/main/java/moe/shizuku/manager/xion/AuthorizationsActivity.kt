@@ -27,7 +27,10 @@ import moe.shizuku.manager.xion.auth.AuthorizedApp
 class AuthorizationsActivity : XionActivity() {
 
     private lateinit var binding: ActivityXionAuthorizationsBinding
-    private val adapter = AuthAdapter { app -> confirmRevoke(app) }
+    private val adapter = AuthAdapter(
+        onGrant = { app -> confirmGrant(app) },
+        onRevoke = { app -> confirmRevoke(app) }
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,6 +92,26 @@ class AuthorizationsActivity : XionActivity() {
         }
     }
 
+    private fun confirmGrant(app: AuthorizedApp) {
+        if (app.uid < 0) return
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.xion_auth_grant_confirm, app.label))
+            .setMessage(R.string.xion_auth_grant_confirm_msg)
+            .setPositiveButton(R.string.xion_auth_grant) { _, _ ->
+                lifecycleScope.launch {
+                    val ok = AuthorizationRepository.grant(app.packageName, app.uid)
+                    Toast.makeText(
+                        this@AuthorizationsActivity,
+                        if (ok) "Access granted for ${app.label}" else "The service refused the request",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    load()
+                }
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
     private fun confirmRevoke(app: AuthorizedApp) {
         if (app.uid < 0) return
         MaterialAlertDialogBuilder(this)
@@ -109,7 +132,10 @@ class AuthorizationsActivity : XionActivity() {
             .show()
     }
 
-    private class AuthAdapter(private val onRevoke: (AuthorizedApp) -> Unit) :
+    private class AuthAdapter(
+        private val onGrant: (AuthorizedApp) -> Unit,
+        private val onRevoke: (AuthorizedApp) -> Unit
+    ) :
         ListAdapter<AuthorizedApp, AuthAdapter.Holder>(Diff) {
 
         class Holder(val binding: ItemXionAuthBinding) : RecyclerView.ViewHolder(binding.root)
@@ -151,16 +177,22 @@ class AuthorizationsActivity : XionActivity() {
                     b.state.text = holder.itemView.context.getString(R.string.xion_auth_granted)
                     b.state.applyTone(XionUi.Tone.POSITIVE)
                     b.btnRevoke.isVisible = true
+                    b.btnRevoke.setText(R.string.xion_auth_revoke)
+                    b.btnRevoke.setOnClickListener { onRevoke(app) }
                 }
                 AuthorizationState.DENIED -> {
                     b.state.text = holder.itemView.context.getString(R.string.xion_auth_denied)
                     b.state.applyTone(XionUi.Tone.NEGATIVE)
-                    b.btnRevoke.isVisible = false
+                    b.btnRevoke.isVisible = true
+                    b.btnRevoke.setText(R.string.xion_auth_grant)
+                    b.btnRevoke.setOnClickListener { onGrant(app) }
                 }
                 AuthorizationState.NOT_REQUESTED -> {
                     b.state.text = holder.itemView.context.getString(R.string.xion_auth_not_requested)
                     b.state.applyTone(XionUi.Tone.NEUTRAL)
-                    b.btnRevoke.isVisible = false
+                    b.btnRevoke.isVisible = true
+                    b.btnRevoke.setText(R.string.xion_auth_grant)
+                    b.btnRevoke.setOnClickListener { onGrant(app) }
                 }
                 AuthorizationState.UNKNOWN -> {
                     b.state.text = holder.itemView.context.getString(R.string.xion_auth_unknown)
@@ -173,8 +205,6 @@ class AuthorizationsActivity : XionActivity() {
                     b.btnRevoke.isVisible = false
                 }
             }
-
-            b.btnRevoke.setOnClickListener { onRevoke(app) }
         }
     }
 }

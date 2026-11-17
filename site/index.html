@@ -92,7 +92,7 @@
           </div>
 
           <ul class="hero__meta">
-            <li><span>Release</span> <strong>v2.0.3-xion</strong></li>
+            <li><span>Release</span> <strong>v2.0.4-xion</strong></li>
             <li><span>Android</span> <strong>7.0+</strong></li>
             <li><span>Replaces</span> <strong>Shizuku 13.7.0</strong></li>
             <li><span>Status</span> <strong class="chip chip--ok chip--dot">verified on device</strong></li>
@@ -102,7 +102,7 @@
         <aside class="install-card" aria-label="Quick install">
           <p class="install-card__label">Install from a computer</p>
           <pre class="install-card__cmd" id="adb-command">.\adb install -r <b>ShizukuReimagined.apk</b>
-.\adb shell sh <b>/sdcard/Android/data/net.xiondigital.shizuku/start.sh</b></pre>
+.\adb shell sh <b>/sdcard/Android/data/moe.shizuku.privileged.api/start.sh</b></pre>
           <div class="install-card__row">
             <button class="btn btn--ghost btn--sm" type="button" data-copy="#adb-command">Copy command</button>
             <a class="btn btn--ghost btn--sm" href="setup.html">Full steps</a>
@@ -113,8 +113,8 @@
             no placeholders, no <code class="mono">\</code> continuations.
           </p>
           <ul class="install-card__list">
-            <li><span>01</span> Own package, own signature, own service</li>
-            <li><span>02</span> Replaces it, official install untouched</li>
+            <li><span>01</span> Same package clients look for</li>
+            <li><span>02</span> Uninstall the official app first</li>
             <li><span>03</span> Wireless debugging or root to start</li>
           </ul>
           <p class="install-card__note">
@@ -376,21 +376,20 @@
         <div class="steps">
           <div class="step" data-reveal>
             <h3>Install the APK</h3>
-            <p>Download <code class="mono">ShizukuReimagined.apk</code> and install it. This is your Shizuku from now on: authorise your apps here, then uninstall the official app. This build never modifies that app, so the switch can be undone.</p>
+            <p>Uninstall the official Shizuku, then install <code class="mono">ShizukuReimagined.apk</code>. It owns the same package id every client app looks for, which is why InstallerX, aShell and the rest can use it. The signing key differs, so it cannot update the official app in place.</p>
             <pre>.\adb install -r ShizukuReimagined.apk</pre>
           </div>
           <div class="step" data-reveal>
             <h3>Start the service</h3>
             <p>Open the app once from the phone, then run its start script from the computer. No placeholders to fill in:</p>
-            <pre>.\adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh</pre>
+            <pre>.\adb shell sh /sdcard/Android/data/moe.shizuku.privileged.api/start.sh</pre>
             <p>Wireless debugging or root still work from inside the app if you prefer.</p>
           </div>
           <div class="step" data-reveal>
-            <h3>Check both are alive</h3>
+            <h3>Check it is alive</h3>
             <p>The dashboard should say <strong>Service running</strong> and show the real uid and port.</p>
             <pre>.\adb shell ps -A | grep shizuku_server
-# shizuku_server         (official)
-# xion_shizuku_server    (this build)</pre>
+# shell  11875  shizuku_server    (this build)</pre>
           </div>
         </div>
       </div>
@@ -405,11 +404,11 @@
             <h2 class="section__title">Shizuku's job, <em>rebuilt</em></h2>
           </div>
           <p class="section__note">
-            A fork is meant to replace what it forks, not to sit beside it. Install this, authorise
-            your apps here, uninstall the official app, everything Shizuku did, this does. It carries
-            its own package, signature and service name so the switch is reversible and an existing
-            install is never modified; that separation is there to make migrating safe, not to keep
-            both around forever.
+            A fork is meant to replace what it forks, not to sit beside it. This build registers the
+            package, the service name and the config file that client apps and the Shizuku API already
+            expect, so everything Shizuku did, this does, including serving other apps. The signing key
+            is the one thing it keeps to itself, which is why the official app has to be uninstalled
+            first.
           </p>
         </div>
 
@@ -418,10 +417,10 @@
             <tr><th></th><th>Shizuku (official)</th><th>Shizuku Reimagined</th></tr>
           </thead>
           <tbody>
-            <tr><td><strong>Package</strong></td><td><code class="mono">moe.shizuku.privileged.api</code></td><td><code class="mono">net.xiondigital.shizuku</code></td></tr>
-            <tr><td><strong>Service process</strong></td><td><code class="mono">shizuku_server</code></td><td><code class="mono">xion_shizuku_server</code></td></tr>
-            <tr><td><strong>Service config</strong></td><td><code class="mono">shizuku.json</code></td><td><code class="mono">net_xiondigital_shizuku.json</code></td></tr>
-            <tr><td><strong>Client binder fan-out</strong></td><td>yes</td><td>disabled</td></tr>
+            <tr><td><strong>Package</strong></td><td><code class="mono">moe.shizuku.privileged.api</code></td><td><code class="mono">moe.shizuku.privileged.api</code></td></tr>
+            <tr><td><strong>Service process</strong></td><td><code class="mono">shizuku_server</code></td><td><code class="mono">shizuku_server</code></td></tr>
+            <tr><td><strong>Service config</strong></td><td><code class="mono">shizuku.json</code></td><td><code class="mono">shizuku.json</code></td></tr>
+            <tr><td><strong>Client binder fan-out</strong></td><td>yes</td><td>yes</td></tr>
             <tr><td><strong>Signing key</strong></td><td>upstream</td><td>independent</td></tr>
           </tbody>
         </table>

@@ -7,7 +7,7 @@
 3. If nothing else works, start it from a computer:
 
    ```bash
-   adb shell <nativeLibraryDir>/libshizuku.so --server-name=xion_shizuku_server --apk=<base.apk>
+   adb shell <nativeLibraryDir>/libshizuku.so --server-name=shizuku_server --apk=<base.apk>
    ```
 
    The command that matches this installation is printed in **Tools** and in the README of the
@@ -29,16 +29,22 @@
 - If both numbers are `0`, no app currently holds the permission; authorise an app in the
   official Shizuku or from the client app's own request flow.
 
-## Two services are running
+## A Shizuku service is running but no app sees it
 
-That is expected when the official Shizuku is also installed:
+This build is the `moe.shizuku.privileged.api` package, so client apps should find it. If they do
+not:
 
 ```bash
+adb shell pm list packages | grep shizuku
 adb shell ps -A -o USER,PID,NAME | grep shizuku_server
 ```
 
-`shizuku_server` is the official service; `xion_shizuku_server` is this build. Each has its own
-configuration file and its own clients. Stop either one from its own app.
+- Exactly one `moe.shizuku.privileged.api` package should be installed; the official app cannot
+  coexist with it.
+- `shizuku_server` must be running as `shell`. If a service from a previous installation is still
+  running, stop the app, then start the service again.
+- The app must hold `moe.shizuku.manager.permission.API_V23`. Open **Authorizations** and use
+  **Grant** on its row if it shows Not authorized; the screen reads the state back afterwards.
 
 ## The watchdog keeps restarting the service
 

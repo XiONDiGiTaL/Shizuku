@@ -55,12 +55,13 @@ commit count, so every build is uniquely identifiable in Diagnostics.
 The starter (`manager/src/main/jni/starter.cpp`) is compiled into `libshizuku.so` and parses:
 
 - `--apk=<path>`, manager APK whose secondary dex holds the server;
-- `--server-name=<name>`, process name of the server to manage and replace. The development
-  build passes `xion_shizuku_server` so it never kills an official `shizuku_server`.
+- `--server-name=<name>`, process name of the server to manage and replace. The release build
+  passes `shizuku_server`, the name client apps and the starter expect.
 
 ## Notes
 
-- The server module's `BuildConfig.DEV_IDENTITY` is derived from the manager applicationId, so
-  changing the applicationId keeps the isolation logic correct.
+- The server module's `BuildConfig.DEV_IDENTITY` is derived from the manager applicationId. With
+  `moe.shizuku.privileged.api` it is false, which enables the client binder fan-out, the
+  `shizuku_server` name and the shared `shizuku.json`.
 - `:manager:assembleDebug` builds the server dex into the manager APK; no separate server
   install is needed.

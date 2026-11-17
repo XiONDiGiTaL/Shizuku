@@ -166,17 +166,17 @@ R5CW71H8GEZ     device</pre>
             </p>
             <div class="cmd">
               <span class="cmd__label">PowerShell / cmd</span>
-              <pre id="cmd-start">.\adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh</pre>
+              <pre id="cmd-start">.\adb shell sh /sdcard/Android/data/moe.shizuku.privileged.api/start.sh</pre>
               <button class="btn btn--ghost btn--sm cmd__copy" type="button" data-copy="#cmd-start">Copy</button>
             </div>
             <div class="cmd">
               <span class="cmd__label">cmd, without the prefix</span>
-              <pre id="cmd-start-cmd">adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh</pre>
+              <pre id="cmd-start-cmd">adb shell sh /sdcard/Android/data/moe.shizuku.privileged.api/start.sh</pre>
               <button class="btn btn--ghost btn--sm cmd__copy" type="button" data-copy="#cmd-start-cmd">Copy</button>
             </div>
             <div class="cmd">
               <span class="cmd__label">macOS / Linux</span>
-              <pre id="cmd-start-posix">./adb shell sh /sdcard/Android/data/net.xiondigital.shizuku/start.sh</pre>
+              <pre id="cmd-start-posix">./adb shell sh /sdcard/Android/data/moe.shizuku.privileged.api/start.sh</pre>
               <button class="btn btn--ghost btn--sm cmd__copy" type="button" data-copy="#cmd-start-posix">Copy</button>
             </div>
             <p>
@@ -250,7 +250,7 @@ info: shizuku_starter exit with 0</pre>
               <tr>
                 <td><code class="mono">Permission denied</code> on the script</td>
                 <td>Rare: the file lost its execute bit after a restore.</td>
-                <td><code class="mono">.\adb shell chmod 755 /sdcard/Android/data/net.xiondigital.shizuku/start.sh</code></td>
+                <td><code class="mono">.\adb shell chmod 755 /sdcard/Android/data/moe.shizuku.privileged.api/start.sh</code></td>
               </tr>
               <tr>
                 <td>Service runs, but an app says it has no permission</td>
@@ -271,7 +271,7 @@ info: shizuku_starter exit with 0</pre>
           <div class="cmd">
             <pre id="cmd-script">#!/system/bin/sh
 # Shizuku Reimagined: starts the service from a computer.
-exec "/data/app/…/lib/arm64/libshizuku.so" --server-name=xion_shizuku_server --apk="/data/app/…/base.apk"</pre>
+exec "/data/app/…/lib/arm64/libshizuku.so" --server-name=shizuku_server --apk="/data/app/…/base.apk"</pre>
             <button class="btn btn--ghost btn--sm cmd__copy" type="button" data-copy="#cmd-script">Copy</button>
           </div>
           <p>

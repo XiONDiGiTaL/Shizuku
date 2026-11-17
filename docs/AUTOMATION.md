@@ -8,8 +8,8 @@ Control intents are handled by `AuthenticatedReceiver`, so a caller must either 
 own permission or supply the auth token shown in **Automation → AUTH TOKEN**:
 
 ```bash
-adb shell am broadcast -a net.xiondigital.shizuku.START \
-  -p net.xiondigital.shizuku --es auth <token>
+adb shell am broadcast -a moe.shizuku.privileged.api.START \
+  -p moe.shizuku.privileged.api --es auth <token>
 ```
 
 From Tasker/MacroDroid/Automate, send the same explicit broadcast to the package with the
@@ -19,10 +19,10 @@ From Tasker/MacroDroid/Automate, send the same explicit broadcast to the package
 
 | Action | Effect | Extras |
 |---|---|---|
-| `net.xiondigital.shizuku.START` | Start the service with the last successful method (root or wireless debugging) |, |
-| `net.xiondigital.shizuku.STOP` | Stop the service and its binder |, |
-| `net.xiondigital.shizuku.RESTART` | Stop, then start again through the same path the UI uses |, |
-| `net.xiondigital.shizuku.WATCHDOG` | Enable or disable the foreground watchdog | `enabled: true\|false` |
+| `moe.shizuku.privileged.api.START` | Start the service with the last successful method (root or wireless debugging) |, |
+| `moe.shizuku.privileged.api.STOP` | Stop the service and its binder |, |
+| `moe.shizuku.privileged.api.RESTART` | Stop, then start again through the same path the UI uses |, |
+| `moe.shizuku.privileged.api.WATCHDOG` | Enable or disable the foreground watchdog | `enabled: true\|false` |
 
 `WATCHDOG` without the extra flips the current value.
 

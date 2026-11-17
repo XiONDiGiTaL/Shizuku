@@ -37,8 +37,8 @@ object DiagnosticsCollector {
                     "Package" to BuildConfig.APPLICATION_ID,
                     "Version" to "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})",
                     "Build type" to BuildConfig.BUILD_TYPE,
-                    "Identity" to if (BuildConfig.DEV_IDENTITY) "development (own package, official install left untouched)" else "official",
-                    "Installed upstream Shizuku" to if (isInstalled(context, BuildConfig.UPSTREAM_MANAGER_ID)) "yes" else "no",
+                    "Identity" to if (BuildConfig.DEV_IDENTITY) "development (own package, official install left untouched)" else "replacement (owns the official package id)",
+                    "Upstream package" to if (BuildConfig.APPLICATION_ID == BuildConfig.UPSTREAM_MANAGER_ID) "this build" else if (isInstalled(context, BuildConfig.UPSTREAM_MANAGER_ID)) "installed separately" else "not installed",
                     "ADB start script" to (moe.shizuku.manager.starter.Starter.adbScriptPath ?: "unavailable"),
                     "App lock" to if (moe.shizuku.manager.xion.security.AppLock.isEnabled(context)) "on" else "off",
                     "App lock idea" to "Shevery (HmnDev-Tech, Apache-2.0)"

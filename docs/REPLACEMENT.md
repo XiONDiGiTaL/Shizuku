@@ -1,8 +1,9 @@
 # Shipping a true replacement build
 
-Status: **proposed, not implemented.** This document scopes what it takes to publish Shizuku
-Reimagined under the `moe.shizuku.privileged.api` package identity, so that it replaces Shizuku for
-real instead of running next to it. Nothing described here exists in the build yet.
+Status: **implemented in 2.0.4.** Shizuku Reimagined now ships under the
+`moe.shizuku.privileged.api` package identity, so it replaces Shizuku for real instead of running
+next to it. This document records the scoping and the verification checklist behind that switch;
+the development identity described below no longer exists.
 
 ## Why the current identity falls short
 
