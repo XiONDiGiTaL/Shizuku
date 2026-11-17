@@ -25,6 +25,8 @@ All notable changes to this fork are documented here. The fork continues the wor
 - Each app row offers **Grant** when it is not authorised and **Revoke** when it is, and the list is
   read back from the service afterwards. Previously the screen could only revoke, so an app whose
   access had been revoked could not be restored from this build.
+- Tapping the row does the same thing as its button: approve an unapproved app, revoke an approved
+  one. Rows for packages that are no longer installed stay inert, because there is nothing to change.
 
 ### Verified on the S23 Ultra
 

@@ -205,6 +205,21 @@ class AuthorizationsActivity : XionActivity() {
                     b.btnRevoke.isVisible = false
                 }
             }
+
+            // Tapping the row is the same action as its button: approve an unapproved app,
+            // revoke an approved one. Rows without an installed package have nothing to change.
+            val rowAction: ((AuthorizedApp) -> Unit)? = when (app.state) {
+                AuthorizationState.GRANTED -> onRevoke
+                AuthorizationState.DENIED, AuthorizationState.NOT_REQUESTED -> onGrant
+                else -> null
+            }
+            b.root.isClickable = rowAction != null
+            b.root.isFocusable = rowAction != null
+            if (rowAction != null) {
+                b.root.setOnClickListener { rowAction(app) }
+            } else {
+                b.root.setOnClickListener(null)
+            }
         }
     }
 }
